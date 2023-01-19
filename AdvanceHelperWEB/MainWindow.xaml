@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:AdvanceHelperWEB"
         mc:Ignorable="d"
         Title="Авторизация" Height="500" Width="400
-" MaxWidth="400" MaxHeight="500" MinWidth="400" MinHeight="500">
+" MaxWidth="400" MaxHeight="500" MinWidth="400" MinHeight="500" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None">
     <Window.Resources>
         <SolidColorBrush x:Key="BlueStyle" Color="#FF0463A4" />
         <LinearGradientBrush x:Key="gradientBlueStyle" StartPoint="0.5,1" EndPoint="0.5,0">
@@ -21,7 +21,7 @@
                 <GradientStop Color="#FF3DF5ED" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>-->
-        <Rectangle Fill="{StaticResource BlueStyle}" HorizontalAlignment="Left" Height="120" Margin="10,263,0,0" Stroke="Black" VerticalAlignment="Top" Width="372"/>
+        <Rectangle Fill="{StaticResource BlueStyle}" HorizontalAlignment="Left" Height="120" Margin="10,263,0,0" Stroke="Black" VerticalAlignment="Top" Width="380"/>
         <!--Fill="#FF032E2A"-->
 
         <Label x:Name="labelHeader" Content="AdvanceHelperWEB" HorizontalAlignment="Left" Margin="10,4,0,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="#FF00DCDC" FontSize="8" FontFamily="Segoe UI Black"/>
@@ -31,16 +31,16 @@
         <Label x:Name="labelLogin" Content="Логин:" HorizontalAlignment="Left" Margin="10,263,0,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="#FF00FFAE" FontSize="22" FontFamily="Segoe UI Semibold"/>
         <Label x:Name="labelAut" Content="Авторизация" HorizontalAlignment="Left" Margin="122,219,0,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="#FF00D491" FontSize="22" FontFamily="Segoe UI Semibold"/>
         <Label x:Name="labelForgetPass" Content="Забыли пароль?" HorizontalAlignment="Left" Margin="166,353,0,0" VerticalAlignment="Top" Foreground="#FF03AC76" FontFamily="Segoe UI Semibold" Height="30" Background="{x:Null}" MouseMove="labelForgetPass_MouseMove" MouseLeave="labelForgetPass_MouseLeave"/>
-        <Button x:Name="EnterBtn" Content="Войти" HorizontalAlignment="Left" Margin="10,422,0,0" VerticalAlignment="Top" Width="89" Click="button_Click" Background="#FF00D491" Height="37" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="Black"/>
-        <Button x:Name="ExitBtn" Content="Выход" HorizontalAlignment="Left" Margin="293,422,0,0" VerticalAlignment="Top" Width="89" Click="button_Click" Background="#FF00422F" Height="37" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="White"/>
-        <Image x:Name="HideShowPass" Margin="273,325,85,116" Source="hide-private-hidden-icon.png" Stretch="Fill" RenderTransformOrigin="4.321,3.148" OpacityMask="#FFF10E0E"/>
+        <Button x:Name="EnterBtn" Content="Войти" HorizontalAlignment="Left" Margin="10,422,0,0" VerticalAlignment="Top" Width="89" Click="EnterBtn_Click" Background="#FF00D491" Height="37" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="Black"/>
+        <Button x:Name="ExitBtn" Content="Выход" HorizontalAlignment="Left" Margin="301,422,0,0" VerticalAlignment="Top" Width="89" Click="ExitBtn_Click" Background="#FF00422F" Height="37" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="White"/>
+        <Image x:Name="HideShowPass" Margin="279,328,89,149" Source="hide-private-hidden-icon.png" Stretch="Fill" RenderTransformOrigin="4.321,3.148" OpacityMask="#FFF10E0E"/>
         <Label x:Name="labelHeader_Copy" Content="Приложение для работы с документами" HorizontalAlignment="Center" Margin="10,41,10,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="#FF00DCDC" FontFamily="Segoe UI Black" RenderTransformOrigin="0.642,0.509" FontSize="14" Width="372" HorizontalContentAlignment="Center"/>
-        <Button x:Name="StartBtn_Copy" Content="Инструкция" HorizontalAlignment="Left" Margin="10,100,0,0" VerticalAlignment="Top" Width="144" Height="36" FontFamily="Segoe UI Semibold" FontSize="18" Foreground="#FF00FF8B" UseLayoutRounding="False">
+        <Button x:Name="StartBtn_Copy" Content="Инструкция" HorizontalAlignment="Left" Margin="10,100,0,0" VerticalAlignment="Top" Width="148" Height="36" FontFamily="Segoe UI Semibold" FontSize="18" Foreground="#FF00FF8B" UseLayoutRounding="False">
             <Button.Background>
                 <SolidColorBrush Color="#FF00DCDC" Opacity="0.7"/>
             </Button.Background>
         </Button>
-        <Button x:Name="StartBtn_Copy1" Content="Авторы" Margin="238,100,10,0" VerticalAlignment="Top" Width="144" Height="36" FontFamily="Segoe UI Semibold" FontSize="18" Foreground="#FF00FF8B">
+        <Button x:Name="StartBtn_Copy1" Content="Авторы" Margin="242,100,10,0" VerticalAlignment="Top" Height="36" FontFamily="Segoe UI Semibold" FontSize="18" Foreground="#FF00FF8B">
             <Button.Background>
                 <SolidColorBrush Color="#FF00DCDC" Opacity="0.7"/>
             </Button.Background>

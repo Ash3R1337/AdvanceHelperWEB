@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AdvanceHelperWEB"
         mc:Ignorable="d"
-        Title="Главная" Height="500" Width="400">
+        Title="Главная" Height="500" Width="400" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -13,7 +13,7 @@
                 <GradientStop Color="#FF3DF5ED"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <Button x:Name="StartBtn" Content="Документооборот" HorizontalAlignment="Left" Margin="103,101,0,0" VerticalAlignment="Top" Width="181" Background="#FF00FF97" Height="47" FontFamily="Segoe UI Semibold" FontSize="18" Foreground="Black" Click="StartBtn_Click"/>
+        <Button x:Name="StartBtn" Content="Документооборот" HorizontalAlignment="Left" Margin="103,96,0,0" VerticalAlignment="Top" Width="181" Background="#FF00FF97" Height="47" FontFamily="Segoe UI Semibold" FontSize="18" Foreground="Black" Click="StartBtn_Click"/>
         <Label x:Name="labelHeader" Content="AdvanceHelperWEB" HorizontalAlignment="Left" Margin="10,4,0,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="#FF006C49" FontSize="8" FontFamily="Segoe UI Black"/>
         <Label x:Name="labelDot" Content="-----------------------------------------" Margin="10,62,0,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="#FF006C49" FontSize="22" FontFamily="Segoe UI Black" Width="382" Height="34" HorizontalAlignment="Left"/>
         <Button x:Name="StartBtn_Copy" Content="Портфолио" HorizontalAlignment="Left" Margin="103,153,0,0" VerticalAlignment="Top" Width="181" Background="#FF00FF97" Height="47" FontFamily="Segoe UI Semibold" FontSize="18" Foreground="Black"/>

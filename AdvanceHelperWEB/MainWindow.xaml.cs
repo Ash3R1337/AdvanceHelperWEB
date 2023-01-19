@@ -15,15 +15,6 @@ namespace AdvanceHelperWEB
             InitializeComponent();
         }
 
-        private void button_Click(object sender, RoutedEventArgs e)
-        {
-            DBconnect dbconnect = new DBconnect();
-            dbconnect.AuthCheck(LoginBox, passwordBox, "root");
-            Menu menu = new Menu();
-            menu.Show();
-            this.Close();
-        }
-
         Regex regex = new Regex(@"[^a-zA-Z0-9]");
         private void LoginBox_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -46,6 +37,20 @@ namespace AdvanceHelperWEB
         {
             labelForgetPass.Foreground = new SolidColorBrush(Color.FromRgb(3, 172, 118));
             labelForgetPassInstruct.Visibility = Visibility.Hidden;
+        }
+
+        private void EnterBtn_Click(object sender, RoutedEventArgs e)
+        {
+            DBconnect dbconnect = new DBconnect();
+            dbconnect.AuthCheck(LoginBox, passwordBox, "root");
+            Menu menu = new Menu();
+            menu.Show();
+            this.Close();
+        }
+
+        private void ExitBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }
