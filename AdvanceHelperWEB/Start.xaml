@@ -27,7 +27,7 @@
         <Button x:Name="MakeAcheckBtn" Content="Сделать пометку" HorizontalAlignment="Left" Margin="803,224,0,0" VerticalAlignment="Top" Width="221" Background="#FF00FF97" Height="50" FontFamily="Segoe UI Semibold" FontSize="20" Foreground="Black"/>
         <Button x:Name="OpenDirBtn" Content="Открыть директорию" HorizontalAlignment="Left" Margin="803,279,0,0" VerticalAlignment="Top" Width="221" Background="#FF00FF97" Height="50" FontFamily="Segoe UI Semibold" FontSize="20" Foreground="Black"/>
         <Rectangle x:Name="panel" Fill="#FF007A64" Height="85" Stroke="Black" VerticalAlignment="Top" Margin="720,71,0,0"/>
-        <Button x:Name="EnterBtn_Copy7" Content="Преподаватели" HorizontalAlignment="Left" Margin="737,84,0,0" VerticalAlignment="Top" Width="220" Background="#FF15FFDF" Height="50" FontFamily="Segoe UI Semibold" FontSize="20" Foreground="Black"/>
+        <Button x:Name="EnterBtn_Copy7" Content="Преподаватели" HorizontalAlignment="Left" Margin="737,84,0,0" VerticalAlignment="Top" Width="220" Background="#FF15FFDF" Height="50" FontFamily="Segoe UI Semibold" FontSize="20" Foreground="Black" Click="EnterBtn_Copy7_Click"/>
         <Button x:Name="EnterBtn_Copy8" Content="Портфолио" HorizontalAlignment="Left" Margin="962,84,0,0" VerticalAlignment="Top" Width="220" Background="#FF15FFDF" Height="50" FontFamily="Segoe UI Semibold" FontSize="20" Foreground="Black"/>
         <Button x:Name="button_Copy" Content="Сохранить" HorizontalAlignment="Left" Margin="444,118,0,0" VerticalAlignment="Top" Width="97" Height="38" Background="#FF028693" Foreground="White" FontSize="16"/>
         <Button x:Name="ExitBtn_Copy" Content="Главная

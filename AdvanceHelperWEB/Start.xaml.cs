@@ -51,19 +51,27 @@ namespace AdvanceHelperWEB
             catch (DirectoryNotFoundException) { MessageBox.Show("Выбранная директория не найдена."); }
             catch (ArgumentException)
             {
-                MessageBox.Show("Путь не выбран.");
-                FilesList.Items.Clear();
+                /*MessageBox.Show("Путь не выбран.");
+                FilesList.Items.Clear();*/
             }
         }
         private void DirectoriesAddtoListBox() //Добавление папок в CatalogsList
         {
-            CatalogsList.Items.Clear();
-            string[] AllFolders = Directory.GetDirectories(DirPath.Text);
-            Array.Copy(AllFolders, ListBoxFolders = new string[AllFolders.Length], AllFolders.Length);
-            foreach (string foldername in AllFolders)
+            try
             {
-                string directory = new DirectoryInfo(foldername).Name;
-                CatalogsList.Items.Add(directory);
+                CatalogsList.Items.Clear();
+                string[] AllFolders = Directory.GetDirectories(DirPath.Text);
+                Array.Copy(AllFolders, ListBoxFolders = new string[AllFolders.Length], AllFolders.Length);
+                foreach (string foldername in AllFolders)
+                {
+                    string directory = new DirectoryInfo(foldername).Name;
+                    CatalogsList.Items.Add(directory);
+                }
+            }
+            catch (ArgumentException)
+            {
+                MessageBox.Show("Путь не выбран.");
+                FilesList.Items.Clear();
             }
         }
 
@@ -89,6 +97,11 @@ namespace AdvanceHelperWEB
             grid.Background = (Brush)this.TryFindResource("ScreenGradientBrush");
             panel.Fill = (Brush)this.TryFindResource("PanelBrush");
             topPanel.Fill = (Brush)this.TryFindResource("TopPanelBrush");
+        }
+
+        private void EnterBtn_Copy7_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
