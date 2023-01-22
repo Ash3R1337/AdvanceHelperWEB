@@ -3,6 +3,11 @@ using AHlibrary;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Text.RegularExpressions;
+using System.Diagnostics;
+using System;
+using System.ComponentModel.DataAnnotations;
+using NUnit.Framework;
+
 namespace AdvanceHelperWEB
 {
     /// <summary>
@@ -17,6 +22,7 @@ namespace AdvanceHelperWEB
 
 
         Regex regex = new Regex(@"[^a-zA-Z0-9]");
+
         private void LoginBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             MatchCollection matches = regex.Matches(LoginBox.Text);
@@ -43,13 +49,11 @@ namespace AdvanceHelperWEB
             labelForgetPass.Foreground = new SolidColorBrush(Color.FromRgb(0, 255, 174));
             labelForgetPassInstruct.Visibility = Visibility.Visible;
         }
-
         private void labelForgetPass_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
             labelForgetPass.Foreground = new SolidColorBrush(Color.FromRgb(3, 172, 118));
             labelForgetPassInstruct.Visibility = Visibility.Hidden;
         }
-
         private void ExitBtn_Click(object sender, RoutedEventArgs e)
         {
             this.Close();

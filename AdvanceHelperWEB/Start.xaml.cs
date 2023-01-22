@@ -1,9 +1,12 @@
-﻿using System;
+﻿#define TEST
+
+using System;
 using System.Windows;
 using System.IO;
 using System.Windows.Forms;
 using MessageBox = System.Windows.Forms.MessageBox;
 using System.Windows.Media;
+using System.Diagnostics;
 
 namespace AdvanceHelperWEB
 {
@@ -16,7 +19,6 @@ namespace AdvanceHelperWEB
         {
             InitializeComponent();
         }
-
 
         private void SurBtn_Click(object sender, RoutedEventArgs e)
         {   
@@ -36,6 +38,7 @@ namespace AdvanceHelperWEB
         string[] ListBoxFiles; //Массив с расположением всех файлов
         string[] ListBoxFolders; //Массив с расположением всех папок
 
+        [Conditional("DEBUG"), Conditional("TEST")]
         private void FilesAddtoListBox() //Добавление файлов в FilesList
         {
             try
@@ -75,7 +78,8 @@ namespace AdvanceHelperWEB
             }
         }
 
-        private void EnterBtn_Copy2_Click(object sender, RoutedEventArgs e)
+        [Obsolete("Необходимо добавить возможность переключения тем", false)]
+        private void ThemeChangeToBlue()
         {
             LinearGradientBrush gradientBrush = new LinearGradientBrush();
             var colorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF56E5F3"));
@@ -97,6 +101,11 @@ namespace AdvanceHelperWEB
             grid.Background = (Brush)this.TryFindResource("ScreenGradientBrush");
             panel.Fill = (Brush)this.TryFindResource("PanelBrush");
             topPanel.Fill = (Brush)this.TryFindResource("TopPanelBrush");
+        }
+
+        private void EnterBtn_Copy2_Click(object sender, RoutedEventArgs e)
+        {
+            ThemeChangeToBlue();
         }
 
         private void EnterBtn_Copy7_Click(object sender, RoutedEventArgs e)
