@@ -6,21 +6,63 @@
         xmlns:local="clr-namespace:AdvanceHelperWEB"
         mc:Ignorable="d"
         Title="Главная" Height="500" Width="400" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Window.Background>
+        <ImageBrush/>
+    </Window.Background>
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="15"
+                                Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="BlueStyle" Color="#FF0463A4" />
+        <LinearGradientBrush x:Key="gradientBlueStyle" StartPoint="0.5,1" EndPoint="0.5,0">
+            <GradientStop Color="#FF2291BB" Offset="0" />
+            <GradientStop Color="#FF1B77D3" Offset="1" />
+        </LinearGradientBrush>
+    </Window.Resources>
     <Grid>
         <Grid.Background>
-            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                <GradientStop Color="Black" Offset="1"/>
-                <GradientStop Color="#FF3DF5ED"/>
-            </LinearGradientBrush>
+            <ImageBrush ImageSource="bg2.png"/>
         </Grid.Background>
-        <Button x:Name="StartBtn" Content="Документооборот" HorizontalAlignment="Left" Margin="103,96,0,0" VerticalAlignment="Top" Width="181" Background="#FF00FF97" Height="47" FontFamily="Segoe UI Semibold" FontSize="18" Foreground="Black" Click="StartBtn_Click"/>
-        <Label x:Name="labelHeader" Content="AdvanceHelperWEB" HorizontalAlignment="Left" Margin="10,4,0,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="#FF006C49" FontSize="8" FontFamily="Segoe UI Black"/>
+        <Rectangle HorizontalAlignment="Left" Height="47" Margin="10,31,0,0" Stroke="Black" VerticalAlignment="Top" Width="380">
+            <Rectangle.Fill>
+                <SolidColorBrush Color="Black" Opacity="0.5"/>
+            </Rectangle.Fill>
+        </Rectangle>
+
+        <Button x:Name="StartBtn" Content="Документооборот" HorizontalAlignment="Left" Margin="76,96,0,0" VerticalAlignment="Top" Width="249" Height="68" FontFamily="Segoe UI Semibold" FontSize="22" Foreground="Black" Click="StartBtn_Click" Cursor="Hand">
+            <Button.Background>
+                <SolidColorBrush Color="#FF00FF97" Opacity="0.9"/>
+            </Button.Background>
+        </Button>
         <Label x:Name="labelDot" Content="-----------------------------------------" Margin="10,62,0,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="#FF006C49" FontSize="22" FontFamily="Segoe UI Black" Width="382" Height="34" HorizontalAlignment="Left"/>
-        <Button x:Name="StartBtn_Copy" Content="Портфолио" HorizontalAlignment="Left" Margin="103,153,0,0" VerticalAlignment="Top" Width="181" Background="#FF00FF97" Height="47" FontFamily="Segoe UI Semibold" FontSize="18" Foreground="Black"/>
-        <Button x:Name="StartBtn_Copy1" Content="Настройки" HorizontalAlignment="Left" Margin="103,331,0,0" VerticalAlignment="Top" Width="181" Background="#FF00FF97" Height="47" FontFamily="Segoe UI Semibold" FontSize="18" Foreground="Black"/>
-        <Button x:Name="StartBtn_Copy2" Content="Выход" HorizontalAlignment="Left" Margin="103,412,0,0" VerticalAlignment="Top" Width="181" Background="#FF00817C" Height="47" FontFamily="Segoe UI Semibold" FontSize="18" Foreground="White"/>
-        <Label x:Name="labelHeader_Copy" Content="Добро пожаловать {Логин пользователя}! &#xD;&#xA;С чего начнем?" HorizontalAlignment="Left" Margin="10,31,0,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="#FF009155" FontSize="14" FontFamily="Segoe UI Black"/>
-        <Button x:Name="StartBtn_Copy3" Content="Таблицы" HorizontalAlignment="Left" Margin="103,205,0,0" VerticalAlignment="Top" Width="181" Background="#FF00FF97" Height="47" FontFamily="Segoe UI Semibold" FontSize="18" Foreground="Black"/>
+        <Button x:Name="StartBtn_Copy" Content="Портфолио" HorizontalAlignment="Left" Margin="76,169,0,0" VerticalAlignment="Top" Width="249" Height="63" FontFamily="Segoe UI Semibold" FontSize="22" Foreground="Black" Cursor="Hand">
+            <Button.Background>
+                <SolidColorBrush Color="#FF00FF97" Opacity="0.9"/>
+            </Button.Background>
+        </Button>
+        <Button x:Name="StartBtn_Copy1" Content="Настройки" HorizontalAlignment="Left" Margin="76,305,0,0" VerticalAlignment="Top" Width="249" Height="63" FontFamily="Segoe UI Semibold" FontSize="22" Foreground="Black" Cursor="Hand">
+            <Button.Background>
+                <SolidColorBrush Color="#FF00FF97" Opacity="0.9"/>
+            </Button.Background>
+        </Button>
+        <Button x:Name="StartBtn_Copy2" Content="Выход" HorizontalAlignment="Left" Margin="76,412,0,0" VerticalAlignment="Top" Width="249" Background="#FF00817C" Height="47" FontFamily="Segoe UI Semibold" FontSize="18" Foreground="White" Cursor="Hand"/>
+        <Label x:Name="labelHeader_Copy" Content="Добро пожаловать {Логин пользователя}! &#xA;С чего начнем?" HorizontalAlignment="Left" Margin="10,31,0,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="White" FontSize="14" FontFamily="Segoe UI Black"/>
+        <Button x:Name="StartBtn_Copy3" Content="Таблицы" HorizontalAlignment="Left" Margin="76,237,0,0" VerticalAlignment="Top" Width="249" Height="63" FontFamily="Segoe UI Semibold" FontSize="22" Foreground="Black" RenderTransformOrigin="-0.229,2.079" Cursor="Hand">
+            <Button.Background>
+                <SolidColorBrush Color="#FF00FF97" Opacity="0.9"/>
+            </Button.Background>
+        </Button>
+        <Label x:Name="labelHeader" Content="AdvanceHelperWFP v.1.0" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="Black" FontFamily="Segoe UI Black" AllowDrop="True"/>
 
     </Grid>
 </Window>
