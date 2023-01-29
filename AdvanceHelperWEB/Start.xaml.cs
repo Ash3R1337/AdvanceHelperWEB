@@ -20,6 +20,8 @@ namespace AdvanceHelperWEB
         public Start()
         {
             InitializeComponent();
+            if (File.Exists("save.txt"))
+                DirPath.Text = File.ReadAllText("save.txt");
         }
 
         private void SurBtn_Click(object sender, RoutedEventArgs e)
@@ -181,6 +183,47 @@ namespace AdvanceHelperWEB
         private void ExitBtn_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void SaveBtn_Click(object sender, RoutedEventArgs e) //Сохранение выбранной директории в файл
+        {
+            string file = "save.txt";
+            string text = DirPath.Text;
+
+            FileStream fileStream = null;
+            if (!File.Exists(file))
+                fileStream = File.Create(file);
+            else
+                fileStream = File.OpenWrite(file);
+
+            StreamWriter output = new StreamWriter(fileStream);
+            output.Close();
+            File.WriteAllText(file, text);
+            MessageBox.Show("Путь был успешно сохранен.");
+        }
+
+        private void MainBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Menu menu = new Menu();
+            menu.Show();
+            this.Close();
+        }
+
+        private void CreateBtn_Click(object sender, RoutedEventArgs e) //Создание нового каталога
+        {
+            CatalogWindow catalogWindow = new CatalogWindow();
+            if (catalogWindow.ShowDialog() == true)
+            {
+                if (Directory.Exists(DirPath.Text + "\\" + DirPath.Text))
+                    MessageBox.Show($"Каталог {catalogWindow.DirNameStr} уже существует");
+                else
+                {
+                    Directory.CreateDirectory(DirPath.Text + "\\" + catalogWindow.DirNameStr);
+                    MessageBox.Show($"Каталог {catalogWindow.DirNameStr} успешно создан");
+                    DirectoriesAddtoListBox();
+                }
+            }
+           
         }
     }
 }

@@ -1,0 +1,42 @@
+﻿<Window x:Class="AdvanceHelperWEB.CatalogWindow" WindowStyle="None"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AdvanceHelperWEB"
+        mc:Ignorable="d"
+        Title="С" Height="173.862" Width="322.608" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="#FF00FF51" BorderBrush="White" BorderThickness="5">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="15"
+                                Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="BlueStyle" Color="#FF0463A4" />
+        <LinearGradientBrush x:Key="gradientBlueStyle" StartPoint="0.5,1" EndPoint="0.5,0">
+            <GradientStop Color="#FF2291BB" Offset="0" />
+            <GradientStop Color="#FF1B77D3" Offset="1" />
+        </LinearGradientBrush>
+    </Window.Resources>
+    <Grid x:Name="grid" Background="#FF00A007">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <TextBox x:Name="DirName" HorizontalAlignment="Left" Height="36" Margin="10,46,0,0" TextWrapping="Wrap" Text="Папка" VerticalAlignment="Top" Width="264" VerticalContentAlignment="Center" FontSize="16"/>
+        <Label Content="Введите название папки:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16">
+            <Label.Background>
+                <SolidColorBrush Color="Black" Opacity="0.3"/>
+            </Label.Background>
+        </Label>
+        <Button x:Name="Accept" Content="ОК" HorizontalAlignment="Left" Margin="10,120,0,0" VerticalAlignment="Top" Width="55" Height="34" FontSize="14" Background="#FF258002" Foreground="White" Click="Accept_Click" Cursor="Hand"/>
+        <Button x:Name="Reject" Content="Отмена" HorizontalAlignment="Left" Margin="210,120,0,0" VerticalAlignment="Top" Width="93" Height="34" FontSize="14" Background="#FFB60D05" Foreground="White" Click="Reject_Click" Cursor="Hand"/>
+    </Grid>
+</Window>
