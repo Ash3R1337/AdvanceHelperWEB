@@ -1,14 +1,12 @@
-﻿#define TEST
-
-using System;
+﻿using System;
 using System.Windows;
 using System.IO;
-using System.Windows.Forms;
 using MessageBox = System.Windows.Forms.MessageBox;
 using System.Windows.Media;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 using System.ComponentModel;
+using System.Windows.Forms;
 
 namespace AdvanceHelperWEB
 {
@@ -42,8 +40,7 @@ namespace AdvanceHelperWEB
         string[] ListBoxFiles; //Массив с расположением всех файлов
         string[] ListBoxFolders; //Массив с расположением всех папок
 
-        [Conditional("DEBUG"), Conditional("TEST")]
-        private void FilesAddtoListBox() //Добавление файлов в FilesList
+        public void FilesAddtoListBox() //Добавление файлов в FilesList
         {
             try
             {
@@ -62,7 +59,7 @@ namespace AdvanceHelperWEB
                 FilesList.Items.Clear();*/
             }
         }
-        private void DirectoriesAddtoListBox() //Добавление папок в CatalogsList
+        public void DirectoriesAddtoListBox() //Добавление папок в CatalogsList
         {
             try
             {
@@ -118,12 +115,12 @@ namespace AdvanceHelperWEB
 
         }
 
-        private void SortBtn_Click(object sender, RoutedEventArgs e) //Распределение файлов по директориям
+        public void FileSort(string DirPath)
         {
             try
             {
-                string[] AllFolders = Directory.GetDirectories(DirPath.Text);
-                string[] AllFiles = Directory.GetFiles(DirPath.Text, "*.docx", SearchOption.TopDirectoryOnly);
+                string[] AllFolders = Directory.GetDirectories(DirPath);
+                string[] AllFiles = Directory.GetFiles(DirPath, "*.docx", SearchOption.TopDirectoryOnly);
                 int count = 0;
                 foreach (string folder in AllFolders)
                     foreach (string filename in AllFiles)
@@ -149,6 +146,11 @@ namespace AdvanceHelperWEB
                 MessageBox.Show("Путь не выбран.");
                 FilesList.Items.Clear();
             }
+        }
+
+        private void SortBtn_Click(object sender, RoutedEventArgs e) //Распределение файлов по директориям
+        {
+            FileSort(DirPath.Text);
         }
 
         private void DeleteBtn_Click(object sender, RoutedEventArgs e) //Удаление выбранного файла
@@ -185,11 +187,8 @@ namespace AdvanceHelperWEB
             this.Close();
         }
 
-        private void SaveBtn_Click(object sender, RoutedEventArgs e) //Сохранение выбранной директории в файл
+        public void FileSave(string file, string DirPath)
         {
-            string file = "save.txt";
-            string text = DirPath.Text;
-
             FileStream fileStream = null;
             if (!File.Exists(file))
                 fileStream = File.Create(file);
@@ -198,8 +197,13 @@ namespace AdvanceHelperWEB
 
             StreamWriter output = new StreamWriter(fileStream);
             output.Close();
-            File.WriteAllText(file, text);
+            File.WriteAllText(file, DirPath);
             MessageBox.Show("Путь был успешно сохранен.");
+        }
+
+        private void SaveBtn_Click(object sender, RoutedEventArgs e) //Сохранение выбранной директории в файл
+        {
+            FileSave("save.txt", DirPath.Text);
         }
 
         private void MainBtn_Click(object sender, RoutedEventArgs e)
@@ -209,21 +213,30 @@ namespace AdvanceHelperWEB
             this.Close();
         }
 
-        private void CreateBtn_Click(object sender, RoutedEventArgs e) //Создание нового каталога
+        public bool CreateCatalog(string DirPath)
         {
             CatalogWindow catalogWindow = new CatalogWindow();
             if (catalogWindow.ShowDialog() == true)
             {
-                if (Directory.Exists(DirPath.Text + "\\" + DirPath.Text))
+                if (Directory.Exists(DirPath + "\\" + DirPath))
+                {
                     MessageBox.Show($"Каталог {catalogWindow.DirNameStr} уже существует");
+                    return false;
+                }
                 else
                 {
-                    Directory.CreateDirectory(DirPath.Text + "\\" + catalogWindow.DirNameStr);
+                    Directory.CreateDirectory(DirPath + "\\" + catalogWindow.DirNameStr);
                     MessageBox.Show($"Каталог {catalogWindow.DirNameStr} успешно создан");
                     DirectoriesAddtoListBox();
+                    return true;
                 }
             }
-           
+            return false;
+        }
+
+        private void CreateBtn_Click(object sender, RoutedEventArgs e) //Создание нового каталога
+        {
+            CreateCatalog(DirPath.Text);
         }
     }
 }

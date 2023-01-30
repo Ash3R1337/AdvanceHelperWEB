@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31515.178
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdvanceHelperWEB", "AdvanceHelperWEB\AdvanceHelperWEB.csproj", "{A1BA6402-066A-4B93-A019-7DB4D2129F87}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject1", "UnitTestProject1\UnitTestProject1.csproj", "{304614B6-CC93-4DC8-A4DC-4501DABF34D3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,8 +17,15 @@ Global
 		{A1BA6402-066A-4B93-A019-7DB4D2129F87}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A1BA6402-066A-4B93-A019-7DB4D2129F87}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A1BA6402-066A-4B93-A019-7DB4D2129F87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{304614B6-CC93-4DC8-A4DC-4501DABF34D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{304614B6-CC93-4DC8-A4DC-4501DABF34D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{304614B6-CC93-4DC8-A4DC-4501DABF34D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{304614B6-CC93-4DC8-A4DC-4501DABF34D3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {14B75A14-5D13-4A8F-9163-FD25A12AA7D2}
 	EndGlobalSection
 EndGlobal

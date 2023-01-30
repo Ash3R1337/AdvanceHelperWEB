@@ -3,10 +3,6 @@ using AHlibrary;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Text.RegularExpressions;
-using System.Diagnostics;
-using System;
-using System.ComponentModel.DataAnnotations;
-using NUnit.Framework;
 
 namespace AdvanceHelperWEB
 {
