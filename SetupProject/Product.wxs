@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<!--Объявление переменных-->
+	<?define ProductName="AdvanceHelperWPF" ?>
+	<?define ProductVersion="1.0.0" ?>
+	<?define ProductCode="*"?>
+	<?define UpgradeCode="0864a3c0-1648-49c0-9915-70fbcf7b5b86"?>
+	<?define Manufacturer="Ash3R ShoW"?>
+
+	<Product Id="$(var.ProductCode)" Name="$(var.ProductName)" Language="1049" Version="$(var.ProductVersion)" Manufacturer="$(var.Manufacturer)" UpgradeCode="$(var.UpgradeCode)">
+		<Package InstallerVersion="200" Compressed="yes" />
+		<!--Добавление программ, которые будут установленны-->
+		<Media Id="1" Cabinet="media1.cab" EmbedCab="yes" />
+		<Media Id="2" Cabinet="media2.cab" EmbedCab="yes" />
+		<Media Id="3" Cabinet="media3.cab" EmbedCab="yes" />
+
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="ProgramFilesFolder">
+				<Directory Id="INSTALLLOCATION" Name="$(var.ProductName)">
+					<Component Id="ProductComponent" Guid="b11556a2-e066-4393-af5c-9c9210187eb2">
+						<File Id='Program' DiskId='1' Source='C:\Users\Ash3R\source\repos\Ash3R1337\AdvanceHelperWEB\AdvanceHelperWEB\bin\Release\AdvanceHelperWEB.exe'/>
+						<File Id='Database' DiskId='2' Source='C:\Users\Ash3R\source\repos\Ash3R1337\AdvanceHelperWEB\БД\projectdb.sql'/>
+						<File Id='Calc' DiskId='3' Source='C:\WINDOWS\system32\calc.exe'/>
+					</Component>
+				</Directory>
+			</Directory>
+			<!--Добавление в меню-->
+			<Directory Id="ProgramMenuFolder">
+				<Directory Id="ApplicationProgramsFolder" Name="$(var.ProductName)">
+					<Component Id="ApplicationShortcutAHW" Guid="4CEBD68F-E933-47f9-B02C-A4FC69FDB551">
+						<Shortcut Id="ShortcutAHW"
+							 Name="Program"
+							 Description="$(var.ProductName)"
+							 Target="[INSTALLLOCATION]AdvanceHelperWEB.exe"
+							 WorkingDirectory="INSTALLLOCATION"/>
+						<RemoveFolder Id="ApplicationProgramsFolder" On="uninstall"/>
+						<RegistryValue Root="HKCU" Key="Software\$(var.Manufacturer)\$(var.ProductName)" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+					</Component>
+				</Directory>
+			</Directory>
+		</Directory>
+
+		<Feature Id="ProductFeature" Title="SetupProject1" Level="1">
+			<ComponentRef Id="ProductComponent" />
+			<ComponentRef Id="ApplicationShortcutAHW" />
+		</Feature>
+
+		<Property Id="WIXUI_INSTALLDIR" Value="INSTALLLOCATION" ></Property>
+		<!--<WixVariable Id="WixUILicenseRtf" Overridable="yes" Value="License.rtf"/>-->
+		<!--Интерфейс установщика-->
+		<UIRef Id="WixUI_InstallDir"/>
+	</Product>
+
+
+</Wix>
