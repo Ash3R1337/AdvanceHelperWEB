@@ -30,5 +30,17 @@ namespace AdvanceHelperWEB
             start.Show();
             this.Close();
         }
+
+        private void Tables_Click(object sender, RoutedEventArgs e)
+        {
+            Tables tables = new Tables();
+            tables.Show();
+            this.Close();
+        }
+
+        private void ExitBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }
