@@ -9,7 +9,7 @@
 
 	<Product Id="$(var.ProductCode)" Name="$(var.ProductName)" Language="1049" Version="$(var.ProductVersion)" Manufacturer="$(var.Manufacturer)" UpgradeCode="$(var.UpgradeCode)">
 		<Package InstallerVersion="200" Compressed="yes" />
-		<!--Добавление программ, которые будут установленны-->
+		<!--Добавление компонентов, которые будут установленны-->
 		<Media Id="1" Cabinet="media1.cab" EmbedCab="yes" />
 		<Media Id="2" Cabinet="media2.cab" EmbedCab="yes" />
 		<Media Id="3" Cabinet="media3.cab" EmbedCab="yes" />

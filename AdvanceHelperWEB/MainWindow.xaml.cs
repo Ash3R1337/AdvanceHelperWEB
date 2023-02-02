@@ -3,6 +3,7 @@ using AHlibrary;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Text.RegularExpressions;
+using System.Windows.Input;
 
 namespace AdvanceHelperWEB
 {
@@ -34,10 +35,28 @@ namespace AdvanceHelperWEB
         private void EnterBtn_Click(object sender, RoutedEventArgs e)
         {
             DBconnect dbconnect = new DBconnect();
-            dbconnect.AuthCheck(LoginBox, passwordBox, "root");
+            dbconnect.AuthCheck(LoginBox, PasswordHidden, "root");
             Menu menu = new Menu();
             menu.Show();
             this.Close();
+        }
+
+        //Скрытие/Показ пароля
+        private void ShowPassword_PreviewMouseDown(object sender, MouseButtonEventArgs e) => ShowPasswordFunction();
+        private void ShowPassword_PreviewMouseUp(object sender, MouseButtonEventArgs e) => HidePasswordFunction();
+        private void ShowPassword_MouseLeave(object sender, MouseEventArgs e) => HidePasswordFunction();
+
+        private void ShowPasswordFunction()
+        {
+            PasswordUnmask.Visibility = Visibility.Visible;
+            PasswordHidden.Visibility = Visibility.Hidden;
+            PasswordUnmask.Text = PasswordHidden.Password;
+        }
+
+        private void HidePasswordFunction()
+        {
+            PasswordUnmask.Visibility = Visibility.Hidden;
+            PasswordHidden.Visibility = Visibility.Visible;
         }
 
         private void labelForgetPass_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
