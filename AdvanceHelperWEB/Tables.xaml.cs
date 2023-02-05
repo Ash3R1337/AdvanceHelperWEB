@@ -1,17 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using AHlibrary;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace AdvanceHelperWEB
 {
@@ -24,11 +12,11 @@ namespace AdvanceHelperWEB
         public Tables()
         {
             InitializeComponent();
-            SelectTablesComboBox.Items.Add("materials");
-            SelectTablesComboBox.Items.Add("subdivision");
-            SelectTablesComboBox.Items.Add("subjects");
-            SelectTablesComboBox.Items.Add("teachers");
-            SelectTablesComboBox.Items.Add("users");
+            SelectTablesComboBox.Items.Add("Материалы");
+            SelectTablesComboBox.Items.Add("Подразделение");
+            SelectTablesComboBox.Items.Add("Предметы");
+            SelectTablesComboBox.Items.Add("Преподаватели");
+            SelectTablesComboBox.Items.Add("Пользователи");
         }
 
         private void ExitBtn_Click(object sender, RoutedEventArgs e)

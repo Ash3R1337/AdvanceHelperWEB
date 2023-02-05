@@ -33,12 +33,12 @@
         <Grid.Background>
             <ImageBrush ImageSource="bg3.png" Stretch="None"/>
         </Grid.Background>
-        <Rectangle HorizontalAlignment="Left" Height="42" Margin="512,177,0,0" Stroke="Black" VerticalAlignment="Top" Width="286">
+        <Rectangle HorizontalAlignment="Left" Height="42" Margin="193,167,0,0" Stroke="Black" VerticalAlignment="Top" Width="289">
             <Rectangle.Fill>
                 <SolidColorBrush Color="Black" Opacity="0.5"/>
             </Rectangle.Fill>
         </Rectangle>
-        <Rectangle HorizontalAlignment="Left" Height="42" Margin="187,177,0,0" Stroke="Black" VerticalAlignment="Top" Width="292">
+        <Rectangle HorizontalAlignment="Left" Height="42" Margin="512,167,0,0" Stroke="Black" VerticalAlignment="Top" Width="286">
             <Rectangle.Fill>
                 <SolidColorBrush Color="Black" Opacity="0.5"/>
             </Rectangle.Fill>
@@ -53,18 +53,18 @@
                 <SolidColorBrush Color="Black" Opacity="0.5"/>
             </Rectangle.Fill>
         </Rectangle>
-        <TextBox x:Name="DirPath" HorizontalAlignment="Left" Height="38" Margin="10,118,0,0" VerticalAlignment="Top" Width="414" FontSize="20"/>
+        <TextBox x:Name="DirPath" HorizontalAlignment="Left" Height="38" Margin="10,118,0,0" VerticalAlignment="Top" Width="414" FontSize="20" MaxLines="500"/>
         <Label x:Name="label" Content="Выбор рабочей папки:" HorizontalAlignment="Left" Margin="10,71,0,0" VerticalAlignment="Top" Foreground="White" FontSize="24"/>
-        <ListBox x:Name="FilesList" HorizontalAlignment="Left" Height="535" Margin="512,224,0,0" VerticalAlignment="Top" Width="286" Background="#FF00A007" BorderBrush="White" BorderThickness="5" Foreground="White" FontSize="20"/>
-        <Label x:Name="label_Copy" Content="Файлы:" HorizontalAlignment="Left" Margin="512,182,0,0" VerticalAlignment="Top" Foreground="White" FontSize="20"/>
-        <Label x:Name="label_Copy1" Content="Папки:" HorizontalAlignment="Left" Margin="187,182,0,0" VerticalAlignment="Top" Foreground="White" FontSize="20"/>
-        <ListBox x:Name="CatalogsList" HorizontalAlignment="Left" Height="535" Margin="187,224,0,0" VerticalAlignment="Top" Width="292" Background="#FF00A007" BorderBrush="White" BorderThickness="5" FontSize="20" Foreground="White" />
+        <ListBox x:Name="FilesList" HorizontalAlignment="Left" Height="535" Margin="193,225,0,0" VerticalAlignment="Top" Width="289" Background="#FF00A007" BorderBrush="White" BorderThickness="5" Foreground="White" FontSize="20"/>
+        <Label x:Name="label_Copy" Content="Файлы:" HorizontalAlignment="Left" Margin="193,167,0,0" VerticalAlignment="Top" Foreground="White" FontSize="20" Width="78" Height="42"/>
+        <Label x:Name="label_Copy1" Content="Папки:" HorizontalAlignment="Left" Margin="512,167,0,0" VerticalAlignment="Top" Foreground="White" FontSize="20" Height="42"/>
+        <ListBox x:Name="CatalogsList" HorizontalAlignment="Left" Height="535" Margin="512,225,0,0" VerticalAlignment="Top" Width="286" Background="#FF00A007" BorderBrush="White" BorderThickness="5" FontSize="20" Foreground="White" />
         <Button x:Name="ChBtn" Content="Выбрать" HorizontalAlignment="Left" Margin="429,118,0,0" VerticalAlignment="Top" Width="97" Height="38" Background="#FF00FFDC" Foreground="Black" FontSize="16" Click="ChBtn_Click" Cursor="Hand"/>
         <Button x:Name="ExitBtn" Content="Выход" HorizontalAlignment="Left" Margin="10,710,0,0" VerticalAlignment="Top" Width="172" Background="#FF00422F" Height="50" FontFamily="Segoe UI Semibold" FontSize="20" Foreground="White" Click="ExitBtn_Click" Cursor="Hand"/>
         <Rectangle x:Name="topPanel" Fill="#FFA1FFB2" HorizontalAlignment="Left" Height="66" Stroke="Black" VerticalAlignment="Top" Width="1035"/>
         <Label x:Name="label_Copy2" Content="Пользователь" HorizontalAlignment="Left" Margin="851,10,0,0" VerticalAlignment="Top" Foreground="White" FontSize="24" Background="Black"/>
         <Label x:Name="labelHeader" Content="AdvanceHelperWPF" HorizontalAlignment="Left" Margin="10,13,0,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="#FF026A49" FontSize="22" FontFamily="Segoe UI Black"/>
-        <Button x:Name="SortBtn" Content="Распределить" HorizontalAlignment="Left" Margin="10,224,0,0" VerticalAlignment="Top" Width="172" Height="50" FontFamily="Segoe UI Semibold" FontSize="20" Foreground="Black" MaxWidth="172" MaxHeight="50" Click="SortBtn_Click" Cursor="Hand">
+        <Button x:Name="SortBtn" Content="Распределить" HorizontalAlignment="Left" Margin="10,225,0,0" VerticalAlignment="Top" Width="172" Height="50" FontFamily="Segoe UI Semibold" FontSize="20" Foreground="Black" MaxWidth="172" MaxHeight="50" Click="SortBtn_Click" Cursor="Hand" RenderTransformOrigin="2.619,1.64">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <LinearGradientBrush.RelativeTransform>
@@ -80,7 +80,7 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <Button x:Name="RenameBtn" Content="Переименовать" HorizontalAlignment="Left" Margin="10,334,0,0" VerticalAlignment="Top" Width="172" Height="50" FontFamily="Segoe UI Semibold" FontSize="20" Foreground="Black" Cursor="Hand">
+        <Button x:Name="RenameBtn" Content="Переименовать" HorizontalAlignment="Left" Margin="10,335,0,0" VerticalAlignment="Top" Width="172" Height="50" FontFamily="Segoe UI Semibold" FontSize="20" Foreground="Black" Cursor="Hand" Click="RenameBtn_Click">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <LinearGradientBrush.RelativeTransform>
@@ -96,7 +96,7 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <Button x:Name="CreateBtn" Content="Создать" HorizontalAlignment="Left" Margin="10,390,0,0" VerticalAlignment="Top" Width="172" Height="50" FontFamily="Segoe UI Semibold" FontSize="20" Foreground="Black" Cursor="Hand" Click="CreateBtn_Click">
+        <Button x:Name="CreateBtn" Content="Создать папку" HorizontalAlignment="Left" Margin="805,225,0,0" VerticalAlignment="Top" Width="219" Height="50" FontFamily="Segoe UI Semibold" FontSize="20" Foreground="Black" Cursor="Hand" Click="CreateBtn_Click">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <LinearGradientBrush.RelativeTransform>
@@ -112,7 +112,7 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <Button x:Name="CheckBtn" Content="Просмотреть" HorizontalAlignment="Left" Margin="10,279,0,0" VerticalAlignment="Top" Width="172" Height="50" FontFamily="Segoe UI Semibold" FontSize="20" Foreground="Black" Click="CheckBtn_Click" Cursor="Hand">
+        <Button x:Name="CheckBtn" Content="Просмотреть" HorizontalAlignment="Left" Margin="10,280,0,0" VerticalAlignment="Top" Width="172" Height="50" FontFamily="Segoe UI Semibold" FontSize="20" Foreground="Black" Click="CheckBtn_Click" Cursor="Hand">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <LinearGradientBrush.RelativeTransform>
@@ -128,7 +128,7 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <Button x:Name="DeleteBtn" Content="Удалить" HorizontalAlignment="Left" Margin="10,444,0,0" VerticalAlignment="Top" Width="172" Height="50" FontFamily="Segoe UI Semibold" FontSize="20" Foreground="Black" Click="DeleteBtn_Click" Cursor="Hand">
+        <Button x:Name="DeleteBtn" Content="Удалить" HorizontalAlignment="Left" Margin="10,390,0,0" VerticalAlignment="Top" Width="172" Height="50" FontFamily="Segoe UI Semibold" FontSize="20" Foreground="Black" Click="DeleteBtn_Click" Cursor="Hand">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <LinearGradientBrush.RelativeTransform>
@@ -160,7 +160,7 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <Button x:Name="MakeAcheckBtn" Content="Сделать пометку" HorizontalAlignment="Left" Margin="803,224,0,0" VerticalAlignment="Top" Width="221" Height="50" FontFamily="Segoe UI Semibold" FontSize="20" Foreground="Black" Cursor="Hand">
+        <Button x:Name="MakeAcheckBtn" Content="Пометка" HorizontalAlignment="Left" Margin="10,445,0,0" VerticalAlignment="Top" Width="172" Height="50" FontFamily="Segoe UI Semibold" FontSize="20" Foreground="Black" Cursor="Hand">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <LinearGradientBrush.RelativeTransform>
@@ -176,7 +176,7 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <Button x:Name="OpenDirBtn" Content="Открыть папку" HorizontalAlignment="Left" Margin="803,279,0,0" VerticalAlignment="Top" Width="221" Height="50" FontFamily="Segoe UI Semibold" FontSize="20" Foreground="Black" Cursor="Hand">
+        <Button x:Name="OpenDirBtn" Content="Открыть папку" HorizontalAlignment="Left" Margin="805,280,0,0" VerticalAlignment="Top" Width="221" Height="50" FontFamily="Segoe UI Semibold" FontSize="20" Foreground="Black" Cursor="Hand">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <LinearGradientBrush.RelativeTransform>
@@ -197,6 +197,6 @@
         <Button x:Name="SaveBtn" Content="Сохранить" HorizontalAlignment="Left" Margin="531,118,0,0" VerticalAlignment="Top" Width="97" Height="38" Background="#FF028693" Foreground="White" FontSize="16" Click="SaveBtn_Click" Cursor="Hand"/>
         <Button x:Name="MainBtn" Content="Главная " HorizontalAlignment="Left" Margin="10,654,0,0" VerticalAlignment="Top" Width="172" Background="#FF00422F" Height="50" FontFamily="Segoe UI Semibold" FontSize="20" Foreground="White" Cursor="Hand" Click="MainBtn_Click"/>
         <Button x:Name="SurBtn" Content="Обзор" HorizontalAlignment="Left" Margin="10,161,0,0" VerticalAlignment="Top" Width="97" Height="38" Background="#FF00FFDC" Foreground="Black" FontSize="16" Click="SurBtn_Click" Cursor="Hand"/>
-        <Button x:Name="EnterBtn_Copy2" Content="Изменить тему " HorizontalAlignment="Left" Margin="805,710,0,0" VerticalAlignment="Top" Width="219" Background="#FF5EFFBD" Height="50" FontFamily="Segoe UI Semibold" FontSize="20" Foreground="Black" Click="EnterBtn_Copy2_Click" Cursor="Hand"/>
+        <Button x:Name="EnterBtn_Copy2" Content="Изменить тему " HorizontalAlignment="Left" Margin="805,710,0,0" VerticalAlignment="Top" Width="221" Background="#FF5EFFBD" Height="50" FontFamily="Segoe UI Semibold" FontSize="20" Foreground="Black" Click="EnterBtn_Copy2_Click" Cursor="Hand"/>
     </Grid>
 </Window>

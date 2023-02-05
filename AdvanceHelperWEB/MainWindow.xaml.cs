@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
+using System.Diagnostics;
 
 namespace AdvanceHelperWEB
 {
@@ -72,6 +73,11 @@ namespace AdvanceHelperWEB
         private void ExitBtn_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void InstructionBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start("help.chm");
         }
     }
 }

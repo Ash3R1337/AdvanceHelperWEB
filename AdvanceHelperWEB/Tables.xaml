@@ -36,7 +36,7 @@
         <Rectangle x:Name="topPanel" Fill="#FFA1FFB2" HorizontalAlignment="Left" Height="66" Stroke="Black" VerticalAlignment="Top" Width="1035"/>
         <Label x:Name="label_Copy2" Content="Пользователь" HorizontalAlignment="Left" Margin="851,10,0,0" VerticalAlignment="Top" Foreground="White" FontSize="24" Background="Black"/>
         <Label x:Name="labelHeader" Content="AdvanceHelperWPF" HorizontalAlignment="Left" Margin="10,13,0,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="#FF026A49" FontSize="22" FontFamily="Segoe UI Black"/>
-        <DataGrid x:Name="dataGrid" HorizontalAlignment="Left" Height="609" Margin="10,71,0,0" VerticalAlignment="Top" Width="1015" Background="#FF00A007" BorderBrush="White" BorderThickness="5"/>
+        <DataGrid x:Name="dataGrid" HorizontalAlignment="Left" Height="609" Margin="10,71,0,0" VerticalAlignment="Top" Width="1015" Background="#FF00A007" BorderBrush="White" BorderThickness="5" FontSize="18"/>
         <Label x:Name="labelHeaderTables" Content="Таблицы" HorizontalAlignment="Left" Margin="454,7,0,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="#FF026A49" FontSize="28" FontFamily="Segoe UI Black"/>
         <Button x:Name="MainBtn" Content="Главная " HorizontalAlignment="Left" Margin="10,685,0,0" VerticalAlignment="Top" Width="172" Background="#FF00422F" Height="50" FontFamily="Segoe UI Semibold" FontSize="20" Foreground="White" Cursor="Hand" Click="MainBtn_Click"/>
         <Button x:Name="ExitBtn" Content="Выход" HorizontalAlignment="Left" Margin="10,740,0,0" VerticalAlignment="Top" Width="172" Background="#FF00422F" Height="50" FontFamily="Segoe UI Semibold" FontSize="20" Foreground="White" Click="ExitBtn_Click" Cursor="Hand"/>
