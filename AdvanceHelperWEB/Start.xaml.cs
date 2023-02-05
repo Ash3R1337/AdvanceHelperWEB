@@ -21,24 +21,59 @@ namespace AdvanceHelperWEB
             if (File.Exists("save.txt"))
             {
                 DirPath.Text = File.ReadAllText("save.txt");
+                DirPathStr = DirPath.Text;
+                PathIsCorrect = true;
+                EnableDisableButtons();
                 FilesAddtoListBox();
                 DirectoriesAddtoListBox();
             }
         }
 
+        string DirPathStr; //Переменная, хранящая путь к текущей директории
+        bool PathIsCorrect = false; //Определяет, установлена ли директория
+
+        private void ChBtn_Click(object sender, RoutedEventArgs e)
+        {
+            DirPathStr = DirPath.Text;
+            FilesAddtoListBox();
+            DirectoriesAddtoListBox();
+            EnableDisableButtons();
+        }
+
+        public void EnableDisableButtons() //Отключение / Включение кнопок
+        {
+            if (PathIsCorrect == true)
+            {
+                SortBtn.IsEnabled = true;
+                CheckBtn.IsEnabled = true;
+                RenameBtn.IsEnabled = true;
+                DeleteBtn.IsEnabled = true;
+                MakeAcheckBtn.IsEnabled = true;
+                PrintBtn.IsEnabled = true;
+                CreateBtn.IsEnabled = true;
+                OpenDirBtn.IsEnabled = true;
+            }
+            else
+            {
+                SortBtn.IsEnabled = false;
+                CheckBtn.IsEnabled = false;
+                RenameBtn.IsEnabled = false;
+                DeleteBtn.IsEnabled = false;
+                MakeAcheckBtn.IsEnabled = false;
+                PrintBtn.IsEnabled = false;
+                CreateBtn.IsEnabled = false;
+                OpenDirBtn.IsEnabled = false;
+            }
+        }
+
         private void SurBtn_Click(object sender, RoutedEventArgs e)
-        {   
+        {
             System.Windows.Forms.FolderBrowserDialog folderBrowser = new FolderBrowserDialog();
             if (folderBrowser.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 DirPath.Text = folderBrowser.SelectedPath;
+                DirPathStr = DirPath.Text;
             }
-        }
-
-        private void ChBtn_Click(object sender, RoutedEventArgs e)
-        {
-            FilesAddtoListBox();
-            DirectoriesAddtoListBox();
         }
 
         [Obsolete("Необходимо добавить возможность переключения тем", false)]
@@ -78,7 +113,7 @@ namespace AdvanceHelperWEB
 
         private void SortBtn_Click(object sender, RoutedEventArgs e) //Распределение файлов по директориям
         {
-            SortFiles(DirPath.Text);
+            SortFiles(DirPathStr);
         }
 
         private void DeleteBtn_Click(object sender, RoutedEventArgs e) //Удаление выбранного файла
@@ -88,17 +123,7 @@ namespace AdvanceHelperWEB
 
         private void CheckBtn_Click(object sender, RoutedEventArgs e) //Просмотр файла
         {
-            try
-            {
-                if (DirPath.Text != "")
-                {
-                    int index = FilesList.SelectedIndex;
-                    Process.Start(ListBoxFiles[index]);
-                }
-                else MessageBox.Show("Введите путь к директории.");
-            }
-            catch (Win32Exception) { MessageBox.Show("Выбранный файл не найден."); FilesAddtoListBox(); }
-            catch (IndexOutOfRangeException) { MessageBox.Show("Выберите файл, который нужно просмотреть."); }
+            OpenFile();
         }
 
         private void ExitBtn_Click(object sender, RoutedEventArgs e)
@@ -120,31 +145,70 @@ namespace AdvanceHelperWEB
 
         private void CreateBtn_Click(object sender, RoutedEventArgs e) //Создание нового каталога
         {
-            CreateCatalog(DirPath.Text);
+            CreateCatalog(DirPathStr);
         }
 
         private void RenameBtn_Click(object sender, RoutedEventArgs e)
         {
-            FileRename(DirPath.Text);
+            FileRename(DirPathStr);
+        }
+
+        private void OpenDirBtn_Click(object sender, RoutedEventArgs e)
+        {
+            DirOpen();
+        }
+
+        public void DirOpen()
+        {
+            try
+            {
+                if (DirPath.Text != "")
+                {
+                    int index = CatalogsList.SelectedIndex;
+                    Process.Start(ListBoxFolders[index]);
+                }
+                else MessageBox.Show("Введите путь к директории.");
+            }
+            catch (Win32Exception) { MessageBox.Show("Выбранная папка не найдена."); DirectoriesAddtoListBox(); }
+            catch (IndexOutOfRangeException) { MessageBox.Show("Выберите папку, которую нужно просмотреть."); }
+        }
+
+        public void OpenFile() //Просмотр файла
+        {
+            try
+            {
+                if (DirPath.Text != "")
+                {
+                    int index = FilesList.SelectedIndex;
+                    Process.Start(ListBoxFiles[index]);
+                }
+                else MessageBox.Show("Введите путь к директории.");
+            }
+            catch (Win32Exception) { MessageBox.Show("Выбранный файл не найден."); FilesAddtoListBox(); }
+            catch (IndexOutOfRangeException) { MessageBox.Show("Выберите файл, который нужно просмотреть."); }
         }
 
         public void FileRename(string DirPath) //Переименование файла
         {
-            FileRenameWindow fileRenameWindow = new FileRenameWindow(FilesList.SelectedItem.ToString());
-            if (fileRenameWindow.ShowDialog() == true)
+            try
             {
-                try
+                FileRenameWindow fileRenameWindow = new FileRenameWindow(FilesList.SelectedItem.ToString());
+                if (fileRenameWindow.ShowDialog() == true)
                 {
-                    int index = FilesList.SelectedIndex;
-                    string sourceFileName = ListBoxFiles[index];
-                    string destFileName = DirPath + "\\" + fileRenameWindow.FileNameStr;
-                    File.Move(sourceFileName, destFileName);
-                    MessageBox.Show("Файл был успешно переименован");
+                    try
+                    {
+                        int index = FilesList.SelectedIndex;
+                        string sourceFileName = ListBoxFiles[index];
+                        string destFileName = DirPath + "\\" + fileRenameWindow.FileNameStr;
+                        File.Move(sourceFileName, destFileName);
+                        MessageBox.Show("Файл был успешно переименован");
+                    }
+                    catch (FileNotFoundException) { MessageBox.Show("Выбранного файла не существует"); }
+                    catch (IndexOutOfRangeException) { MessageBox.Show("Выберите файл, который нужно переименовать"); }
+                    FilesAddtoListBox();
                 }
-                catch (FileNotFoundException) { MessageBox.Show("Выбранного файла не существует"); }
-                catch (IndexOutOfRangeException) { MessageBox.Show("Выберите файл, который нужно переименовать"); }
-                FilesAddtoListBox();
             }
+            catch (NullReferenceException) { MessageBox.Show("Выберите файл, который нужно переименовать"); }
         }
 
         public void FileDelete() //Удаление файла
@@ -160,6 +224,7 @@ namespace AdvanceHelperWEB
             catch (IndexOutOfRangeException) { MessageBox.Show("Выберите файл, который нужно удалить"); }
             FilesAddtoListBox();
         }
+
         public void FileSave(string file, string DirPath) //Сохранение файла
         {
             FileStream fileStream = null;
@@ -203,12 +268,13 @@ namespace AdvanceHelperWEB
             try
             {
                 FilesList.Items.Clear();
-                string[] AllFiles = Directory.GetFiles(DirPath.Text, "*.docx", SearchOption.TopDirectoryOnly);
+                string[] AllFiles = Directory.GetFiles(DirPathStr, "*.docx", SearchOption.TopDirectoryOnly);
                 Array.Copy(AllFiles, ListBoxFiles = new string[AllFiles.Length], AllFiles.Length);
                 foreach (string filename in AllFiles)
                 {
                     FilesList.Items.Add(System.IO.Path.GetFileName(filename));
                 }
+                PathIsCorrect = true;
             }
             catch (DirectoryNotFoundException) {/*MessageBox.Show("Выбранная директория не найдена.");*/}
             catch (ArgumentException)
@@ -222,23 +288,25 @@ namespace AdvanceHelperWEB
             try
             {
                 CatalogsList.Items.Clear();
-                string[] AllFolders = Directory.GetDirectories(DirPath.Text);
+                string[] AllFolders = Directory.GetDirectories(DirPathStr);
                 Array.Copy(AllFolders, ListBoxFolders = new string[AllFolders.Length], AllFolders.Length);
                 foreach (string foldername in AllFolders)
                 {
                     string directory = new DirectoryInfo(foldername).Name;
                     CatalogsList.Items.Add(directory);
                 }
+                PathIsCorrect = true;
             }
-            catch (DirectoryNotFoundException) { MessageBox.Show("Выбранная директория не найдена."); }
+            catch (DirectoryNotFoundException) { MessageBox.Show("Выбранная директория не найдена."); PathIsCorrect = false; }
             catch (ArgumentException)
             {
                 MessageBox.Show("Путь не выбран.");
                 FilesList.Items.Clear();
+                PathIsCorrect = false;
             }
         }
 
-        public void SortFiles(string DirPath)
+        public void SortFiles(string DirPath) //Распределение файлов по папкам
         {
             try
             {
@@ -268,11 +336,7 @@ namespace AdvanceHelperWEB
                 else MessageBox.Show("Файлы для распределения не были найдены");
             }
             catch (DirectoryNotFoundException) { MessageBox.Show("Путь не выбран."); }
-            catch (ArgumentException)
-            {
-                MessageBox.Show("Путь не выбран.");
-                FilesList.Items.Clear();
-            }
+            catch (ArgumentException) { MessageBox.Show("Путь не выбран."); FilesList.Items.Clear(); }
         }
     }
 }

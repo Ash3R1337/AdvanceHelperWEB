@@ -144,7 +144,7 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <Button x:Name="EnterBtn_Copy4" Content="Печать" HorizontalAlignment="Left" Margin="10,599,0,0" VerticalAlignment="Top" Width="172" Height="50" FontFamily="Segoe UI Semibold" FontSize="20" Foreground="Black" Cursor="Hand">
+        <Button x:Name="PrintBtn" Content="Печать" HorizontalAlignment="Left" Margin="10,599,0,0" VerticalAlignment="Top" Width="172" Height="50" FontFamily="Segoe UI Semibold" FontSize="20" Foreground="Black" Cursor="Hand">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <LinearGradientBrush.RelativeTransform>
@@ -176,7 +176,7 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <Button x:Name="OpenDirBtn" Content="Открыть папку" HorizontalAlignment="Left" Margin="805,280,0,0" VerticalAlignment="Top" Width="221" Height="50" FontFamily="Segoe UI Semibold" FontSize="20" Foreground="Black" Cursor="Hand">
+        <Button x:Name="OpenDirBtn" Content="Открыть папку" HorizontalAlignment="Left" Margin="805,280,0,0" VerticalAlignment="Top" Width="221" Height="50" FontFamily="Segoe UI Semibold" FontSize="20" Foreground="Black" Cursor="Hand" Click="OpenDirBtn_Click">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <LinearGradientBrush.RelativeTransform>
