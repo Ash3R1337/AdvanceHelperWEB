@@ -128,13 +128,26 @@ namespace AHlibrary
         {
             adapter.Update(dt);
         }
-        
+
+        /// <summary>
+        /// Получает количество строк в таблице
+        /// </summary>
+        /// <param name="table"></param>
+        public int GetRowsCount(string table)
+        {
+            string sql = "SELECT count(*) FROM " + table;
+            MySqlCommand command = new MySqlCommand(sql, conn);
+            int result = Convert.ToInt32(command.ExecuteScalar());
+            return result;
+        }
+
 
         /// <summary>
         /// Проверка авторизации пользователя
         /// </summary>
         /// <param name="textBox"></param>
         /// <param name="passwordBox"></param>
+        /// <param name="password"></param>
         public void AuthCheck(TextBox textBox, PasswordBox passwordBox, string password)
         {
             MySqlConnection conn = new MySqlConnection("server=localhost;user=root;database=projectdb;port=3306;password=" + password + ";");
