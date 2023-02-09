@@ -198,5 +198,21 @@
         <Button x:Name="MainBtn" Content="Главная " HorizontalAlignment="Left" Margin="10,654,0,0" VerticalAlignment="Top" Width="172" Background="#FF00422F" Height="50" FontFamily="Segoe UI Semibold" FontSize="20" Foreground="White" Cursor="Hand" Click="MainBtn_Click"/>
         <Button x:Name="SurBtn" Content="Обзор" HorizontalAlignment="Left" Margin="10,161,0,0" VerticalAlignment="Top" Width="97" Height="38" Background="#FF00FFDC" Foreground="Black" FontSize="16" Click="SurBtn_Click" Cursor="Hand"/>
         <Button x:Name="EnterBtn_Copy2" Content="Изменить тему " HorizontalAlignment="Left" Margin="805,710,0,0" VerticalAlignment="Top" Width="221" Background="#FF5EFFBD" Height="50" FontFamily="Segoe UI Semibold" FontSize="20" Foreground="Black" Click="EnterBtn_Copy2_Click" Cursor="Hand"/>
+        <Button x:Name="SheetGenerate" Content="Создать ведомость" HorizontalAlignment="Left" Margin="803,654,0,0" VerticalAlignment="Top" Width="221" Height="50" FontFamily="Segoe UI Semibold" FontSize="20" Foreground="Black" Cursor="Hand" Click="SheetGenerate_Click">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <LinearGradientBrush.RelativeTransform>
+                        <TransformGroup>
+                            <ScaleTransform CenterY="0.5" CenterX="0.5"/>
+                            <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                            <RotateTransform Angle="45" CenterY="0.5" CenterX="0.5"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </LinearGradientBrush.RelativeTransform>
+                    <GradientStop Color="#FFD4FF89" Offset="0"/>
+                    <GradientStop Color="#FF69FFAD" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
     </Grid>
 </Window>

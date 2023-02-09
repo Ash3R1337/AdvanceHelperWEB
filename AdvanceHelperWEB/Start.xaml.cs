@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Text.RegularExpressions;
 using System.ComponentModel;
 using System.Windows.Forms;
+using AHlibrary;
 
 namespace AdvanceHelperWEB
 {
@@ -32,7 +33,7 @@ namespace AdvanceHelperWEB
         string DirPathStr; //Переменная, хранящая путь к текущей директории
         bool PathIsCorrect = false; //Определяет, установлена ли директория
 
-        private void ChBtn_Click(object sender, RoutedEventArgs e)
+        private void ChBtn_Click(object sender, RoutedEventArgs e) //Выбор рабочей директории
         {
             DirPathStr = DirPath.Text;
             FilesAddtoListBox();
@@ -156,6 +157,12 @@ namespace AdvanceHelperWEB
         private void OpenDirBtn_Click(object sender, RoutedEventArgs e)
         {
             DirOpen();
+        }
+
+        private void SheetGenerate_Click(object sender, RoutedEventArgs e)
+        {
+            Excel excel = new Excel();
+            excel.ExcelCreateDocument("Ведомость");
         }
 
         public void DirOpen()

@@ -13,7 +13,7 @@ namespace UnitTestProject1
         {
             string DirPath = "D:\\DiskPC\\Флешка\\Работы\\Курсовая";
             Start start = new Start();
-            start.FileSort(DirPath);
+            start.SortFiles(DirPath);
         }
 
         [TestMethod]
