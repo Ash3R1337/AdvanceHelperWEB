@@ -14,6 +14,7 @@ namespace AdvanceHelperWEB
             InitializeComponent();
             SelectTablesComboBox.Items.Add("Материалы");
             SelectTablesComboBox.Items.Add("Подразделение");
+            SelectTablesComboBox.Items.Add("Специальности");
             SelectTablesComboBox.Items.Add("Предметы");
             SelectTablesComboBox.Items.Add("Преподаватели");
             SelectTablesComboBox.Items.Add("Пользователи");
