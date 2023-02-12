@@ -18,7 +18,6 @@ namespace AdvanceHelperWEB
             InitializeComponent();
         }
 
-
         Regex regex = new Regex(@"[^a-zA-Z0-9]");
 
         private void LoginBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -36,10 +35,13 @@ namespace AdvanceHelperWEB
         private void EnterBtn_Click(object sender, RoutedEventArgs e)
         {
             DBconnect dbconnect = new DBconnect();
-            dbconnect.AuthCheck(LoginBox, PasswordHidden, "root");
-            Menu menu = new Menu();
-            menu.Show();
-            this.Close();
+            bool Auth = dbconnect.AuthCheck(LoginBox, PasswordHidden, "root");
+            if (Auth == true)
+            {
+                Menu menu = new Menu(LoginBox.Text);
+                menu.Show();
+                this.Close();
+            }
         }
 
         //Скрытие/Показ пароля

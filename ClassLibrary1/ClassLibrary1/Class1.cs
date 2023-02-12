@@ -18,6 +18,7 @@ namespace AHlibrary
         DbDataAdapter adapter;
         DataTable dt;
         MySqlConnection conn;
+        public string UserLogin;
 
         /// <summary>
         /// Выполняет подключение к базе данных,
@@ -148,7 +149,7 @@ namespace AHlibrary
         /// <param name="textBox"></param>
         /// <param name="passwordBox"></param>
         /// <param name="password"></param>
-        public void AuthCheck(TextBox textBox, PasswordBox passwordBox, string password)
+        public bool AuthCheck(TextBox textBox, PasswordBox passwordBox, string password)
         {
             MySqlConnection conn = new MySqlConnection("server=localhost;user=root;database=projectdb;port=3306;password=" + password + ";");
             string sql = "SELECT * FROM пользователи WHERE Логин = @login and Пароль = @pass";
@@ -169,10 +170,10 @@ namespace AHlibrary
 
             if (table.Rows.Count > 0)
             {
-                MessageBox.Show("Успех");
+                return true;
                 //    UserRole(); // метод, который будет открывать разные формы в зависимости от пользователя
             }
-            else { MessageBox.Show("Неправильный логин или пароль."); }
+            else { MessageBox.Show("Неправильный логин или пароль."); return false; }
 
             conn.Close();
         }

@@ -1,16 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿using System.Windows;
 
 namespace AdvanceHelperWEB
 {
@@ -19,21 +7,25 @@ namespace AdvanceHelperWEB
     /// </summary>
     public partial class Menu : Window
     {
-        public Menu()
+        public Menu(string UserLogin)
         {
             InitializeComponent();
+            labelHeaderLogin.Content = $"Добро пожаловать {UserLogin}! С чего начнем?";
+            userLogin = UserLogin;
         }
+
+        string userLogin;
 
         private void StartBtn_Click(object sender, RoutedEventArgs e)
         {
-            Start start = new Start();
+            Start start = new Start(userLogin);
             start.Show();
             this.Close();
         }
 
         private void Tables_Click(object sender, RoutedEventArgs e)
         {
-            Tables tables = new Tables();
+            Tables tables = new Tables(userLogin);
             tables.Show();
             this.Close();
         }

@@ -16,7 +16,7 @@ namespace AdvanceHelperWEB
     /// </summary>
     public partial class Start : Window
     {
-        public Start()
+        public Start(string UserLogin)
         {
             InitializeComponent();
             if (File.Exists("save.txt"))
@@ -28,7 +28,11 @@ namespace AdvanceHelperWEB
                 FilesAddtoListBox();
                 DirectoriesAddtoListBox();
             }
+            labelLogin.Content = UserLogin;
+            userLogin = UserLogin;
         }
+
+        string userLogin;
 
         string DirPathStr; //Переменная, хранящая путь к текущей директории
         bool PathIsCorrect = false; //Определяет, установлена ли директория
@@ -139,7 +143,7 @@ namespace AdvanceHelperWEB
 
         private void MainBtn_Click(object sender, RoutedEventArgs e)
         {
-            Menu menu = new Menu();
+            Menu menu = new Menu(userLogin);
             menu.Show();
             this.Close();
         }

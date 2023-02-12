@@ -9,7 +9,7 @@ namespace AdvanceHelperWEB
     public partial class Tables : Window
     {
         DBconnect dBconnect = new DBconnect();
-        public Tables()
+        public Tables(string UserLogin)
         {
             InitializeComponent();
             SelectTablesComboBox.Items.Add("Материалы");
@@ -18,7 +18,10 @@ namespace AdvanceHelperWEB
             SelectTablesComboBox.Items.Add("Предметы");
             SelectTablesComboBox.Items.Add("Преподаватели");
             SelectTablesComboBox.Items.Add("Пользователи");
+            userLogin = UserLogin;
         }
+
+        string userLogin;
 
         private void ExitBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -27,7 +30,7 @@ namespace AdvanceHelperWEB
 
         private void MainBtn_Click(object sender, RoutedEventArgs e)
         {
-            Menu menu = new Menu();
+            Menu menu = new Menu(userLogin);
             menu.Show();
             this.Close();
         }

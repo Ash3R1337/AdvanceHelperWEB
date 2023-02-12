@@ -56,7 +56,7 @@
             </Button.Background>
         </Button>
         <Button x:Name="ExitBtn" Content="Выход" HorizontalAlignment="Left" Margin="76,412,0,0" VerticalAlignment="Top" Width="249" Background="#FF00817C" Height="47" FontFamily="Segoe UI Semibold" FontSize="18" Foreground="White" Cursor="Hand" Click="ExitBtn_Click"/>
-        <Label x:Name="labelHeader_Copy" Content="Добро пожаловать {Логин пользователя}! &#xA;С чего начнем?" HorizontalAlignment="Left" Margin="10,31,0,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="White" FontSize="14" FontFamily="Segoe UI Black"/>
+        <Label x:Name="labelHeaderLogin" Content="Добро пожаловать {Логин пользователя}! &#xA;С чего начнем?" HorizontalAlignment="Left" Margin="10,31,0,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="White" FontSize="14" FontFamily="Segoe UI Black"/>
         <Button x:Name="Tables" Content="Таблицы" HorizontalAlignment="Left" Margin="76,237,0,0" VerticalAlignment="Top" Width="249" Height="63" FontFamily="Segoe UI Semibold" FontSize="22" Foreground="Black" RenderTransformOrigin="-0.229,2.079" Cursor="Hand" Click="Tables_Click">
             <Button.Background>
                 <SolidColorBrush Color="#FF00FF97" Opacity="0.9"/>
