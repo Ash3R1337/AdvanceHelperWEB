@@ -27,8 +27,8 @@ namespace AdvanceHelperWEB
 
         private void MainBtn_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow mainWindow = new MainWindow();
-            mainWindow.Show();
+            Menu menu = new Menu();
+            menu.Show();
             this.Close();
         }
 

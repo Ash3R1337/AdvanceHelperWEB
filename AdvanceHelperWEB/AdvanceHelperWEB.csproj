@@ -201,8 +201,9 @@
     <SplashScreen Include="splash.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="bg3.png" />
+    <Resource Include="CutPaper.png" />
     <Resource Include="bg2.png" />
+    <Resource Include="bg3.png" />
     <Resource Include="bg.png" />
     <Content Include="bg.svg" />
   </ItemGroup>
