@@ -174,8 +174,6 @@ namespace AHlibrary
                 //    UserRole(); // метод, который будет открывать разные формы в зависимости от пользователя
             }
             else { MessageBox.Show("Неправильный логин или пароль."); return false; }
-
-            conn.Close();
         }
 
         //public void UserRole()

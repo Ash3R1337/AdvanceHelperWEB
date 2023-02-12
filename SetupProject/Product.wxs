@@ -19,8 +19,8 @@
 				<Directory Id="INSTALLLOCATION" Name="$(var.ProductName)">
 					<Component Id="ProductComponent" Guid="b11556a2-e066-4393-af5c-9c9210187eb2">
 						<File Id='Program' DiskId='1' Source='C:\Users\Ash3R\source\repos\Ash3R1337\AdvanceHelperWEB\AdvanceHelperWEB\bin\Release\AdvanceHelperWEB.exe'/>
-						<File Id='Database' DiskId='2' Source='C:\Users\Ash3R\source\repos\Ash3R1337\AdvanceHelperWEB\БД\projectdb.sql'/>
-						<File Id='Calc' DiskId='3' Source='C:\WINDOWS\system32\calc.exe'/>
+						<File Id='Database' DiskId='2' Source='C:\Users\Ash3R\source\repos\Ash3R1337\AdvanceHelperWEB\БД\projectdb(updated3).sqll'/>
+						<File Id='Ref' DiskId='3' Source='C:\Users\Ash3R\source\repos\Ash3R1337\AdvanceHelperWEB\Справка\help.chm'/>
 					</Component>
 				</Directory>
 			</Directory>
