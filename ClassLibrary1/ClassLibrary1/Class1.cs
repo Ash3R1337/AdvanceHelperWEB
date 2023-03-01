@@ -152,7 +152,7 @@ namespace AHlibrary
         public bool AuthCheck(TextBox textBox, PasswordBox passwordBox, string password)
         {
             MySqlConnection conn = new MySqlConnection("server=localhost;user=root;database=projectdb;port=3306;password=" + password + ";");
-            string sql = "SELECT * FROM пользователи WHERE Логин = @login and Пароль = @pass";
+            string sql = "SELECT * FROM пользователи WHERE Логин = @login and Пароль = MD5(@pass)";
             conn.Open();
 
             DataTable table = new DataTable();
@@ -173,7 +173,7 @@ namespace AHlibrary
                 return true;
                 //    UserRole(); // метод, который будет открывать разные формы в зависимости от пользователя
             }
-            else { MessageBox.Show("Неправильный логин или пароль."); return false; }
+            else { MessageBox.Show($"Неправильный логин или пароль."); return false; }
         }
 
         //public void UserRole()

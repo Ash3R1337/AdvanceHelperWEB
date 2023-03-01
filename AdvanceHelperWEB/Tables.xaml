@@ -34,7 +34,11 @@
             <ImageBrush ImageSource="bg3.png" Stretch="None"/>
         </Grid.Background>
         <Rectangle x:Name="topPanel" Fill="#FFA1FFB2" HorizontalAlignment="Left" Height="66" Stroke="Black" VerticalAlignment="Top" Width="1035"/>
-        <Label x:Name="label_Copy2" Content="Пользователь" HorizontalAlignment="Left" Margin="851,10,0,0" VerticalAlignment="Top" Foreground="White" FontSize="24" Background="Black"/>
+        <Label x:Name="labelLogin" Content="Пользователь" HorizontalAlignment="Left" Margin="851,10,0,0" VerticalAlignment="Top" Foreground="White" FontSize="24">
+            <Label.Background>
+                <SolidColorBrush Color="Black" Opacity="0.5"/>
+            </Label.Background>
+        </Label>
         <Label x:Name="labelHeader" Content="AdvanceHelperWPF" HorizontalAlignment="Left" Margin="10,13,0,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="#FF026A49" FontSize="22" FontFamily="Segoe UI Black"/>
         <DataGrid x:Name="dataGrid" HorizontalAlignment="Left" Height="609" Margin="10,71,0,0" VerticalAlignment="Top" Width="1015" BorderBrush="White" BorderThickness="5" FontSize="18">
             <DataGrid.Background>

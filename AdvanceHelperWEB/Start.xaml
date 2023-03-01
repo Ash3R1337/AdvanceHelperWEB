@@ -57,14 +57,14 @@
         <Label x:Name="label" Content="Выбор рабочей папки:" HorizontalAlignment="Left" Margin="10,71,0,0" VerticalAlignment="Top" Foreground="White" FontSize="24"/>
         <ListBox x:Name="FilesList" HorizontalAlignment="Left" Height="535" Margin="193,225,0,0" VerticalAlignment="Top" Width="289" BorderBrush="White" BorderThickness="5" Foreground="White" FontSize="20">
             <ListBox.Background>
-                <SolidColorBrush Color="#FF00A007" Opacity="0.65"/>
+                <SolidColorBrush Color="Black" Opacity="0.5"/>
             </ListBox.Background>
         </ListBox>
         <Label x:Name="label_Copy" Content="Файлы:" HorizontalAlignment="Left" Margin="193,167,0,0" VerticalAlignment="Top" Foreground="White" FontSize="20" Width="78" Height="42"/>
         <Label x:Name="label_Copy1" Content="Папки:" HorizontalAlignment="Left" Margin="512,167,0,0" VerticalAlignment="Top" Foreground="White" FontSize="20" Height="42"/>
         <ListBox x:Name="CatalogsList" HorizontalAlignment="Left" Height="535" Margin="512,225,0,0" VerticalAlignment="Top" Width="286" BorderBrush="White" BorderThickness="5" FontSize="20" Foreground="White" >
             <ListBox.Background>
-                <SolidColorBrush Color="#FF00A007" Opacity="0.65"/>
+                <SolidColorBrush Color="Black" Opacity="0.5"/>
             </ListBox.Background>
         </ListBox>
         <Button x:Name="ChBtn" Content="Выбрать" HorizontalAlignment="Left" Margin="429,118,0,0" VerticalAlignment="Top" Width="97" Height="38" Background="#FF00FFDC" Foreground="Black" FontSize="16" Click="ChBtn_Click" Cursor="Hand"/>

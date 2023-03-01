@@ -18,6 +18,7 @@ namespace AdvanceHelperWEB
             SelectTablesComboBox.Items.Add("Предметы");
             SelectTablesComboBox.Items.Add("Преподаватели");
             SelectTablesComboBox.Items.Add("Пользователи");
+            labelLogin.Content = UserLogin;
             userLogin = UserLogin;
         }
 
