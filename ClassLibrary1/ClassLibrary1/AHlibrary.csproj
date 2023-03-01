@@ -75,9 +75,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\AdvanceHelperWEB\AdvanceHelperWEB.csproj">
+    <ProjectReference Include="..\..\AdvanceHelperWEB\AdvanceHelperWPF.csproj">
       <Project>{a1ba6402-066a-4b93-a019-7db4d2129f87}</Project>
-      <Name>AdvanceHelperWEB</Name>
+      <Name>AdvanceHelperWPF</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

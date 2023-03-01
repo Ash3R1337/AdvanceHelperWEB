@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31515.178
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdvanceHelperWEB", "AdvanceHelperWEB\AdvanceHelperWEB.csproj", "{A1BA6402-066A-4B93-A019-7DB4D2129F87}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdvanceHelperWPF", "AdvanceHelperWEB\AdvanceHelperWPF.csproj", "{A1BA6402-066A-4B93-A019-7DB4D2129F87}"
 EndProject
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "SetupProject", "SetupProject\SetupProject.wixproj", "{541795EC-F6F4-429E-82AC-620208A25549}"
 EndProject
