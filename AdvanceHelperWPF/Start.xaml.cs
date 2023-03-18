@@ -23,8 +23,6 @@ namespace AdvanceHelperWEB
             {
                 DirPath.Text = File.ReadAllText("save.txt");
                 DirPathStr = DirPath.Text;
-                PathIsCorrect = true;
-                EnableDisableButtons();
                 FilesAddtoListBox();
                 DirectoriesAddtoListBox();
             }
@@ -35,40 +33,12 @@ namespace AdvanceHelperWEB
         string userLogin;
 
         string DirPathStr; //Переменная, хранящая путь к текущей директории
-        bool PathIsCorrect = false; //Определяет, установлена ли директория
 
         private void ChBtn_Click(object sender, RoutedEventArgs e) //Выбор рабочей директории
         {
             DirPathStr = DirPath.Text;
             FilesAddtoListBox();
             DirectoriesAddtoListBox();
-            EnableDisableButtons();
-        }
-
-        public void EnableDisableButtons() //Отключение / Включение кнопок
-        {
-            if (PathIsCorrect == true)
-            {
-                SortBtn.IsEnabled = true;
-                CheckBtn.IsEnabled = true;
-                RenameBtn.IsEnabled = true;
-                DeleteBtn.IsEnabled = true;
-                MakeAcheckBtn.IsEnabled = true;
-                PrintBtn.IsEnabled = true;
-                CreateBtn.IsEnabled = true;
-                OpenDirBtn.IsEnabled = true;
-            }
-            else
-            {
-                SortBtn.IsEnabled = false;
-                CheckBtn.IsEnabled = false;
-                RenameBtn.IsEnabled = false;
-                DeleteBtn.IsEnabled = false;
-                MakeAcheckBtn.IsEnabled = false;
-                PrintBtn.IsEnabled = false;
-                CreateBtn.IsEnabled = false;
-                OpenDirBtn.IsEnabled = false;
-            }
         }
 
         private void SurBtn_Click(object sender, RoutedEventArgs e)
@@ -182,6 +152,7 @@ namespace AdvanceHelperWEB
             }
             catch (Win32Exception) { MessageBox.Show("Выбранная папка не найдена."); DirectoriesAddtoListBox(); }
             catch (IndexOutOfRangeException) { MessageBox.Show("Выберите папку, которую нужно просмотреть."); }
+            catch (NullReferenceException) { MessageBox.Show("Ошибка. Проверьте правильность рабочей директории"); }
         }
 
         public void OpenFile() //Просмотр файла
@@ -197,6 +168,7 @@ namespace AdvanceHelperWEB
             }
             catch (Win32Exception) { MessageBox.Show("Выбранный файл не найден."); FilesAddtoListBox(); }
             catch (IndexOutOfRangeException) { MessageBox.Show("Выберите файл, который нужно просмотреть."); }
+            catch (NullReferenceException) { MessageBox.Show("Ошибка. Проверьте правильность рабочей директории"); }
         }
 
         public void FileRename(string DirPath) //Переименование файла
@@ -219,7 +191,7 @@ namespace AdvanceHelperWEB
                     FilesAddtoListBox();
                 }
             }
-            catch (NullReferenceException) { MessageBox.Show("Выберите файл, который нужно переименовать"); }
+            catch (NullReferenceException) { MessageBox.Show("Ошибка. Проверьте правильность рабочей директории"); }
         }
 
         public void FileDelete() //Удаление файла
@@ -233,6 +205,7 @@ namespace AdvanceHelperWEB
             }
             catch (FileNotFoundException) { MessageBox.Show("Выбранного файла не существует"); }
             catch (IndexOutOfRangeException) { MessageBox.Show("Выберите файл, который нужно удалить"); }
+            catch (NullReferenceException) { MessageBox.Show("Ошибка. Проверьте правильность рабочей директории"); }
             FilesAddtoListBox();
         }
 
@@ -285,7 +258,6 @@ namespace AdvanceHelperWEB
                 {
                     FilesList.Items.Add(System.IO.Path.GetFileName(filename));
                 }
-                PathIsCorrect = true;
             }
             catch (DirectoryNotFoundException) {/*MessageBox.Show("Выбранная директория не найдена.");*/}
             catch (ArgumentException)
@@ -306,14 +278,12 @@ namespace AdvanceHelperWEB
                     string directory = new DirectoryInfo(foldername).Name;
                     CatalogsList.Items.Add(directory);
                 }
-                PathIsCorrect = true;
             }
-            catch (DirectoryNotFoundException) { MessageBox.Show("Выбранная директория не найдена."); PathIsCorrect = false; }
+            catch (DirectoryNotFoundException) { MessageBox.Show("Выбранная директория не найдена."); }
             catch (ArgumentException)
             {
                 MessageBox.Show("Путь не выбран.");
                 FilesList.Items.Clear();
-                PathIsCorrect = false;
             }
         }
 

@@ -26,7 +26,7 @@
             <GradientStop Color="#FF1B77D3" Offset="1" />
         </LinearGradientBrush>
     </Window.Resources>
-    <Grid x:Name="grid" Background="#FF00A007">
+    <Grid x:Name="grid" Background="#FF74B277">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>

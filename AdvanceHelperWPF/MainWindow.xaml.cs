@@ -34,6 +34,27 @@ namespace AdvanceHelperWEB
 
         private void EnterBtn_Click(object sender, RoutedEventArgs e)
         {
+            MenuOpenCheck();
+        }
+
+        private void LoginBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                MenuOpenCheck();
+            }
+        }
+
+        private void PasswordHidden_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                MenuOpenCheck();
+            }
+        }
+
+        private void MenuOpenCheck()
+        {
             DBconnect dbconnect = new DBconnect();
             bool Auth = dbconnect.AuthCheck(LoginBox, PasswordHidden, "root");
             if (Auth == true)
