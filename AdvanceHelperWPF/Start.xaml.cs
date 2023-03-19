@@ -2,7 +2,6 @@
 using System.Windows;
 using System.IO;
 using MessageBox = System.Windows.Forms.MessageBox;
-using System.Windows.Media;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 using System.ComponentModel;
@@ -22,9 +21,13 @@ namespace AdvanceHelperWEB
             if (File.Exists("save.txt"))
             {
                 DirPath.Text = File.ReadAllText("save.txt");
-                DirPathStr = DirPath.Text;
-                FilesAddtoListBox();
-                DirectoriesAddtoListBox();
+                if (DirPath.Text.Length < 1) File.Delete("save.txt"); //Удаление файла, если сохраненный путь пустой
+                else
+                {
+                    DirPathStr = DirPath.Text;
+                    FilesAddtoListBox();
+                    DirectoriesAddtoListBox();
+                }
             }
             labelLogin.Content = UserLogin;
             userLogin = UserLogin;
@@ -49,36 +52,6 @@ namespace AdvanceHelperWEB
                 DirPath.Text = folderBrowser.SelectedPath;
                 DirPathStr = DirPath.Text;
             }
-        }
-
-        [Obsolete("Необходимо добавить возможность переключения тем", false)]
-        private void ThemeChangeToBlue()
-        {
-            LinearGradientBrush gradientBrush = new LinearGradientBrush();
-            var colorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF56E5F3"));
-            var BlueStyle = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF0463A4"));
-            var TopPanel = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF02F4FF"));
-            gradientBrush.GradientStops.Add(new GradientStop((Color)ColorConverter.ConvertFromString("#FF1B77D3"), 0));
-            gradientBrush.GradientStops.Add(new GradientStop((Color)ColorConverter.ConvertFromString("#FF2291BB"), 1));
-            this.Resources.Add("ScreenGradientBrush", gradientBrush);
-            this.Resources.Add("ButtonsBrush", colorBrush);
-            this.Resources.Add("PanelBrush", BlueStyle);
-            this.Resources.Add("TopPanelBrush", TopPanel);
-            SortBtn.Background = (Brush)this.TryFindResource("ButtonsBrush");
-            CheckBtn.Background = (Brush)this.TryFindResource("ButtonsBrush");
-            RenameBtn.Background = (Brush)this.TryFindResource("ButtonsBrush");
-            CreateBtn.Background = (Brush)this.TryFindResource("ButtonsBrush");
-            DeleteBtn.Background = (Brush)this.TryFindResource("ButtonsBrush");
-            MakeAcheckBtn.Background = (Brush)this.TryFindResource("ButtonsBrush");
-            OpenDirBtn.Background = (Brush)this.TryFindResource("ButtonsBrush");
-            grid.Background = (Brush)this.TryFindResource("ScreenGradientBrush");
-            //panel.Fill = (Brush)this.TryFindResource("PanelBrush");
-            topPanel.Fill = (Brush)this.TryFindResource("TopPanelBrush");
-        }
-
-        private void EnterBtn_Copy2_Click(object sender, RoutedEventArgs e)
-        {
-            ThemeChangeToBlue();
         }
 
         private void EnterBtn_Copy7_Click(object sender, RoutedEventArgs e)

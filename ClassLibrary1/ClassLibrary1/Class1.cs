@@ -35,18 +35,22 @@ namespace AHlibrary
         /// подключения к БД</param>
         public void DB(string dbname, string table, DataGrid dataGrid, string password) //Подключение к БД
         {
-            conn = new MySqlConnection("server=localhost;user=root;database="+dbname+";port=3306;password="+password+";");
-            string sql = "SELECT * FROM " + table;
-            adapter = new MySqlDataAdapter(sql, conn);
-            conn.Open();
-            MySqlCommandBuilder myCommandBuilder = new MySqlCommandBuilder(adapter as MySqlDataAdapter);
-            adapter.InsertCommand = myCommandBuilder.GetInsertCommand();
-            adapter.UpdateCommand = myCommandBuilder.GetUpdateCommand();
-            adapter.DeleteCommand = myCommandBuilder.GetDeleteCommand();
+            try
+            {
+                conn = new MySqlConnection("server=localhost;user=root;database=" + dbname + ";port=3306;password=" + password + ";");
+                string sql = "SELECT * FROM " + table;
+                adapter = new MySqlDataAdapter(sql, conn);
+                conn.Open();
+                MySqlCommandBuilder myCommandBuilder = new MySqlCommandBuilder(adapter as MySqlDataAdapter);
+                adapter.InsertCommand = myCommandBuilder.GetInsertCommand();
+                adapter.UpdateCommand = myCommandBuilder.GetUpdateCommand();
+                adapter.DeleteCommand = myCommandBuilder.GetDeleteCommand();
 
-            dt = new DataTable();
-            adapter.Fill(dt); //загрузка данных
-            dataGrid.ItemsSource = dt.DefaultView; //привязка к DataGrid
+                dt = new DataTable();
+                adapter.Fill(dt); //загрузка данных
+                dataGrid.ItemsSource = dt.DefaultView; //привязка к DataGrid
+            }
+            catch (MySqlException) { MessageBox.Show("Отсутствует подключение к базе данных"); }
         }
 
         /// <summary>
@@ -94,7 +98,7 @@ namespace AHlibrary
         /// <param name="SearchName"></param>
         public void TableSearch(DataGrid dataGrid, string table, string cond, string SearchName)
         {
-            string sql = "SELECT * FROM "+table+" WHERE "+cond+" LIKE '"+SearchName+"%'";
+            string sql = "SELECT * FROM " + table + " WHERE " + cond + " LIKE '" + SearchName + "%'";
             adapter = new MySqlDataAdapter(sql, conn);
             MySqlCommandBuilder myCommandBuilder = new MySqlCommandBuilder(adapter as MySqlDataAdapter);
             adapter.InsertCommand = myCommandBuilder.GetInsertCommand();
@@ -120,7 +124,7 @@ namespace AHlibrary
             comboBox.ItemsSource = dt.DefaultView;
             comboBox.DisplayMemberPath = value;
         }
-        
+
         /// <summary>
         /// Сохраняет все измененные данные
         /// из DataGrid в базу данных   
@@ -151,29 +155,32 @@ namespace AHlibrary
         /// <param name="password"></param>
         public bool AuthCheck(TextBox textBox, PasswordBox passwordBox, string password)
         {
-            MySqlConnection conn = new MySqlConnection("server=localhost;user=root;database=projectdb;port=3306;password=" + password + ";");
-            string sql = "SELECT * FROM пользователи WHERE Логин = @login and Пароль = MD5(@pass)";
-            conn.Open();
-
-            DataTable table = new DataTable();
-            MySqlDataAdapter adapter = new MySqlDataAdapter();
-
-            MySqlCommand command = new MySqlCommand(sql, conn);
-            command.Parameters.Add("@login", MySqlDbType.VarChar, 25);
-            command.Parameters.Add("@pass", MySqlDbType.VarChar, 25);
-
-            command.Parameters["@login"].Value = textBox.Text;
-            command.Parameters["@pass"].Value = passwordBox.Password;
-
-            adapter.SelectCommand = command;
-            adapter.Fill(table);
-
-            if (table.Rows.Count > 0)
+            try
             {
-                return true;
-                //    UserRole(); // метод, который будет открывать разные формы в зависимости от пользователя
-            }
-            else { MessageBox.Show($"Неправильный логин или пароль."); return false; }
+                MySqlConnection conn = new MySqlConnection("server=localhost;user=root;database=projectdb;port=3306;password=" + password + ";");
+                string sql = "SELECT * FROM пользователи WHERE Логин = @login and Пароль = MD5(@pass)";
+                conn.Open();
+
+                DataTable table = new DataTable();
+                MySqlDataAdapter adapter = new MySqlDataAdapter();
+
+                MySqlCommand command = new MySqlCommand(sql, conn);
+                command.Parameters.Add("@login", MySqlDbType.VarChar, 25);
+                command.Parameters.Add("@pass", MySqlDbType.VarChar, 25);
+
+                command.Parameters["@login"].Value = textBox.Text;
+                command.Parameters["@pass"].Value = passwordBox.Password;
+
+                adapter.SelectCommand = command;
+                adapter.Fill(table);
+
+                if (table.Rows.Count > 0)
+                {
+                    return true;
+                    //    UserRole(); // метод, который будет открывать разные формы в зависимости от пользователя
+                }
+                else { MessageBox.Show($"Неправильный логин или пароль."); return false; }
+            } catch (MySqlException) { MessageBox.Show("Отсутствует подключение к базе данных"); return false; }
         }
 
         //public void UserRole()

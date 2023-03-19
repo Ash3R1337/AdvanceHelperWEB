@@ -75,7 +75,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\AdvanceHelperWEB\AdvanceHelperWPF.csproj">
+    <ProjectReference Include="..\..\AdvanceHelperWPF\AdvanceHelperWPF.csproj">
       <Project>{a1ba6402-066a-4b93-a019-7db4d2129f87}</Project>
       <Name>AdvanceHelperWPF</Name>
     </ProjectReference>
