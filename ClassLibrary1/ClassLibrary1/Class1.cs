@@ -4,6 +4,8 @@ using System.Data.Common;
 using System.Windows.Controls;
 using System.Windows;
 using System;
+using System.Collections.Generic;
+using AdvanceHelperWPF;
 
 namespace AHlibrary
 {
@@ -19,21 +21,20 @@ namespace AHlibrary
         DataTable dt;
         MySqlConnection conn;
         public string UserLogin;
+        string dbname = "projectdb";
+        string password = "root";
 
         /// <summary>
         /// Выполняет подключение к базе данных,
         /// после чего выгружает данные из
         /// определенной таблицы в DataGrid
         /// </summary>
-        /// <param name="dbname">Название базы данных</param>
         /// <param name="table">Передает таблицу, которая должна
         /// быть выведена в DataGrid</param>
         /// <param name="dataGrid">Передает элемент dataGrid,
         /// в который будут переданы данные из
         /// выбранной таблицы</param>
-        /// <param name="password">Пароль для
-        /// подключения к БД</param>
-        public void DB(string dbname, string table, DataGrid dataGrid, string password) //Подключение к БД
+        public void DB(string table, DataGrid dataGrid) //Подключение к БД
         {
             try
             {
@@ -54,23 +55,31 @@ namespace AHlibrary
         }
 
         /// <summary>
-        /// Заполнение таблицы
+        /// Получение информации о преподавателях из БД
         /// </summary>
         /// <param name="table"></param>
-        /// <param name="id_client"></param>
-        /// <param name="id_product"></param>
-        /// <param name="total"></param>
-        /// <param name="amount"></param>
-        public void AddValues(string table, int id_client, int id_product, int total, int amount)
+        /// <returns></returns>
+        public List<Teacher> GetTeachersFromDatabase(string table)
         {
-            string sql = $"INSERT INTO {table} (id_client, id_product, total, amount) VALUES (@clien, @prod, @tot, @am)";
-            MySqlCommand command = new MySqlCommand(sql, conn);
-            command.Parameters.AddWithValue("@clien", id_client);
-            command.Parameters.AddWithValue("@prod", id_product);
-            command.Parameters.AddWithValue("@tot", total);
-            command.Parameters.AddWithValue("@am", amount);
-            command.ExecuteNonQuery();
-
+            List<Teacher> teachers = new List<Teacher>();
+            using (conn = new MySqlConnection("server=localhost;user=root;database=" + dbname + ";port=3306;password=" + password + ";"))
+            {
+                conn.Open();
+                string sql = "SELECT * FROM " + table + " WHERE Дата_рождения AND Код_подразделения AND Путь_изображения IS NOT NULL";
+                MySqlCommand command = new MySqlCommand(sql, conn);
+                using (MySqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Teacher teacher = new Teacher(reader.GetString(1), reader.GetInt32(0), reader.GetString(4));
+                        teacher.Id = reader.GetInt32(0);
+                        teacher.Name = reader.GetString(1);
+                        teacher.ImagePath = reader.GetString(4);
+                        teachers.Add(teacher);
+                    }
+                }
+                return teachers;
+            }
         }
 
         /// <summary>
@@ -78,12 +87,12 @@ namespace AHlibrary
         /// </summary>
         /// <param name="table">Из какой таблицы получить элемент</param>
         /// <param name="inputItem">В каком столбце делать сравнение</param>
-        /// <param name="value">Откуда получить значение</param>
+        /// <param name="field">Откуда получить значение</param>
         /// <param name="textBox">С помощью какой строки получить элемент</param>
         /// <returns></returns>
-        public string GetValueByString(string table, string inputItem, string value, string textBox)
+        public string GetValueByString(string table, string inputItem, string field, string textBox)
         {
-            string sql = $"SELECT {value} FROM {table} WHERE {inputItem} = '{textBox}'";
+            string sql = $"SELECT {field} FROM {table} WHERE {inputItem} = '{textBox}'";
             MySqlCommand command = new MySqlCommand(sql, conn);
             string result = Convert.ToString(command.ExecuteScalar());
             return result;
@@ -110,19 +119,23 @@ namespace AHlibrary
         }
 
         /// <summary>
-        /// 
+        /// Заполнение Combobox
         /// </summary>
         /// <param name="comboBox"></param>
-        /// <param name="value"></param>
+        /// <param name="field"></param>
         /// <param name="table"></param>
-        public void FillCombobox(ComboBox comboBox, string value, string table)
+        public void FillCombobox(ComboBox comboBox, string field, string table)
         {
-            string sql = "SELECT " + value + " FROM " + table;
-            adapter = new MySqlDataAdapter(sql, conn);
-            dt = new DataTable();
-            adapter.Fill(dt);
-            comboBox.ItemsSource = dt.DefaultView;
-            comboBox.DisplayMemberPath = value;
+            using (conn = new MySqlConnection("server=localhost;user=root;database=" + dbname + ";port=3306;password=" + password + ";"))
+            {
+                conn.Open();
+                string sql = "SELECT " + field + " FROM " + table;
+                adapter = new MySqlDataAdapter(sql, conn);
+                dt = new DataTable();
+                adapter.Fill(dt);
+                comboBox.ItemsSource = dt.DefaultView;
+                comboBox.DisplayMemberPath = field;
+            }
         }
 
         /// <summary>
@@ -152,12 +165,11 @@ namespace AHlibrary
         /// </summary>
         /// <param name="textBox"></param>
         /// <param name="passwordBox"></param>
-        /// <param name="password"></param>
-        public bool AuthCheck(TextBox textBox, PasswordBox passwordBox, string password)
+        public bool AuthCheck(TextBox textBox, PasswordBox passwordBox)
         {
             try
             {
-                MySqlConnection conn = new MySqlConnection("server=localhost;user=root;database=projectdb;port=3306;password=" + password + ";");
+                MySqlConnection conn = new MySqlConnection("server=localhost;user=root;database=" + dbname + ";port=3306;password=" + password + ";");
                 string sql = "SELECT * FROM пользователи WHERE Логин = @login and Пароль = MD5(@pass)";
                 conn.Open();
 
@@ -180,7 +192,8 @@ namespace AHlibrary
                     //    UserRole(); // метод, который будет открывать разные формы в зависимости от пользователя
                 }
                 else { MessageBox.Show($"Неправильный логин или пароль."); return false; }
-            } catch (MySqlException) { MessageBox.Show("Отсутствует подключение к базе данных"); return false; }
+            }
+            catch (MySqlException) { MessageBox.Show("Отсутствует подключение к базе данных"); return false; }
         }
 
         //public void UserRole()

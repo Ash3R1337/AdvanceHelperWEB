@@ -38,7 +38,7 @@ namespace AdvanceHelperWEB
 
         private void OpenBtn_Click(object sender, RoutedEventArgs e)
         {
-            dBconnect.DB("projectdb", SelectTablesComboBox.Text.ToLower(), dataGrid, "root");
+            dBconnect.DB(SelectTablesComboBox.Text.ToLower(), dataGrid);
         }
 
         private void SaveBtn_Click(object sender, RoutedEventArgs e)

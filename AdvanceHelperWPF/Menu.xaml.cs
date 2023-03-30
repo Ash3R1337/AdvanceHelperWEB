@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using AdvanceHelperWPF;
+using System.Windows;
 
 namespace AdvanceHelperWEB
 {
@@ -32,6 +33,13 @@ namespace AdvanceHelperWEB
 
         private void ExitBtn_Click(object sender, RoutedEventArgs e)
         {
+            this.Close();
+        }
+
+        private void TeachersPortfolioBtn_Click(object sender, RoutedEventArgs e)
+        {
+            TeachersPortfolio teachersPortfolio = new TeachersPortfolio(userLogin);
+            teachersPortfolio.Show();
             this.Close();
         }
     }

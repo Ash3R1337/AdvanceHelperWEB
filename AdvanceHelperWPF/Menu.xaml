@@ -45,7 +45,7 @@
             </Button.Background>
         </Button>
         <Label x:Name="labelDot" Content="-----------------------------------------" Margin="10,62,0,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="#FF006C49" FontSize="22" FontFamily="Segoe UI Black" Width="382" Height="34" HorizontalAlignment="Left"/>
-        <Button x:Name="StartBtn_Copy" Content="Портфолио" HorizontalAlignment="Left" Margin="76,169,0,0" VerticalAlignment="Top" Width="249" Height="63" FontFamily="Segoe UI Semibold" FontSize="22" Foreground="Black" Cursor="Hand">
+        <Button x:Name="TeachersPortfolioBtn" Content="Портфолио" HorizontalAlignment="Left" Margin="76,169,0,0" VerticalAlignment="Top" Width="249" Height="63" FontFamily="Segoe UI Semibold" FontSize="22" Foreground="Black" Cursor="Hand" Click="TeachersPortfolioBtn_Click">
             <Button.Background>
                 <SolidColorBrush Color="#FF00FF97" Opacity="0.9"/>
             </Button.Background>

@@ -64,7 +64,7 @@ namespace AdvanceHelperWEB
         private void MenuOpenCheck()
         {
             DBconnect dbconnect = new DBconnect();
-            bool Auth = dbconnect.AuthCheck(LoginBox, PasswordHidden, "root");
+            bool Auth = dbconnect.AuthCheck(LoginBox, PasswordHidden);
             if (Auth == true)
             {
                 Menu menu = new Menu(LoginBox.Text);
