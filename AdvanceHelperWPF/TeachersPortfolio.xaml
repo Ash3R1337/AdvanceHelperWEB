@@ -61,6 +61,26 @@
                 <SolidColorBrush Color="Black" Opacity="0.5"/>
             </Label.Background>
         </Label>
+        <Label Content="Дата рождения:" HorizontalAlignment="Left" Margin="411,196,0,0" VerticalAlignment="Top" Width="246" Height="35" FontSize="20" Foreground="White">
+            <Label.Background>
+                <SolidColorBrush Color="Black" Opacity="0.5"/>
+            </Label.Background>
+        </Label>
+        <Label x:Name="BirthDate" Content="" HorizontalAlignment="Left" Margin="411,236,0,0" VerticalAlignment="Top" Width="246" Height="35" FontSize="20" Foreground="White">
+            <Label.Background>
+                <SolidColorBrush Color="#FF03247C" Opacity="0.5"/>
+            </Label.Background>
+        </Label>
+        <Label Content="Подразделение:" HorizontalAlignment="Left" Margin="411,276,0,0" VerticalAlignment="Top" Width="246" Height="35" FontSize="20" Foreground="White">
+            <Label.Background>
+                <SolidColorBrush Color="Black" Opacity="0.5"/>
+            </Label.Background>
+        </Label>
+        <Label x:Name="Subdivision" Content="" HorizontalAlignment="Left" Margin="411,316,0,0" VerticalAlignment="Top" Width="246" Height="35" FontSize="20" Foreground="White">
+            <Label.Background>
+                <SolidColorBrush Color="#FF03247C" Opacity="0.5"/>
+            </Label.Background>
+        </Label>
 
     </Grid>
 </Window>

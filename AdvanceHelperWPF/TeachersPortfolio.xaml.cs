@@ -19,8 +19,8 @@ namespace AdvanceHelperWPF
             DataContext = viewModel;
             // Загрузка изображения преподавателя по умолчанию
             viewModel.ImageSource = viewModel.SelectedTeacher.ImagePath;
-           // DBconnect dBconnect = new DBconnect();
-           // dBconnect.FillCombobox(TeacherSelector, "ФИО", "преподаватели");
+            BirthDate.Content = viewModel.SelectedTeacher.BirthDate;
+            Subdivision.Content = viewModel.SelectedTeacher.Subdivision;
             userLogin = UserLogin;
             labelLogin.Content = UserLogin;
         }
@@ -31,6 +31,8 @@ namespace AdvanceHelperWPF
             // Обновление изображения при выборе нового преподавателя
             viewModel.SelectedTeacher = (Teacher)TeacherSelector.SelectedItem;
             viewModel.ImageSource = viewModel.SelectedTeacher.ImagePath;
+            BirthDate.Content = viewModel.SelectedTeacher.BirthDate;
+            Subdivision.Content = viewModel.SelectedTeacher.Subdivision;
         }
 
         private void MainBtn_Click(object sender, RoutedEventArgs e)

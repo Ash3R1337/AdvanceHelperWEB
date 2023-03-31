@@ -71,9 +71,11 @@ namespace AHlibrary
                 {
                     while (reader.Read())
                     {
-                        Teacher teacher = new Teacher(reader.GetString(1), reader.GetInt32(0), reader.GetString(4));
+                        Teacher teacher = new Teacher(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetString(4));
                         teacher.Id = reader.GetInt32(0);
                         teacher.Name = reader.GetString(1);
+                        teacher.BirthDate = reader.GetString(2);
+                        teacher.Subdivision = reader.GetString(3);
                         teacher.ImagePath = reader.GetString(4);
                         teachers.Add(teacher);
                     }
