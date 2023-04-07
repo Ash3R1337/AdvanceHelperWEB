@@ -146,11 +146,18 @@
     <Compile Include="CatalogWindow.xaml.cs">
       <DependentUpon>CatalogWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Certificate.cs" />
+    <Compile Include="CertificatesWindow.xaml.cs">
+      <DependentUpon>CertificatesWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="FileRenameWindow.xaml.cs">
       <DependentUpon>FileRenameWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Menu.xaml.cs">
       <DependentUpon>Menu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Settings.xaml.cs">
+      <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
     <Compile Include="Start.xaml.cs">
       <DependentUpon>Start.xaml</DependentUpon>
@@ -164,6 +171,10 @@
       <DependentUpon>TeachersPortfolio.xaml</DependentUpon>
     </Compile>
     <Page Include="CatalogWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CertificatesWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -188,6 +199,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Menu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Settings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -244,6 +259,11 @@
     <SplashScreen Include="splash.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="cert4.png" />
+    <Resource Include="cert5.png" />
+    <Resource Include="cert1.png" />
+    <Resource Include="cert2.png" />
+    <Resource Include="cert3.png" />
     <Resource Include="person2.png" />
     <Resource Include="person3.png" />
     <Resource Include="person4.png" />
@@ -255,6 +275,8 @@
     <Resource Include="bg2.png" />
     <Resource Include="bg3.png" />
     <Resource Include="bg.png" />
+    <Resource Include="ArrowLeft.png" />
+    <Resource Include="ArrowRight.png" />
     <Content Include="bg.svg" />
   </ItemGroup>
   <ItemGroup>

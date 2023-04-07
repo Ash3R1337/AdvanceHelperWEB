@@ -1,0 +1,71 @@
+﻿<Window x:Class="AdvanceHelperWPF.CertificatesWindow" WindowStyle="None"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AdvanceHelperWPF"
+        mc:Ignorable="d"
+        Title="CertificatesWindow" Height="600" Width="735" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="15"
+                                Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="BlueStyle" Color="#FF0463A4" />
+        <LinearGradientBrush x:Key="gradientBlueStyle" StartPoint="0.5,1" EndPoint="0.5,0">
+            <GradientStop Color="#FF2291BB" Offset="0" />
+            <GradientStop Color="#FF1B77D3" Offset="1" />
+        </LinearGradientBrush>
+    </Window.Resources>
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="bg.png" Stretch="None"/>
+        </Grid.Background>
+        <Button x:Name="ExitBtn" Content="Закрыть" HorizontalAlignment="Left" Margin="10,540,0,0" VerticalAlignment="Top" Width="172" Background="#FF00422F" Height="50" FontFamily="Segoe UI Semibold" FontSize="20" Foreground="White" Click="ExitBtn_Click" Cursor="Hand"/>
+        <Button x:Name="PreviousCertificate" HorizontalAlignment="Left" Margin="591,540,0,0" VerticalAlignment="Top" Width="67" Height="50" FontFamily="Segoe UI Semibold" FontSize="20" Foreground="White" Cursor="Hand" Click="PreviousCertificate_Click">
+            <Button.Background>
+                <ImageBrush ImageSource="ArrowLeft.png"/>
+            </Button.Background>
+        </Button>
+        <Button x:Name="NextCertificate" HorizontalAlignment="Left" Margin="658,540,0,0" VerticalAlignment="Top" Width="67" Height="50" FontFamily="Segoe UI Semibold" FontSize="20" Foreground="White" Cursor="Hand" RenderTransformOrigin="1.362,0.595" Click="NextCertificate_Click">
+            <Button.Background>
+                <ImageBrush ImageSource="ArrowRight.png"/>
+            </Button.Background>
+        </Button>
+        <Rectangle HorizontalAlignment="Left" Height="525" Margin="10,10,0,0" Stroke="Black" VerticalAlignment="Top" Width="715">
+            <Rectangle.Fill>
+                <SolidColorBrush Color="Black" Opacity="0.495"/>
+            </Rectangle.Fill>
+        </Rectangle>
+        <Label x:Name="totalCertificates" Content="Количество документов:" Margin="187,540,0,0" Foreground="White" Height="50" Width="310" FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" BorderBrush="White" BorderThickness="1">
+            <Label.Background>
+                <SolidColorBrush Color="Black" Opacity="0.5"/>
+            </Label.Background>
+        </Label>
+        <Rectangle HorizontalAlignment="Left" Height="50" Margin="497,540,0,0" Stroke="White" VerticalAlignment="Top" Width="94" OpacityMask="Black">
+            <Rectangle.Fill>
+                <SolidColorBrush Color="Black" Opacity="0.495"/>
+            </Rectangle.Fill>
+        </Rectangle>
+        <Label x:Name="currentCertificate" Content="0/0" HorizontalAlignment="Center" Margin="502,545,149,16" VerticalAlignment="Center" FontSize="22" Foreground="White" Width="84" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <Image x:Name="certificateImage" Margin="35,35,35,90" RenderTransformOrigin="0.5,0.5">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform X="2"/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
+    </Grid>
+</Window>

@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using System.ComponentModel;
 using System.Windows.Forms;
 using AHlibrary;
+using AdvanceHelperWPF;
 
 namespace AdvanceHelperWEB
 {
@@ -291,6 +292,13 @@ namespace AdvanceHelperWEB
             }
             catch (DirectoryNotFoundException) { MessageBox.Show("Путь не выбран."); }
             catch (ArgumentException) { MessageBox.Show("Путь не выбран."); FilesList.Items.Clear(); }
+        }
+
+        private void TeacherPortfolioBtn_Click(object sender, RoutedEventArgs e)
+        {
+            TeachersPortfolio teachersPortfolio = new TeachersPortfolio(userLogin);
+            teachersPortfolio.Show();
+            this.Close();
         }
     }
 }

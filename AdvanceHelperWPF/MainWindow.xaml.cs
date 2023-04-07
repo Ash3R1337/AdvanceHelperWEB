@@ -53,14 +53,6 @@ namespace AdvanceHelperWEB
             }
         }
 
-        private void Window_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter)
-            {
-                MenuOpenCheck();
-            }
-        }
-
         private void MenuOpenCheck()
         {
             DBconnect dbconnect = new DBconnect();

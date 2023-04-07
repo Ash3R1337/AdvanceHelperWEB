@@ -85,6 +85,35 @@ namespace AHlibrary
         }
 
         /// <summary>
+        /// Получение информации о грамот преподавателей из БД
+        /// </summary>
+        /// <param name="table"></param>
+        /// <param name="IdTeacher"></param>
+        /// <returns></returns>
+        public List<Certificate> GetCertificatesFromDatabase(string table, int IdTeacher)
+        {
+            List<Certificate> certificates = new List<Certificate>();
+            using (conn = new MySqlConnection("server=localhost;user=root;database=" + dbname + ";port=3306;password=" + password + ";"))
+            {
+                conn.Open();
+                string sql = $"SELECT Код_грамоты, Наименование_грамоты, Путь_изображения FROM {table} WHERE Преподаватель = {IdTeacher}";
+                MySqlCommand command = new MySqlCommand(sql, conn);
+                using (MySqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Certificate certificate = new Certificate(reader.GetInt32(0), reader.GetString(1), reader.GetString(2));
+                        certificate.Id = reader.GetInt32(0);
+                        certificate.Name = reader.GetString(1);
+                        certificate.FilePath = reader.GetString(2);
+                        certificates.Add(certificate);
+                    }
+                }
+                return certificates;
+            }
+        }
+
+        /// <summary>
         /// Получение значения из таблицы
         /// </summary>
         /// <param name="table">Из какой таблицы получить элемент</param>

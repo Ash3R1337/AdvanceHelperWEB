@@ -25,28 +25,29 @@
             <GradientStop Color="#FF1B77D3" Offset="1" />
         </LinearGradientBrush>
     </Window.Resources>
-    <Window.Background>
-        <ImageBrush/>
-    </Window.Background>
     <Grid Width="1035" Height="800">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="257*"/>
+            <ColumnDefinition Width="778*"/>
+        </Grid.ColumnDefinitions>
         <Grid.Background>
             <ImageBrush ImageSource="bg3.png" Stretch="None"/>
         </Grid.Background>
-        <Rectangle HorizontalAlignment="Left" Height="575" Margin="10,74,0,0" Stroke="Black" VerticalAlignment="Top" Width="396">
+        <Rectangle HorizontalAlignment="Left" Height="575" Margin="10,74,0,0" Stroke="Black" VerticalAlignment="Top" Width="396" Grid.ColumnSpan="2">
             <Rectangle.Fill>
                 <SolidColorBrush Color="Black" Opacity="0.5"/>
             </Rectangle.Fill>
         </Rectangle>
 
-        <Rectangle x:Name="topPanel" Fill="#FFA1FFB2" HorizontalAlignment="Left" Height="66" Stroke="Black" VerticalAlignment="Top" Width="1035"/>
+        <Rectangle x:Name="topPanel" Fill="#FFA1FFB2" HorizontalAlignment="Left" Height="66" Stroke="Black" VerticalAlignment="Top" Width="1035" Grid.ColumnSpan="2"/>
         <Label x:Name="labelHeader" Content="AdvanceHelperWPF" HorizontalAlignment="Left" Margin="10,13,0,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="#FF026A49" FontSize="22" FontFamily="Segoe UI Black"/>
-        <Label x:Name="labelLogin" Content="Пользователь" HorizontalAlignment="Left" Margin="851,10,0,0" VerticalAlignment="Top" Foreground="White" FontSize="24">
+        <Label x:Name="labelLogin" Content="Пользователь" HorizontalAlignment="Left" Margin="594.284,10,0,0" VerticalAlignment="Top" Foreground="White" FontSize="24" Grid.Column="1">
             <Label.Background>
                 <SolidColorBrush Color="Black" Opacity="0.5"/>
             </Label.Background>
         </Label>
-        <Image Source="{Binding ImageSource}" HorizontalAlignment="Left" Height="535" Margin="30,94,0,0" VerticalAlignment="Top" Width="356" Stretch="Fill"/>
-        <ComboBox ItemsSource="{Binding Teachers}" SelectedItem="{Binding SelectedTeacher}" DisplayMemberPath="Name" x:Name="TeacherSelector" HorizontalAlignment="Left" Margin="411,114,0,0" VerticalAlignment="Top" Width="246" Height="35" SelectionChanged="TeacherSelector_SelectionChanged" Foreground="White" Style="{DynamicResource ComboBoxStyle1}" Background="#C9FFFFFF" BorderBrush="{DynamicResource ComboBox.Static.Glyph}" BorderThickness="2" FontSize="20">
+        <Image Source="{Binding ImageSource}" HorizontalAlignment="Left" Height="535" Margin="30,94,0,0" VerticalAlignment="Top" Width="356" Stretch="Fill" Grid.ColumnSpan="2"/>
+        <ComboBox ItemsSource="{Binding Teachers}" SelectedItem="{Binding SelectedTeacher}" DisplayMemberPath="Name" x:Name="TeacherSelector" HorizontalAlignment="Left" Margin="154.284,114,0,0" VerticalAlignment="Top" Width="246" Height="35" SelectionChanged="TeacherSelector_SelectionChanged" Foreground="White" Style="{DynamicResource ComboBoxStyle1}" Background="#C9FFFFFF" BorderBrush="{DynamicResource ComboBox.Static.Glyph}" BorderThickness="2" FontSize="20" Grid.Column="1">
             <ComboBox.ItemContainerStyle>
                 <Style TargetType="{x:Type ComboBoxItem}">
                     <Setter Property="Background" Value="#E5067A00"/>
@@ -56,31 +57,47 @@
         </ComboBox>
         <Button x:Name="MainBtn" Content="Главная " HorizontalAlignment="Left" Margin="10,654,0,0" VerticalAlignment="Top" Width="172" Background="#FF00422F" Height="50" FontFamily="Segoe UI Semibold" FontSize="20" Foreground="White" Cursor="Hand" Click="MainBtn_Click"/>
         <Button x:Name="ExitBtn" Content="Выход" HorizontalAlignment="Left" Margin="10,710,0,0" VerticalAlignment="Top" Width="172" Background="#FF00422F" Height="50" FontFamily="Segoe UI Semibold" FontSize="20" Foreground="White" Click="ExitBtn_Click" Cursor="Hand"/>
-        <Label Content="Преподаватель:" HorizontalAlignment="Left" Margin="411,74,0,0" VerticalAlignment="Top" Width="246" Height="35" FontSize="20" Foreground="White">
+        <Label Content="Преподаватель:" HorizontalAlignment="Left" Margin="154.284,74,0,0" VerticalAlignment="Top" Width="246" Height="35" FontSize="20" Foreground="White" Grid.Column="1">
             <Label.Background>
                 <SolidColorBrush Color="Black" Opacity="0.5"/>
             </Label.Background>
         </Label>
-        <Label Content="Дата рождения:" HorizontalAlignment="Left" Margin="411,196,0,0" VerticalAlignment="Top" Width="246" Height="35" FontSize="20" Foreground="White">
+        <Label Content="Дата рождения:" HorizontalAlignment="Left" Margin="154.284,196,0,0" VerticalAlignment="Top" Width="246" Height="35" FontSize="20" Foreground="White" Grid.Column="1">
             <Label.Background>
                 <SolidColorBrush Color="Black" Opacity="0.5"/>
             </Label.Background>
         </Label>
-        <Label x:Name="BirthDate" Content="" HorizontalAlignment="Left" Margin="411,236,0,0" VerticalAlignment="Top" Width="246" Height="35" FontSize="20" Foreground="White">
+        <Label x:Name="BirthDate" Content="" HorizontalAlignment="Left" Margin="154.284,236,0,0" VerticalAlignment="Top" Width="246" Height="35" FontSize="20" Foreground="White" Grid.Column="1">
             <Label.Background>
                 <SolidColorBrush Color="#FF03247C" Opacity="0.5"/>
             </Label.Background>
         </Label>
-        <Label Content="Подразделение:" HorizontalAlignment="Left" Margin="411,276,0,0" VerticalAlignment="Top" Width="246" Height="35" FontSize="20" Foreground="White">
+        <Label Content="Подразделение:" HorizontalAlignment="Left" Margin="154.284,276,0,0" VerticalAlignment="Top" Width="246" Height="35" FontSize="20" Foreground="White" Grid.Column="1">
             <Label.Background>
                 <SolidColorBrush Color="Black" Opacity="0.5"/>
             </Label.Background>
         </Label>
-        <Label x:Name="Subdivision" Content="" HorizontalAlignment="Left" Margin="411,316,0,0" VerticalAlignment="Top" Width="246" Height="35" FontSize="20" Foreground="White">
+        <Label x:Name="Subdivision" Content="" HorizontalAlignment="Left" Margin="154.284,316,0,0" VerticalAlignment="Top" Width="246" Height="35" FontSize="20" Foreground="White" Grid.Column="1">
             <Label.Background>
                 <SolidColorBrush Color="#FF03247C" Opacity="0.5"/>
             </Label.Background>
         </Label>
+        <Button x:Name="CertificatesBtn" Content="Достижения" HorizontalAlignment="Left" Margin="154.284,356,0,0" VerticalAlignment="Top" Width="246" Height="50" FontFamily="Segoe UI Semibold" FontSize="20" Foreground="Black" Cursor="Hand" Click="CertificatesBtn_Click" Grid.Column="1">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <LinearGradientBrush.RelativeTransform>
+                        <TransformGroup>
+                            <ScaleTransform CenterY="0.5" CenterX="0.5"/>
+                            <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                            <RotateTransform Angle="45" CenterY="0.5" CenterX="0.5"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </LinearGradientBrush.RelativeTransform>
+                    <GradientStop Color="#FFD4FF89" Offset="0"/>
+                    <GradientStop Color="#FF69FFAD" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
 
     </Grid>
 </Window>

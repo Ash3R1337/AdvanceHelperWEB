@@ -1,8 +1,8 @@
-﻿using System.Windows;
+﻿using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Controls;
 using Menu = AdvanceHelperWEB.Menu;
 using AHlibrary;
-using System.Diagnostics;
 
 namespace AdvanceHelperWPF
 {
@@ -37,14 +37,30 @@ namespace AdvanceHelperWPF
 
         private void MainBtn_Click(object sender, RoutedEventArgs e)
         {
-           Menu menu = new Menu(userLogin);
-           menu.Show();
-           this.Close();
+            Menu menu = new Menu(userLogin);
+            menu.Show();
+            this.Close();
         }
 
         private void ExitBtn_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void CertificatesBtn_Click(object sender, RoutedEventArgs e)
+        {
+            DBconnect dBconnect = new DBconnect();
+            List<Certificate> Certificates = new List<Certificate>();
+            if (viewModel.SelectedTeacher != null)
+            {
+                Certificates = dBconnect.GetCertificatesFromDatabase("грамоты", viewModel.SelectedTeacher.Id);
+                if (Certificates.Count > 0)
+                {
+                    CertificatesWindow certificatesWindow = new CertificatesWindow(Certificates);
+                    certificatesWindow.Show();
+                }
+                else MessageBox.Show("Грамоты и другие достижения не были обнаружены.");
+            }
         }
     }
 }
