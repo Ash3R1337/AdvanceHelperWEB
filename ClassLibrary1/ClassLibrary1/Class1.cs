@@ -21,8 +21,20 @@ namespace AHlibrary
         DataTable dt;
         MySqlConnection conn;
         public string UserLogin;
-        string dbname = "projectdb";
-        string password = "root";
+        FileHandler fileHandler = new FileHandler();
+        string dbusername;
+        string dbname;
+        string password;
+
+        /// <summary>
+        /// Инициализирует строки для подключения к базе данных
+        /// </summary>
+        public void dbConnectionStrings()
+        {
+            dbusername = fileHandler.GetPath("config.txt", "Имя пользователя базы данных: ");
+            dbname = fileHandler.GetPath("config.txt", "Название базы данных: ");
+            password = fileHandler.GetPath("config.txt", "Пароль базы данных: ");
+        }
 
         /// <summary>
         /// Выполняет подключение к базе данных,
@@ -38,7 +50,8 @@ namespace AHlibrary
         {
             try
             {
-                conn = new MySqlConnection("server=localhost;user=root;database=" + dbname + ";port=3306;password=" + password + ";");
+                dbConnectionStrings();
+                conn = new MySqlConnection($"server=localhost;user={dbusername};database={dbname};port=3306;password={password};");
                 string sql = "SELECT * FROM " + table;
                 adapter = new MySqlDataAdapter(sql, conn);
                 conn.Open();
@@ -62,7 +75,8 @@ namespace AHlibrary
         public List<Teacher> GetTeachersFromDatabase(string table)
         {
             List<Teacher> teachers = new List<Teacher>();
-            using (conn = new MySqlConnection("server=localhost;user=root;database=" + dbname + ";port=3306;password=" + password + ";"))
+            dbConnectionStrings();
+            using (conn = new MySqlConnection($"server=localhost;user={dbusername};database={dbname};port=3306;password={password};"))
             {
                 conn.Open();
                 string sql = "SELECT * FROM " + table + " WHERE Дата_рождения AND Код_подразделения AND Путь_изображения IS NOT NULL";
@@ -93,7 +107,8 @@ namespace AHlibrary
         public List<Certificate> GetCertificatesFromDatabase(string table, int IdTeacher)
         {
             List<Certificate> certificates = new List<Certificate>();
-            using (conn = new MySqlConnection("server=localhost;user=root;database=" + dbname + ";port=3306;password=" + password + ";"))
+            dbConnectionStrings();
+            using (conn = new MySqlConnection($"server=localhost;user={dbusername};database={dbname};port=3306;password={password};"))
             {
                 conn.Open();
                 string sql = $"SELECT Код_грамоты, Наименование_грамоты, Путь_изображения FROM {table} WHERE Преподаватель = {IdTeacher}";
@@ -157,7 +172,8 @@ namespace AHlibrary
         /// <param name="table"></param>
         public void FillCombobox(ComboBox comboBox, string field, string table)
         {
-            using (conn = new MySqlConnection("server=localhost;user=root;database=" + dbname + ";port=3306;password=" + password + ";"))
+            dbConnectionStrings();
+            using (conn = new MySqlConnection($"server=localhost;user={dbusername};database={dbname};port=3306;password={password};"))
             {
                 conn.Open();
                 string sql = "SELECT " + field + " FROM " + table;
@@ -200,7 +216,8 @@ namespace AHlibrary
         {
             try
             {
-                MySqlConnection conn = new MySqlConnection("server=localhost;user=root;database=" + dbname + ";port=3306;password=" + password + ";");
+                dbConnectionStrings();
+                MySqlConnection conn = new MySqlConnection($"server=localhost;user={dbusername};database={dbname};port=3306;password={password};");
                 string sql = "SELECT * FROM пользователи WHERE Логин = @login and Пароль = MD5(@pass)";
                 conn.Open();
 

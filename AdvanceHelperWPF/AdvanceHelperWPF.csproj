@@ -150,6 +150,7 @@
     <Compile Include="CertificatesWindow.xaml.cs">
       <DependentUpon>CertificatesWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="FileHandler.cs" />
     <Compile Include="FileRenameWindow.xaml.cs">
       <DependentUpon>FileRenameWindow.xaml</DependentUpon>
     </Compile>
@@ -259,6 +260,7 @@
     <SplashScreen Include="splash.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="bg4.png" />
     <Resource Include="cert4.png" />
     <Resource Include="cert5.png" />
     <Resource Include="cert1.png" />

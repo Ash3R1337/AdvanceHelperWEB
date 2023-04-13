@@ -8,6 +8,7 @@ using System.ComponentModel;
 using System.Windows.Forms;
 using AHlibrary;
 using AdvanceHelperWPF;
+using System.Linq;
 
 namespace AdvanceHelperWEB
 {
@@ -16,27 +17,22 @@ namespace AdvanceHelperWEB
     /// </summary>
     public partial class Start : Window
     {
+        string userLogin;
+        string DirPathStr; //Переменная, хранящая путь к текущей директории
+        FileHandler fileHandler = new FileHandler();
         public Start(string UserLogin)
         {
             InitializeComponent();
-            if (File.Exists("save.txt"))
+            if (File.Exists("config.txt"))
             {
-                DirPath.Text = File.ReadAllText("save.txt");
-                if (DirPath.Text.Length < 1) File.Delete("save.txt"); //Удаление файла, если сохраненный путь пустой
-                else
-                {
-                    DirPathStr = DirPath.Text;
-                    FilesAddtoListBox();
-                    DirectoriesAddtoListBox();
-                }
+                DirPathStr = fileHandler.GetPath("config.txt", "Путь к рабочей директории = "); //Получение пути из файла config.txt
+                DirPath.Text = DirPathStr;
+                FilesAddtoListBox();
+                DirectoriesAddtoListBox();
             }
             labelLogin.Content = UserLogin;
             userLogin = UserLogin;
         }
-
-        string userLogin;
-
-        string DirPathStr; //Переменная, хранящая путь к текущей директории
 
         private void ChBtn_Click(object sender, RoutedEventArgs e) //Выбор рабочей директории
         {
@@ -53,11 +49,6 @@ namespace AdvanceHelperWEB
                 DirPath.Text = folderBrowser.SelectedPath;
                 DirPathStr = DirPath.Text;
             }
-        }
-
-        private void EnterBtn_Copy7_Click(object sender, RoutedEventArgs e)
-        {
-
         }
 
         private void SortBtn_Click(object sender, RoutedEventArgs e) //Распределение файлов по директориям
@@ -82,7 +73,8 @@ namespace AdvanceHelperWEB
 
         private void SaveBtn_Click(object sender, RoutedEventArgs e) //Сохранение выбранной директории в файл
         {
-            FileSave("save.txt", DirPath.Text);
+            fileHandler.FileSave("config.txt", DirPath.Text, "Путь к рабочей директории = ");
+            MessageBox.Show("Путь был успешно сохранен.");
         }
 
         private void MainBtn_Click(object sender, RoutedEventArgs e)
@@ -183,20 +175,6 @@ namespace AdvanceHelperWEB
             FilesAddtoListBox();
         }
 
-        public void FileSave(string file, string DirPath) //Сохранение файла
-        {
-            FileStream fileStream = null;
-            if (!File.Exists(file))
-                fileStream = File.Create(file);
-            else
-                fileStream = File.OpenWrite(file);
-
-            StreamWriter output = new StreamWriter(fileStream);
-            output.Close();
-            File.WriteAllText(file, DirPath);
-            MessageBox.Show("Путь был успешно сохранен.");
-        }
-
         public bool CreateCatalog(string DirPath) //Создание папки
         {
             CatalogWindow catalogWindow = new CatalogWindow();
@@ -225,8 +203,14 @@ namespace AdvanceHelperWEB
         {
             try
             {
+                string[] formats = fileHandler.GetPath("config.txt", "Доступные форматы файлов (через запятую): ").Split(',');
+                string pattern = "";
+                foreach (string format in formats)
+                {
+                    pattern += "." + format;
+                }
                 FilesList.Items.Clear();
-                string[] AllFiles = Directory.GetFiles(DirPathStr, "*.docx", SearchOption.TopDirectoryOnly);
+                string[] AllFiles = Directory.EnumerateFiles(DirPathStr).Where(file => pattern.Contains(Path.GetExtension(file).ToLower())).ToArray();
                 Array.Copy(AllFiles, ListBoxFiles = new string[AllFiles.Length], AllFiles.Length);
                 foreach (string filename in AllFiles)
                 {

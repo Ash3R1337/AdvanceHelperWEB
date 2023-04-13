@@ -42,5 +42,12 @@ namespace AdvanceHelperWEB
             teachersPortfolio.Show();
             this.Close();
         }
+
+        private void SettingsBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Settings settings = new Settings(userLogin);
+            settings.Show();
+            this.Close();
+        }
     }
 }

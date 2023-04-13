@@ -50,7 +50,7 @@
                 <SolidColorBrush Color="#FF00FF97" Opacity="0.9"/>
             </Button.Background>
         </Button>
-        <Button x:Name="StartBtn_Copy1" Content="Настройки" HorizontalAlignment="Left" Margin="76,305,0,0" VerticalAlignment="Top" Width="249" Height="63" FontFamily="Segoe UI Semibold" FontSize="22" Foreground="Black" Cursor="Hand">
+        <Button x:Name="SettingsBtn" Content="Настройки" HorizontalAlignment="Left" Margin="76,305,0,0" VerticalAlignment="Top" Width="249" Height="63" FontFamily="Segoe UI Semibold" FontSize="22" Foreground="Black" Cursor="Hand" Click="SettingsBtn_Click">
             <Button.Background>
                 <SolidColorBrush Color="#FF00FF97" Opacity="0.9"/>
             </Button.Background>
