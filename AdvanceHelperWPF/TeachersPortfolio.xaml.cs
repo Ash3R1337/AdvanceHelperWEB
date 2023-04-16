@@ -12,7 +12,9 @@ namespace AdvanceHelperWPF
     public partial class TeachersPortfolio : Window
     {
         private TeacherPortfolioViewModel viewModel;
-        public TeachersPortfolio(string UserLogin)
+        string userLogin;
+        string userStatus;
+        public TeachersPortfolio(string UserLogin, string UserStatus)
         {
             InitializeComponent();
             viewModel = new TeacherPortfolioViewModel();
@@ -22,9 +24,9 @@ namespace AdvanceHelperWPF
             BirthDate.Content = viewModel.SelectedTeacher.BirthDate;
             Subdivision.Content = viewModel.SelectedTeacher.Subdivision;
             userLogin = UserLogin;
+            userStatus = UserStatus;
             labelLogin.Content = UserLogin;
         }
-        string userLogin;
 
         private void TeacherSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -37,7 +39,7 @@ namespace AdvanceHelperWPF
 
         private void MainBtn_Click(object sender, RoutedEventArgs e)
         {
-            Menu menu = new Menu(userLogin);
+            Menu menu = new Menu(userLogin, userStatus);
             menu.Show();
             this.Close();
         }

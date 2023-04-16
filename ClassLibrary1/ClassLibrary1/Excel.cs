@@ -7,6 +7,7 @@ using MySql.Data.MySqlClient;
 using System.IO;
 using System.Diagnostics;
 using System.Linq;
+using AdvanceHelperWPF;
 
 namespace AHlibrary
 {
@@ -17,6 +18,17 @@ namespace AHlibrary
     public class Excel
     {
         MySqlConnection conn;
+        string dbusername;
+        string dbname;
+        string password;
+        FileHandler fileHandler = new FileHandler();
+
+        public void dbConnectionStrings()
+        {
+            dbusername = fileHandler.GetPath("config.txt", "Имя пользователя базы данных: ");
+            dbname = fileHandler.GetPath("config.txt", "Название базы данных: ");
+            password = fileHandler.GetPath("config.txt", "Пароль базы данных: ");
+        }
 
         /// <summary>
         /// Создает Excel-документ
@@ -46,7 +58,8 @@ namespace AHlibrary
         /// <param name="sheet"></param>
         public void ExcelGenerator(ExcelWorksheet sheet) //Формирование Excel документа
         {
-            conn = new MySqlConnection("server=localhost;user=root;database=projectdb;port=3306;password=root;");
+            dbConnectionStrings();
+            conn = new MySqlConnection($"server=localhost;user={dbusername};database={dbname};port=3306;password={password};");
             /*Добавление колонок*/
             sheet.Cells[1, 1].Value = "Индекс";
             sheet.Cells[1, 2].Value = "Наименование\nОП";

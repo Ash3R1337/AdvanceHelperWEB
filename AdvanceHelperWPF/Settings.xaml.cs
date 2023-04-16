@@ -16,12 +16,14 @@ namespace AdvanceHelperWPF
         string dbname;
         string password;
         string userLogin;
+        string userStatus;
         FileHandler fileHandler = new FileHandler();
-        public Settings(string UserLogin)
+        public Settings(string UserLogin, string UserStatus)
         {
             InitializeComponent();
             SettingsTextBlock.Text = $"Версия программы: 1.1.0\nПользователь: {UserLogin}";
             userLogin = UserLogin;
+            userStatus = UserStatus;
             if (File.Exists("config.txt"))
             {
                 DirPathStr = fileHandler.GetPath("config.txt", "Путь к рабочей директории = ");
@@ -43,7 +45,7 @@ namespace AdvanceHelperWPF
 
         private void MainBtn_Click(object sender, RoutedEventArgs e)
         {
-            Menu menu = new Menu(userLogin);
+            Menu menu = new Menu(userLogin, userStatus);
             menu.Show();
             this.Close();
         }

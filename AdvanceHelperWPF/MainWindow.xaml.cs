@@ -59,7 +59,10 @@ namespace AdvanceHelperWEB
             bool Auth = dbconnect.AuthCheck(LoginBox, PasswordHidden);
             if (Auth == true)
             {
-                Menu menu = new Menu(LoginBox.Text);
+                /*string UserStatus = dbconnect.GetValueByString("пользователи", "Логин", "Статус", LoginBox.Text);
+                MessageBox.Show(UserStatus);*/
+                string UserStatus = "test";
+                Menu menu = new Menu(LoginBox.Text, UserStatus);
                 menu.Show();
                 this.Close();
             }

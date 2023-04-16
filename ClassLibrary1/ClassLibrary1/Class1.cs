@@ -138,10 +138,16 @@ namespace AHlibrary
         /// <returns></returns>
         public string GetValueByString(string table, string inputItem, string field, string textBox)
         {
-            string sql = $"SELECT {field} FROM {table} WHERE {inputItem} = '{textBox}'";
-            MySqlCommand command = new MySqlCommand(sql, conn);
-            string result = Convert.ToString(command.ExecuteScalar());
-            return result;
+            dbConnectionStrings();
+            using (conn = new MySqlConnection($"server=localhost;user={dbusername};database={dbname};port=3306;password={password};"))
+            {
+                string sql = $"SELECT Статус FROM пользователи WHERE Логин = @login";
+                //string sql = $"SELECT {field} FROM {table} WHERE {inputItem} = '{textBox}'";
+                MySqlCommand command = new MySqlCommand(sql, conn);
+                command.Parameters.AddWithValue("@login", "admin");
+                string result = Convert.ToString(command.ExecuteScalar());
+                return result;
+            }
         }
 
         /// <summary>
@@ -234,40 +240,10 @@ namespace AHlibrary
                 adapter.SelectCommand = command;
                 adapter.Fill(table);
 
-                if (table.Rows.Count > 0)
-                {
-                    return true;
-                    //    UserRole(); // метод, который будет открывать разные формы в зависимости от пользователя
-                }
+                if (table.Rows.Count > 0) return true;
                 else { MessageBox.Show($"Неправильный логин или пароль."); return false; }
             }
             catch (MySqlException) { MessageBox.Show("Отсутствует подключение к базе данных"); return false; }
         }
-
-        //public void UserRole()
-        //{
-        //    string UserName = TextBox1.Text;
-
-        //    string connStr = "server=localhost; port=3306; username=root; password= root; database=bd;";
-        //    string sql = "SELECT User_Role FROM `user` WHERE `Name` = @un";
-
-        //    MySqlConnection conn = new MySqlConnection(connStr);
-        //    conn.Open();
-
-        //    MySqlParameter nameParam = new MySqlParameter("@un", UserName);
-
-        //    MySqlCommand command = new MySqlCommand(sql, conn);
-        //    command.Parameters.Add(nameParam);
-
-        //    string Form_Role = command.ExecuteScalar().ToString();
-
-        //    Switch(Form_Role):
-        //    {
-        //        case "Администратор": Form.ActiveForm.Close(); Form1 f1 = new Form1(); f1.Show();
-        //        break;
-        //        default:  Form.ActiveForm.Close(); Form2 f2 = new Form2(); f2.Show();
-        //    }
-        //    conn.Close();
-        //}
     }
 }

@@ -18,9 +18,10 @@ namespace AdvanceHelperWEB
     public partial class Start : Window
     {
         string userLogin;
+        string userStatus;
         string DirPathStr; //Переменная, хранящая путь к текущей директории
         FileHandler fileHandler = new FileHandler();
-        public Start(string UserLogin)
+        public Start(string UserLogin, string UserStatus)
         {
             InitializeComponent();
             if (File.Exists("config.txt"))
@@ -32,6 +33,7 @@ namespace AdvanceHelperWEB
             }
             labelLogin.Content = UserLogin;
             userLogin = UserLogin;
+            userStatus = UserStatus;
         }
 
         private void ChBtn_Click(object sender, RoutedEventArgs e) //Выбор рабочей директории
@@ -79,7 +81,7 @@ namespace AdvanceHelperWEB
 
         private void MainBtn_Click(object sender, RoutedEventArgs e)
         {
-            Menu menu = new Menu(userLogin);
+            Menu menu = new Menu(userLogin, userStatus);
             menu.Show();
             this.Close();
         }
@@ -280,7 +282,7 @@ namespace AdvanceHelperWEB
 
         private void TeacherPortfolioBtn_Click(object sender, RoutedEventArgs e)
         {
-            TeachersPortfolio teachersPortfolio = new TeachersPortfolio(userLogin);
+            TeachersPortfolio teachersPortfolio = new TeachersPortfolio(userLogin, userStatus);
             teachersPortfolio.Show();
             this.Close();
         }

@@ -8,25 +8,26 @@ namespace AdvanceHelperWEB
     /// </summary>
     public partial class Menu : Window
     {
-        public Menu(string UserLogin)
+        string userLogin;
+        string userStatus;
+        public Menu(string UserLogin, string UserStatus)
         {
             InitializeComponent();
             labelHeaderLogin.Content = $"Добро пожаловать {UserLogin}! С чего начнем?";
             userLogin = UserLogin;
+            userStatus = UserStatus;
         }
-
-        string userLogin;
 
         private void StartBtn_Click(object sender, RoutedEventArgs e)
         {
-            Start start = new Start(userLogin);
+            Start start = new Start(userLogin, userStatus);
             start.Show();
             this.Close();
         }
 
         private void Tables_Click(object sender, RoutedEventArgs e)
         {
-            Tables tables = new Tables(userLogin);
+            Tables tables = new Tables(userLogin, userStatus);
             tables.Show();
             this.Close();
         }
@@ -38,14 +39,14 @@ namespace AdvanceHelperWEB
 
         private void TeachersPortfolioBtn_Click(object sender, RoutedEventArgs e)
         {
-            TeachersPortfolio teachersPortfolio = new TeachersPortfolio(userLogin);
+            TeachersPortfolio teachersPortfolio = new TeachersPortfolio(userLogin, userStatus);
             teachersPortfolio.Show();
             this.Close();
         }
 
         private void SettingsBtn_Click(object sender, RoutedEventArgs e)
         {
-            Settings settings = new Settings(userLogin);
+            Settings settings = new Settings(userLogin, userStatus);
             settings.Show();
             this.Close();
         }
