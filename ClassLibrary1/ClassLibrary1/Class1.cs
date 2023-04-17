@@ -20,6 +20,9 @@ namespace AHlibrary
         DbDataAdapter adapter;
         DataTable dt;
         MySqlConnection conn;
+        /// <summary>
+        /// 
+        /// </summary>
         public string UserLogin;
         FileHandler fileHandler = new FileHandler();
         string dbusername;

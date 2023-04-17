@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Windows;
 
 namespace AdvanceHelperWPF
 {
@@ -6,17 +7,22 @@ namespace AdvanceHelperWPF
     {
         public string GetPath(string FileName, string SubLine)
         {
-            string DirPathStr = "";
-            using (StreamReader sr = new StreamReader(FileName))
+            try
             {
-                string line;
-                while ((line = sr.ReadLine()) != null)
+                string DirPathStr = "";
+                using (StreamReader sr = new StreamReader(FileName))
                 {
-                    if (line.StartsWith(SubLine))
-                        return DirPathStr = line.Substring(SubLine.Length);
+                    string line;
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        if (line.StartsWith(SubLine))
+                            return DirPathStr = line.Substring(SubLine.Length);
+                    }
+                    return DirPathStr;
                 }
-                return DirPathStr;
             }
+            catch (System.IO.FileNotFoundException) {MessageBox.Show("Файл config.txt не обнаружен"); return ""; }
+
         }
 
         public void FileSave(string file, string DirPath, string SubLine) //Сохранение файла

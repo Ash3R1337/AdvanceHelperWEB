@@ -23,6 +23,9 @@ namespace AHlibrary
         string password;
         FileHandler fileHandler = new FileHandler();
 
+        /// <summary>
+        /// Добавляет строки подключения из файла
+        /// </summary>
         public void dbConnectionStrings()
         {
             dbusername = fileHandler.GetPath("config.txt", "Имя пользователя базы данных: ");
@@ -216,6 +219,13 @@ namespace AHlibrary
             return result;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Student"></param>
+        /// <param name="Work"></param>
+        /// <param name="Estimate"></param>
+        /// <param name="FileName"></param>
         public void ExcelAddValues(string Student, string Work, string Estimate, string FileName) //Заполнение ячеек таблицы
         {
             ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
