@@ -76,6 +76,9 @@
   <PropertyGroup>
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>favicon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Caliburn.Micro.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
       <HintPath>packages\Caliburn.Micro.Core.4.0.212\lib\netstandard2.0\Caliburn.Micro.Core.dll</HintPath>
@@ -269,6 +272,8 @@
     <SplashScreen Include="splash.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="favicon.ico" />
+    <Resource Include="logo.png" />
     <Resource Include="bg4.png" />
     <Resource Include="cert4.png" />
     <Resource Include="cert5.png" />
