@@ -88,12 +88,16 @@ namespace AHlibrary
                 {
                     while (reader.Read())
                     {
-                        Teacher teacher = new Teacher(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetString(4));
+                        Teacher teacher = new Teacher(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetString(4), reader.GetString(5), reader.GetString(6), reader.GetString(7), reader.GetString(8));
                         teacher.Id = reader.GetInt32(0);
                         teacher.Name = reader.GetString(1);
                         teacher.BirthDate = reader.GetString(2);
                         teacher.Subdivision = reader.GetString(3);
                         teacher.ImagePath = reader.GetString(4);
+                        teacher.WorkExp = reader.GetString(5);
+                        teacher.Specialization = reader.GetString(6);
+                        teacher.Phone = reader.GetString(7);
+                        teacher.Email = reader.GetString(8);
                         teachers.Add(teacher);
                     }
                 }
@@ -132,6 +136,28 @@ namespace AHlibrary
         }
 
         /// <summary>
+        /// Получает количество из таблицы по id
+        /// </summary> 
+        /// <param name="table"></param>
+        /// <param name="fieldCount"></param>
+        /// <param name="field"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public int GetCount(string table, string fieldCount, string field, int id)
+        {
+            dbConnectionStrings();
+            using (conn = new MySqlConnection($"server=localhost;user={dbusername};database={dbname};port=3306;password={password};"))
+            {
+                conn.Open();
+                string sql = $"SELECT count({fieldCount}) FROM {table} WHERE {field} = @id";
+                MySqlCommand command = new MySqlCommand(sql, conn);
+                command.Parameters.AddWithValue("@id", id);
+                int result = Convert.ToInt32(command.ExecuteScalar());
+                return result;
+            }
+        }
+
+        /// <summary>
         /// Получение значения из таблицы
         /// </summary>
         /// <param name="table">Из какой таблицы получить элемент</param>
@@ -144,6 +170,7 @@ namespace AHlibrary
             dbConnectionStrings();
             using (conn = new MySqlConnection($"server=localhost;user={dbusername};database={dbname};port=3306;password={password};"))
             {
+                conn.Open();
                 string sql = $"SELECT Статус FROM пользователи WHERE Логин = @login";
                 //string sql = $"SELECT {field} FROM {table} WHERE {inputItem} = '{textBox}'";
                 MySqlCommand command = new MySqlCommand(sql, conn);

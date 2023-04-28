@@ -14,6 +14,7 @@ namespace AdvanceHelperWPF
         private TeacherPortfolioViewModel viewModel;
         string userLogin;
         string userStatus;
+        DBconnect dBconnect = new DBconnect();
         public TeachersPortfolio(string UserLogin, string UserStatus)
         {
             InitializeComponent();
@@ -23,6 +24,11 @@ namespace AdvanceHelperWPF
             viewModel.ImageSource = viewModel.SelectedTeacher.ImagePath;
             BirthDate.Content = viewModel.SelectedTeacher.BirthDate;
             Subdivision.Content = viewModel.SelectedTeacher.Subdivision;
+            WorkExp.Content = viewModel.SelectedTeacher.WorkExp;
+            Specialization.Text = viewModel.SelectedTeacher.Specialization;
+            Phone.Content = viewModel.SelectedTeacher.Phone;
+            Email.Content = viewModel.SelectedTeacher.Email;
+            MaterialsCount.Content = dBconnect.GetCount("материалы", "Код_Материала", "Код_преподавателя", viewModel.SelectedTeacher.Id);
             userLogin = UserLogin;
             userStatus = UserStatus;
             labelLogin.Content = UserLogin;
@@ -35,6 +41,11 @@ namespace AdvanceHelperWPF
             viewModel.ImageSource = viewModel.SelectedTeacher.ImagePath;
             BirthDate.Content = viewModel.SelectedTeacher.BirthDate;
             Subdivision.Content = viewModel.SelectedTeacher.Subdivision;
+            WorkExp.Content = viewModel.SelectedTeacher.WorkExp;
+            Specialization.Text = viewModel.SelectedTeacher.Specialization;
+            Phone.Content = viewModel.SelectedTeacher.Phone;
+            Email.Content = viewModel.SelectedTeacher.Email;
+            MaterialsCount.Content = dBconnect.GetCount("материалы", "Код_Материала", "Код_преподавателя", viewModel.SelectedTeacher.Id);
         }
 
         private void MainBtn_Click(object sender, RoutedEventArgs e)
@@ -51,7 +62,6 @@ namespace AdvanceHelperWPF
 
         private void CertificatesBtn_Click(object sender, RoutedEventArgs e)
         {
-            DBconnect dBconnect = new DBconnect();
             List<Certificate> Certificates = new List<Certificate>();
             if (viewModel.SelectedTeacher != null)
             {
