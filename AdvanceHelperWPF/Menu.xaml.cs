@@ -16,6 +16,11 @@ namespace AdvanceHelperWEB
             labelHeaderLogin.Content = $"Добро пожаловать {UserLogin}! С чего начнем?";
             userLogin = UserLogin;
             userStatus = UserStatus;
+            if (UserStatus == "администратор")
+            {
+                StartBtn.Visibility = Visibility.Hidden;
+                StatisticsBtn.Visibility = Visibility.Visible;
+            }
         }
 
         private void StartBtn_Click(object sender, RoutedEventArgs e)
@@ -48,6 +53,13 @@ namespace AdvanceHelperWEB
         {
             Settings settings = new Settings(userLogin, userStatus);
             settings.Show();
+            this.Close();
+        }
+
+        private void StatisticsBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Statistics statistics = new Statistics(userLogin, userStatus);
+            statistics.Show();
             this.Close();
         }
     }

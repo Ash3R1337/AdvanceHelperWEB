@@ -24,6 +24,8 @@ namespace AdvanceHelperWEB
             labelLogin.Content = UserLogin;
             userLogin = UserLogin;
             userStatus = UserStatus;
+            if (UserStatus == "Администратор БД")
+                MainBtn.Visibility = Visibility.Hidden;
         }
 
         private void ExitBtn_Click(object sender, RoutedEventArgs e)
@@ -45,8 +47,10 @@ namespace AdvanceHelperWEB
 
         private void SaveBtn_Click(object sender, RoutedEventArgs e)
         {
-            dBconnect.SaveTable();
-            MessageBox.Show("Таблица была успешно сохранена");
+            if (SelectTablesComboBox.Text == "Пользователи")
+                dBconnect.SaveUsersTable();
+            else
+                dBconnect.SaveTable();
         }
     }
 }

@@ -114,7 +114,7 @@ namespace AHlibrary
             string sql = "SELECT Индекс, Наименование_предмета, Титул_РП, РП, Титул_ФОС, ФОС, ВнутрРец, ЭкспЗакл, ВСРС, МУПР, ФИО " +
                 "FROM материалы JOIN предметы ON материалы.Код_предмета = предметы.Код_предмета " +
                 "JOIN преподаватели ON материалы.Код_преподавателя = преподаватели.Код_преподавателя " +
-                $"WHERE Код_специальности = {id}";
+                $"WHERE CONCAT(',', Код_специальности, ',') LIKE '%,{id},%'";
             MySqlCommand command = new MySqlCommand(sql, conn);
             var reader = command.ExecuteReader();
             while (reader.Read())

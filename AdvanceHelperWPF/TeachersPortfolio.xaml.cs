@@ -23,7 +23,7 @@ namespace AdvanceHelperWPF
             // Загрузка изображения преподавателя по умолчанию
             viewModel.ImageSource = viewModel.SelectedTeacher.ImagePath;
             BirthDate.Content = viewModel.SelectedTeacher.BirthDate;
-            Subdivision.Content = viewModel.SelectedTeacher.Subdivision;
+            Subdivision.Text = dBconnect.GetValueByString("Цикловая_комиссия", "подразделение", "Код_подразделения", viewModel.SelectedTeacher.Subdivision);
             WorkExp.Content = viewModel.SelectedTeacher.WorkExp;
             Specialization.Text = viewModel.SelectedTeacher.Specialization;
             Phone.Content = viewModel.SelectedTeacher.Phone;
@@ -40,7 +40,7 @@ namespace AdvanceHelperWPF
             viewModel.SelectedTeacher = (Teacher)TeacherSelector.SelectedItem;
             viewModel.ImageSource = viewModel.SelectedTeacher.ImagePath;
             BirthDate.Content = viewModel.SelectedTeacher.BirthDate;
-            Subdivision.Content = viewModel.SelectedTeacher.Subdivision;
+            Subdivision.Text = dBconnect.GetValueByString("Цикловая_комиссия", "подразделение", "Код_подразделения", viewModel.SelectedTeacher.Subdivision);
             WorkExp.Content = viewModel.SelectedTeacher.WorkExp;
             Specialization.Text = viewModel.SelectedTeacher.Specialization;
             Phone.Content = viewModel.SelectedTeacher.Phone;

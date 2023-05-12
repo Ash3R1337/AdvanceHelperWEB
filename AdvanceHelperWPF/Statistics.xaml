@@ -1,0 +1,234 @@
+﻿<Window x:Class="AdvanceHelperWPF.Statistics"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AdvanceHelperWPF"
+        mc:Ignorable="d"
+        Title="Статистика" Width="910" Height="800" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Window.Background>
+        <ImageBrush/>
+    </Window.Background>
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="15"
+                                Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="BlueStyle" Color="#FF0463A4" />
+        <LinearGradientBrush x:Key="gradientBlueStyle" StartPoint="0.5,1" EndPoint="0.5,0">
+            <GradientStop Color="#FF2291BB" Offset="0" />
+            <GradientStop Color="#FF1B77D3" Offset="1" />
+        </LinearGradientBrush>
+    </Window.Resources>
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="bg3.png" Stretch="None"/>
+        </Grid.Background>
+        <Rectangle x:Name="topPanel" Fill="#FFA1FFB2" HorizontalAlignment="Left" Height="66" Stroke="Black" VerticalAlignment="Top" Width="1035"/>
+        <Label x:Name="labelLogin" Content="Пользователь" HorizontalAlignment="Left" Margin="747,10,0,0" VerticalAlignment="Top" Foreground="White" FontSize="24" Height="42" Width="163">
+            <Label.Background>
+                <SolidColorBrush Color="Black" Opacity="0.5"/>
+            </Label.Background>
+        </Label>
+        <Label x:Name="labelHeader" Content="AdvanceHelperWPF" HorizontalAlignment="Left" Margin="10,13,0,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="#FF026A49" FontSize="22" FontFamily="Segoe UI Black" Height="39" Width="225"/>
+        <Label Content="Грамоты" HorizontalAlignment="Left" Margin="0,71,0,0" VerticalAlignment="Top" Width="300" Height="88" FontSize="25" Foreground="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold">
+            <Label.Background>
+                <SolidColorBrush Color="White" Opacity="0.5"/>
+            </Label.Background>
+        </Label>
+        <Label Content="Преподаватель:" HorizontalAlignment="Left" Margin="0,164,0,0" VerticalAlignment="Top" Width="605" Height="35" FontSize="20" Foreground="White">
+            <Label.Background>
+                <SolidColorBrush Color="Black" Opacity="0.5"/>
+            </Label.Background>
+        </Label>
+        <ComboBox ItemsSource="{Binding Teachers}" SelectedItem="{Binding SelectedTeacher}" DisplayMemberPath="Name" x:Name="TeacherSelector" HorizontalAlignment="Left" Margin="0,204,0,0" VerticalAlignment="Top" Width="605" Height="35" SelectionChanged="TeacherSelector_SelectionChanged" Foreground="White" Style="{DynamicResource ComboBoxStyle1}" Background="#C9FFFFFF" BorderBrush="{DynamicResource ComboBox.Static.Glyph}" BorderThickness="2" FontSize="20">
+            <ComboBox.ItemContainerStyle>
+                <Style TargetType="{x:Type ComboBoxItem}">
+                    <Setter Property="Background" Value="#E5067A00"/>
+                    <Setter Property="BorderBrush" Value="Yellow"/>
+                </Style>
+            </ComboBox.ItemContainerStyle>
+        </ComboBox>
+        <Label Content="Количество грамот:" HorizontalAlignment="Left" Margin="0,244,0,0" VerticalAlignment="Top" Width="300" Height="35" FontSize="20" Foreground="White">
+            <Label.Background>
+                <SolidColorBrush Color="Black" Opacity="0.5"/>
+            </Label.Background>
+        </Label>
+        <Label x:Name="Certificates" Content="" HorizontalAlignment="Left" Margin="0,284,0,0" VerticalAlignment="Top" Width="300" Height="35" FontSize="20" Foreground="White">
+            <Label.Background>
+                <SolidColorBrush Color="#FF03247C" Opacity="0.5"/>
+            </Label.Background>
+        </Label>
+        <Button x:Name="MainBtn" Content="Главная " HorizontalAlignment="Left" Margin="187,710,0,0" VerticalAlignment="Top" Width="172" Background="#FF00422F" Height="50" FontFamily="Segoe UI Semibold" FontSize="20" Foreground="White" Cursor="Hand" Click="MainBtn_Click"/>
+        <Button x:Name="ExitBtn" Content="Выход" HorizontalAlignment="Left" Margin="10,710,0,0" VerticalAlignment="Top" Width="172" Background="#FF00422F" Height="50" FontFamily="Segoe UI Semibold" FontSize="20" Foreground="White" Click="ExitBtn_Click" Cursor="Hand"/>
+        <Label Content="Общее количество грамот:" HorizontalAlignment="Left" Margin="0,324,0,0" VerticalAlignment="Top" Width="300" Height="35" FontSize="20" Foreground="White">
+            <Label.Background>
+                <SolidColorBrush Color="Black" Opacity="0.5"/>
+            </Label.Background>
+        </Label>
+        <Label x:Name="CertificatesAll" Content="" HorizontalAlignment="Left" Margin="0,364,0,0" VerticalAlignment="Top" Width="300" Height="35" FontSize="20" Foreground="White">
+            <Label.Background>
+                <SolidColorBrush Color="#FF03247C" Opacity="0.5"/>
+            </Label.Background>
+        </Label>
+        <Label Content="Материалы" HorizontalAlignment="Left" Margin="305,71,0,0" VerticalAlignment="Top" Width="300" Height="88" FontSize="25" Foreground="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold">
+            <Label.Background>
+                <SolidColorBrush Color="White" Opacity="0.5"/>
+            </Label.Background>
+        </Label>
+        <Label Content="Количество материалов:" HorizontalAlignment="Left" Margin="305,244,0,0" VerticalAlignment="Top" Width="300" Height="35" FontSize="20" Foreground="White">
+            <Label.Background>
+                <SolidColorBrush Color="Black" Opacity="0.5"/>
+            </Label.Background>
+        </Label>
+        <Label Content="Общее кол-во материалов:" HorizontalAlignment="Left" Margin="305,324,0,0" VerticalAlignment="Top" Width="300" Height="35" FontSize="20" Foreground="White">
+            <Label.Background>
+                <SolidColorBrush Color="Black" Opacity="0.5"/>
+            </Label.Background>
+        </Label>
+        <Label x:Name="MaterialsAll" Content="" HorizontalAlignment="Left" Margin="305,364,0,0" VerticalAlignment="Top" Width="300" Height="35" FontSize="20" Foreground="White">
+            <Label.Background>
+                <SolidColorBrush Color="#FF03247C" Opacity="0.5"/>
+            </Label.Background>
+        </Label>
+        <Label x:Name="Materials" Content="" HorizontalAlignment="Left" Margin="305,284,0,0" VerticalAlignment="Top" Width="300" Height="35" FontSize="20" Foreground="White">
+            <Label.Background>
+                <SolidColorBrush Color="#FF03247C" Opacity="0.5"/>
+            </Label.Background>
+        </Label>
+        <Label Content="Предмет:" HorizontalAlignment="Left" Margin="305,404,0,0" VerticalAlignment="Top" Width="300" Height="35" FontSize="20" Foreground="White">
+            <Label.Background>
+                <SolidColorBrush Color="Black" Opacity="0.5"/>
+            </Label.Background>
+        </Label>
+        <Label Content="Количество материалов:" HorizontalAlignment="Left" Margin="305,484,0,0" VerticalAlignment="Top" Width="300" Height="35" FontSize="20" Foreground="White">
+            <Label.Background>
+                <SolidColorBrush Color="Black" Opacity="0.5"/>
+            </Label.Background>
+        </Label>
+        <Label x:Name="MaterialsBySubjects" Content="" HorizontalAlignment="Left" Margin="305,524,0,0" VerticalAlignment="Top" Width="300" Height="35" FontSize="20" Foreground="White">
+            <Label.Background>
+                <SolidColorBrush Color="#FF03247C" Opacity="0.5"/>
+            </Label.Background>
+        </Label>
+        <ComboBox x:Name="SubjectSelector" HorizontalAlignment="Left" Margin="305,444,0,0" VerticalAlignment="Top" Width="300" Height="35" SelectionChanged="SubjectSelector_SelectionChanged" Foreground="White" Style="{DynamicResource ComboBoxStyle1}" Background="#C9FFFFFF" BorderBrush="{DynamicResource ComboBox.Static.Glyph}" BorderThickness="2" FontSize="20">
+            <ComboBox.ItemContainerStyle>
+                <Style TargetType="{x:Type ComboBoxItem}">
+                    <Setter Property="Background" Value="#E5067A00"/>
+                    <Setter Property="BorderBrush" Value="Yellow"/>
+                </Style>
+            </ComboBox.ItemContainerStyle>
+        </ComboBox>
+        <TextBlock HorizontalAlignment="Left" Margin="305,564,0,0" TextWrapping="Wrap" Text="Количество материалов со всеми документами (РП, ФОС...):" VerticalAlignment="Top" Height="58" FontSize="20" Foreground="White" Width="300">
+            <TextBlock.Background>
+                <SolidColorBrush Color="Black" Opacity="0.5"/>
+            </TextBlock.Background>
+        </TextBlock>
+        <Label x:Name="MaterialsWithAllDocuments" Content="" HorizontalAlignment="Left" Margin="305,627,0,0" VerticalAlignment="Top" Width="300" Height="35" FontSize="20" Foreground="White">
+            <Label.Background>
+                <SolidColorBrush Color="#FF03247C" Opacity="0.5"/>
+            </Label.Background>
+        </Label>
+        <Rectangle Fill="#FFA1FFB2" HorizontalAlignment="Left" Height="12" Margin="0,679,0,0" VerticalAlignment="Top" Width="1035"/>
+        <Label Content="Подразделение" HorizontalAlignment="Left" Margin="610,71,0,0" VerticalAlignment="Top" Width="300" Height="88" FontSize="25" Foreground="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold">
+            <Label.Background>
+                <SolidColorBrush Color="White" Opacity="0.5"/>
+            </Label.Background>
+        </Label>
+        <Label Content="Подразделение:" HorizontalAlignment="Left" Margin="610,164,0,0" VerticalAlignment="Top" Width="300" Height="35" FontSize="20" Foreground="White">
+            <Label.Background>
+                <SolidColorBrush Color="Black" Opacity="0.5"/>
+            </Label.Background>
+        </Label>
+        <ComboBox x:Name="SubdivisionSelector" HorizontalAlignment="Left" Margin="610,204,0,0" VerticalAlignment="Top" Width="300" Height="35" SelectionChanged="SubdivisionSelector_SelectionChanged" Foreground="White" Style="{DynamicResource ComboBoxStyle1}" Background="#C9FFFFFF" BorderBrush="{DynamicResource ComboBox.Static.Glyph}" BorderThickness="2" FontSize="20">
+            <ComboBox.ItemContainerStyle>
+                <Style TargetType="{x:Type ComboBoxItem}">
+                    <Setter Property="Background" Value="#E5067A00"/>
+                    <Setter Property="BorderBrush" Value="Yellow"/>
+                </Style>
+            </ComboBox.ItemContainerStyle>
+        </ComboBox>
+        <Label Content="Количество преподавателей:" HorizontalAlignment="Left" Margin="610,244,0,0" VerticalAlignment="Top" Width="300" Height="35" FontSize="20" Foreground="White">
+            <Label.Background>
+                <SolidColorBrush Color="Black" Opacity="0.5"/>
+            </Label.Background>
+        </Label>
+        <Label x:Name="Teachers" Content="" HorizontalAlignment="Left" Margin="610,284,0,0" VerticalAlignment="Top" Width="300" Height="35" FontSize="20" Foreground="White">
+            <Label.Background>
+                <SolidColorBrush Color="#FF03247C" Opacity="0.5"/>
+            </Label.Background>
+        </Label>
+        <Label x:Name="User" Content="" HorizontalAlignment="Left" Margin="610,364,0,0" VerticalAlignment="Top" Width="300" Height="35" FontSize="20" Foreground="White">
+            <Label.Background>
+                <SolidColorBrush Color="#FF03247C" Opacity="0.5"/>
+            </Label.Background>
+        </Label>
+        <Label Content="Логин ответственного:" HorizontalAlignment="Left" Margin="610,324,0,0" VerticalAlignment="Top" Width="300" Height="35" FontSize="20" Foreground="White">
+            <Label.Background>
+                <SolidColorBrush Color="Black" Opacity="0.5"/>
+            </Label.Background>
+        </Label>
+        <Label Content="Пользователи" HorizontalAlignment="Left" Margin="610,404,0,0" VerticalAlignment="Top" Width="300" Height="75" FontSize="25" Foreground="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold">
+            <Label.Background>
+                <SolidColorBrush Color="White" Opacity="0.5"/>
+            </Label.Background>
+        </Label>
+        <Label Content="Статус:" HorizontalAlignment="Left" Margin="610,484,0,0" VerticalAlignment="Top" Width="300" Height="35" FontSize="20" Foreground="White">
+            <Label.Background>
+                <SolidColorBrush Color="Black" Opacity="0.5"/>
+            </Label.Background>
+        </Label>
+        <Label x:Name="StatusCount" Content="" HorizontalAlignment="Left" Margin="610,627,0,0" VerticalAlignment="Top" Width="300" Height="35" FontSize="20" Foreground="White">
+            <Label.Background>
+                <SolidColorBrush Color="#FF03247C" Opacity="0.5"/>
+            </Label.Background>
+        </Label>
+        <TextBlock HorizontalAlignment="Left" Margin="610,564,0,0" TextWrapping="Wrap" Text="Количество пользователей с данным статусом:" VerticalAlignment="Top" Height="58" FontSize="20" Foreground="White" Width="300">
+            <TextBlock.Background>
+                <SolidColorBrush Color="Black" Opacity="0.5"/>
+            </TextBlock.Background>
+        </TextBlock>
+        <ComboBox x:Name="StatusSelector" HorizontalAlignment="Left" Margin="610,524,0,0" VerticalAlignment="Top" Width="300" Height="35" Foreground="White" Style="{DynamicResource ComboBoxStyle1}" Background="#C9FFFFFF" BorderBrush="{DynamicResource ComboBox.Static.Glyph}" BorderThickness="2" FontSize="20" DropDownClosed="StatusSelector_DropDownClosed">
+            <ComboBox.ItemContainerStyle>
+                <Style TargetType="{x:Type ComboBoxItem}">
+                    <Setter Property="Background" Value="#E5067A00"/>
+                    <Setter Property="BorderBrush" Value="Yellow"/>
+                </Style>
+            </ComboBox.ItemContainerStyle>
+        </ComboBox>
+        <Label Content="Преподаватели" HorizontalAlignment="Left" Margin="0,404,0,0" VerticalAlignment="Top" Width="300" Height="75" FontSize="25" Foreground="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold">
+            <Label.Background>
+                <SolidColorBrush Color="White" Opacity="0.5"/>
+            </Label.Background>
+        </Label>
+        <Label Content="Большее кол-во материалов:" HorizontalAlignment="Left" Margin="0,484,0,0" VerticalAlignment="Top" Width="300" Height="35" FontSize="20" Foreground="White">
+            <Label.Background>
+                <SolidColorBrush Color="Black" Opacity="0.5"/>
+            </Label.Background>
+        </Label>
+        <Label x:Name="MaterialsMax" Content="" HorizontalAlignment="Left" Margin="0,524,0,0" VerticalAlignment="Top" Width="300" Height="35" FontSize="20" Foreground="White">
+            <Label.Background>
+                <SolidColorBrush Color="#FF03247C" Opacity="0.5"/>
+            </Label.Background>
+        </Label>
+        <TextBlock HorizontalAlignment="Left" Margin="0,564,0,0" TextWrapping="Wrap" Text="Сдал меньшее количество материалов:" VerticalAlignment="Top" Height="58" FontSize="20" Foreground="White" Width="300">
+            <TextBlock.Background>
+                <SolidColorBrush Color="Black" Opacity="0.5"/>
+            </TextBlock.Background>
+        </TextBlock>
+        <Label x:Name="MaterialsMin" Content="" HorizontalAlignment="Left" Margin="0,627,0,0" VerticalAlignment="Top" Width="300" Height="35" FontSize="20" Foreground="White">
+            <Label.Background>
+                <SolidColorBrush Color="#FF03247C" Opacity="0.5"/>
+            </Label.Background>
+        </Label>
+    </Grid>
+</Window>

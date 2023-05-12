@@ -2,10 +2,13 @@
 using MySql.Data.MySqlClient;
 using System.Data.Common;
 using System.Windows.Controls;
-using System.Windows;
 using System;
 using System.Collections.Generic;
 using AdvanceHelperWPF;
+using System.Security.Cryptography;
+using System.Text;
+using System.Windows.Forms;
+using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace AHlibrary
 {
@@ -49,7 +52,7 @@ namespace AHlibrary
         /// <param name="dataGrid">Передает элемент dataGrid,
         /// в который будут переданы данные из
         /// выбранной таблицы</param>
-        public void DB(string table, DataGrid dataGrid) //Подключение к БД
+        public void DB(string table, System.Windows.Controls.DataGrid dataGrid) //Подключение к БД
         {
             try
             {
@@ -106,7 +109,7 @@ namespace AHlibrary
         }
 
         /// <summary>
-        /// Получение информации о грамот преподавателей из БД
+        /// Получение информации о грамотах преподавателей из БД
         /// </summary>
         /// <param name="table"></param>
         /// <param name="IdTeacher"></param>
@@ -158,23 +161,116 @@ namespace AHlibrary
         }
 
         /// <summary>
-        /// Получение значения из таблицы
+        /// Получает количество по строке
         /// </summary>
-        /// <param name="table">Из какой таблицы получить элемент</param>
-        /// <param name="inputItem">В каком столбце делать сравнение</param>
-        /// <param name="field">Откуда получить значение</param>
-        /// <param name="textBox">С помощью какой строки получить элемент</param>
+        /// <param name="table"></param>
+        /// <param name="fieldCount"></param>
+        /// <param name="field"></param>
+        /// <param name="value"></param>
         /// <returns></returns>
-        public string GetValueByString(string table, string inputItem, string field, string textBox)
+        public string GetCountByString(string fieldCount, string table, string value)
         {
             dbConnectionStrings();
             using (conn = new MySqlConnection($"server=localhost;user={dbusername};database={dbname};port=3306;password={password};"))
             {
                 conn.Open();
-                string sql = $"SELECT Статус FROM пользователи WHERE Логин = @login";
-                //string sql = $"SELECT {field} FROM {table} WHERE {inputItem} = '{textBox}'";
+                string sql = $"SELECT count({fieldCount}) FROM {table} WHERE {fieldCount} = @value";
                 MySqlCommand command = new MySqlCommand(sql, conn);
-                command.Parameters.AddWithValue("@login", "admin");
+                command.Parameters.AddWithValue("@value", value);
+                string result = Convert.ToString(command.ExecuteScalar());
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// Выбрать общее количество из таблицы
+        /// </summary>
+        /// <param name="table"></param>
+        /// <param name="fieldCount"></param>
+        /// <returns></returns>
+        public int GetAllCount(string table, string fieldCount)
+        {
+            dbConnectionStrings();
+            using (conn = new MySqlConnection($"server=localhost;user={dbusername};database={dbname};port=3306;password={password};"))
+            {
+                conn.Open();
+                string sql = $"SELECT count({fieldCount}) FROM {table}";
+                MySqlCommand command = new MySqlCommand(sql, conn);
+                int result = Convert.ToInt32(command.ExecuteScalar());
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// Получает количество материалов, у которых есть
+        /// все документы
+        /// </summary>
+        /// <param name="table"></param>
+        /// <returns></returns>
+        public int GetCountByDocs(string table)
+        {
+            dbConnectionStrings();
+            using (conn = new MySqlConnection($"server=localhost;user={dbusername};database={dbname};port=3306;password={password};"))
+            {
+                conn.Open();
+                string sql = $"SELECT count(Код_Материала) FROM {table} WHERE Титул_РП and РП and Титул_ФОС and ФОС and ВнутрРец and ЭкспЗакл and ВСРС and МУПР = 1";
+                MySqlCommand command = new MySqlCommand(sql, conn);
+                int result = Convert.ToInt32(command.ExecuteScalar());
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// Получение значения из таблицы
+        /// </summary>
+        /// <param name="table">Из какой таблицы получить элемент</param>
+        /// <param name="inputItem">В каком столбце делать сравнение</param>
+        /// <param name="field">Откуда получить значение</param>
+        /// <param name="value">С помощью какой строки получить элемент</param>
+        /// <returns></returns>
+        public string GetValueByString(string field, string table, string inputItem, string value)
+        {
+            dbConnectionStrings();
+            using (conn = new MySqlConnection($"server=localhost;user={dbusername};database={dbname};port=3306;password={password};"))
+            {
+                conn.Open();
+                string sql = $"SELECT {field} FROM {table} WHERE {inputItem} = @value";
+                MySqlCommand command = new MySqlCommand(sql, conn);
+                command.Parameters.AddWithValue("@value", value);
+                string result = Convert.ToString(command.ExecuteScalar());
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// Выбирает преподавателя, который сделал большее количество материалов
+        /// </summary>
+        /// <returns></returns>
+        public string GetMaxTeacher(string field, string table)
+        {
+            dbConnectionStrings();
+            using (conn = new MySqlConnection($"server=localhost;user={dbusername};database={dbname};port=3306;password={password};"))
+            {
+                conn.Open();
+                string sql = $"SELECT {table}.{field} FROM {table} JOIN материалы ON {table}.Код_преподавателя = материалы.Код_преподавателя GROUP BY {table}.Код_преподавателя, {table}.{field} ORDER BY COUNT(*) DESC LIMIT 1;";
+                MySqlCommand command = new MySqlCommand(sql, conn);
+                string result = Convert.ToString(command.ExecuteScalar());
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// Выбирает преподавателя, который сделал меньшее количество материалов
+        /// </summary>
+        /// <returns></returns>
+        public string GetMinTeacher(string field, string table)
+        {
+            dbConnectionStrings();
+            using (conn = new MySqlConnection($"server=localhost;user={dbusername};database={dbname};port=3306;password={password};"))
+            {
+                conn.Open();
+                string sql = $"SELECT {table}.{field} FROM {table} JOIN материалы ON {table}.Код_преподавателя = материалы.Код_преподавателя GROUP BY {table}.Код_преподавателя, {table}.{field} ORDER BY COUNT(*) ASC LIMIT 1;";
+                MySqlCommand command = new MySqlCommand(sql, conn);
                 string result = Convert.ToString(command.ExecuteScalar());
                 return result;
             }
@@ -187,7 +283,7 @@ namespace AHlibrary
         /// <param name="table"></param>
         /// <param name="cond"></param>
         /// <param name="SearchName"></param>
-        public void TableSearch(DataGrid dataGrid, string table, string cond, string SearchName)
+        public void TableSearch(System.Windows.Controls.DataGrid dataGrid, string table, string cond, string SearchName)
         {
             string sql = "SELECT * FROM " + table + " WHERE " + cond + " LIKE '" + SearchName + "%'";
             adapter = new MySqlDataAdapter(sql, conn);
@@ -206,7 +302,7 @@ namespace AHlibrary
         /// <param name="comboBox"></param>
         /// <param name="field"></param>
         /// <param name="table"></param>
-        public void FillCombobox(ComboBox comboBox, string field, string table)
+        public void FillCombobox(System.Windows.Controls.ComboBox comboBox, string field, string table)
         {
             dbConnectionStrings();
             using (conn = new MySqlConnection($"server=localhost;user={dbusername};database={dbname};port=3306;password={password};"))
@@ -225,9 +321,52 @@ namespace AHlibrary
         /// Сохраняет все измененные данные
         /// из DataGrid в базу данных   
         /// </summary>
-        public void SaveTable() //Сохранение БД
+        public void SaveTable()
         {
-            adapter.Update(dt);
+            try
+            {
+                adapter.Update(dt);
+                MessageBox.Show("Таблица была успешно сохранена");
+            }
+            catch (Exception ex) { MessageBox.Show("Произошла ошибка: " + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+        }
+
+        /// <summary>
+        /// Шифрование пароля MD5
+        /// </summary>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        public string EncryptPassword(string password)
+        {
+            using (MD5 md5 = MD5.Create())
+            {
+                byte[] inputBytes = Encoding.ASCII.GetBytes(password);
+                byte[] hashBytes = md5.ComputeHash(inputBytes);
+                string hashedPassword = BitConverter.ToString(hashBytes).Replace("-", "");
+                return hashedPassword;
+            }
+        }
+        /// <summary>
+        /// Сохранение таблицы пользователей с шифрованием пароля
+        /// </summary>
+        public void SaveUsersTable()
+        {
+            if (!dt.Columns.Contains("Пароль")) // Если столбца "Пароль" нет в таблице, выходим из метода
+                return;
+            foreach (DataRow row in dt.Rows)
+            {
+                if (row.RowState == DataRowState.Deleted) // Если строка удалена, пропускаем ее
+                    continue;
+                if (row.IsNull("Пароль")) // Если у строки нет значения в столбце "Пароль", пропускаем ее
+                    continue;
+                string password = row["Пароль"].ToString();
+                if (password.Length == 32) // Зашифрованный пароль уже есть в таблице, пропускаем шифрование
+                    continue;
+                // Шифруем пароль
+                string hashedPassword = EncryptPassword(password);
+                row["Пароль"] = hashedPassword;
+            }
+            SaveTable();
         }
 
         /// <summary>
@@ -242,13 +381,34 @@ namespace AHlibrary
             return result;
         }
 
+        /// <summary>
+        /// Получает логин пользователя по коду в таблице подразделение
+        /// </summary>
+        /// <param name="field"></param>
+        /// <param name="table"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public string GetUserLoginFromSubdivision(string field, string table, int id)
+        {
+            dbConnectionStrings();
+            using (conn = new MySqlConnection($"server=localhost;user={dbusername};database={dbname};port=3306;password={password};"))
+            {
+                conn.Open();
+                string sql = $"SELECT пользователи.{field} FROM {table} JOIN пользователи ON {table}.Код_пользователя = пользователи.Код_пользователя WHERE {table}.Код_подразделения = @id";
+                MySqlCommand command = new MySqlCommand(sql, conn);
+                command.Parameters.AddWithValue("@id", id);
+                string result = Convert.ToString(command.ExecuteScalar());
+                return result;
+            }
+        }
+
 
         /// <summary>
         /// Проверка авторизации пользователя
         /// </summary>
         /// <param name="textBox"></param>
         /// <param name="passwordBox"></param>
-        public bool AuthCheck(TextBox textBox, PasswordBox passwordBox)
+        public bool AuthCheck(System.Windows.Controls.TextBox textBox, PasswordBox passwordBox)
         {
             try
             {

@@ -76,12 +76,7 @@
                 <SolidColorBrush Color="Black" Opacity="0.5"/>
             </Label.Background>
         </Label>
-        <Label x:Name="Subdivision" Content="" HorizontalAlignment="Left" Margin="414,370,0,0" VerticalAlignment="Top" Width="300" Height="35" FontSize="20" Foreground="White">
-            <Label.Background>
-                <SolidColorBrush Color="#FF03247C" Opacity="0.5"/>
-            </Label.Background>
-        </Label>
-        <Button x:Name="CertificatesBtn" Content="Достижения" HorizontalAlignment="Left" Margin="414,592,0,0" VerticalAlignment="Top" Width="300" Height="57" FontFamily="Segoe UI Semibold" FontSize="25" Foreground="Black" Cursor="Hand" Click="CertificatesBtn_Click">
+        <Button x:Name="CertificatesBtn" Content="Достижения" HorizontalAlignment="Left" Margin="728,578,0,0" VerticalAlignment="Top" Width="300" Height="71" FontFamily="Segoe UI Semibold" FontSize="25" Foreground="Black" Cursor="Hand" Click="CertificatesBtn_Click">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <LinearGradientBrush.RelativeTransform>
@@ -97,17 +92,17 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <Label Content="Стаж работы:" HorizontalAlignment="Left" Margin="414,410,0,0" VerticalAlignment="Top" Width="300" Height="35" FontSize="20" Foreground="White">
+        <Label Content="Стаж работы:" HorizontalAlignment="Left" Margin="414,458,0,0" VerticalAlignment="Top" Width="300" Height="35" FontSize="20" Foreground="White">
             <Label.Background>
                 <SolidColorBrush Color="Black" Opacity="0.5"/>
             </Label.Background>
         </Label>
-        <Label x:Name="WorkExp" Content="" HorizontalAlignment="Left" Margin="414,450,0,0" VerticalAlignment="Top" Width="300" Height="35" FontSize="20" Foreground="White">
+        <Label x:Name="WorkExp" Content="" HorizontalAlignment="Left" Margin="414,498,0,0" VerticalAlignment="Top" Width="300" Height="35" FontSize="20" Foreground="White">
             <Label.Background>
                 <SolidColorBrush Color="#FF03247C" Opacity="0.5"/>
             </Label.Background>
         </Label>
-        <Label Content="Специализация:" HorizontalAlignment="Left" Margin="414,490,0,0" VerticalAlignment="Top" Width="300" Height="35" FontSize="20" Foreground="White">
+        <Label Content="Специализация:" HorizontalAlignment="Left" Margin="414,538,0,0" VerticalAlignment="Top" Width="300" Height="35" FontSize="20" Foreground="White">
             <Label.Background>
                 <SolidColorBrush Color="Black" Opacity="0.5"/>
             </Label.Background>
@@ -142,26 +137,31 @@
                 <SolidColorBrush Color="#FF03247C" Opacity="0.5"/>
             </Label.Background>
         </Label>
-        <TextBlock x:Name="Specialization" HorizontalAlignment="Left" Margin="414,530,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="57" Width="300" Foreground="White" FontSize="20">
+        <TextBlock x:Name="Specialization" HorizontalAlignment="Left" Margin="414,578,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="71" Width="300" Foreground="White" FontSize="20">
             <TextBlock.Background>
                 <SolidColorBrush Color="#FF03247C" Opacity="0.5"/>
             </TextBlock.Background>
         </TextBlock>
-        <Label Content="Статистика" HorizontalAlignment="Left" Margin="728,330,0,0" VerticalAlignment="Top" Width="300" Height="75" FontSize="25" Foreground="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold">
+        <Label Content="Статистика" HorizontalAlignment="Left" Margin="728,330,0,0" VerticalAlignment="Top" Width="300" Height="83" FontSize="25" Foreground="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold">
             <Label.Background>
                 <SolidColorBrush Color="White" Opacity="0.5"/>
             </Label.Background>
         </Label>
-        <Label Content="Количество материалов:" HorizontalAlignment="Left" Margin="728,410,0,0" VerticalAlignment="Top" Width="300" Height="35" FontSize="20" Foreground="White">
+        <Label Content="Количество материалов:" HorizontalAlignment="Left" Margin="728,418,0,0" VerticalAlignment="Top" Width="300" Height="35" FontSize="20" Foreground="White">
             <Label.Background>
                 <SolidColorBrush Color="Black" Opacity="0.5"/>
             </Label.Background>
         </Label>
-        <Label x:Name="MaterialsCount" Content="" HorizontalAlignment="Left" Margin="728,450,0,0" VerticalAlignment="Top" Width="300" Height="35" FontSize="20" Foreground="White">
+        <Label x:Name="MaterialsCount" Content="" HorizontalAlignment="Left" Margin="728,458,0,0" VerticalAlignment="Top" Width="300" Height="35" FontSize="20" Foreground="White" RenderTransformOrigin="0.489,1.386">
             <Label.Background>
                 <SolidColorBrush Color="#FF03247C" Opacity="0.5"/>
             </Label.Background>
         </Label>
+        <TextBlock x:Name="Subdivision" HorizontalAlignment="Left" Margin="414,370,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="83" Width="300" Foreground="White" FontSize="20">
+            <TextBlock.Background>
+                <SolidColorBrush Color="#FF03247C" Opacity="0.5"/>
+            </TextBlock.Background>
+        </TextBlock>
 
     </Grid>
 </Window>
