@@ -39,6 +39,8 @@ namespace AdvanceHelperWEB
 
         private void ExitBtn_Click(object sender, RoutedEventArgs e)
         {
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.Show();
             this.Close();
         }
 

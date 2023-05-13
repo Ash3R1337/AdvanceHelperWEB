@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Forms;
 using Menu = AdvanceHelperWEB.Menu;
+using Tables = AdvanceHelperWEB.Tables;
 
 namespace AdvanceHelperWPF
 {
@@ -21,7 +22,7 @@ namespace AdvanceHelperWPF
         public Settings(string UserLogin, string UserStatus)
         {
             InitializeComponent();
-            SettingsTextBlock.Text = $"Версия программы: 1.1.0\nПользователь: {UserLogin}";
+            SettingsTextBlock.Text = $"Версия программы: 1.2.0\nПользователь: {UserLogin}";
             userLogin = UserLogin;
             userStatus = UserStatus;
             if (File.Exists("config.txt"))
@@ -40,6 +41,26 @@ namespace AdvanceHelperWPF
 
                 password = fileHandler.GetPath("config.txt", "Пароль базы данных: ");
                 TBpassword.Text = password;
+            }
+            if (UserStatus == "администратор")
+            {
+                PathViewBtn.IsEnabled = false;
+                PathViewBtn.Cursor = System.Windows.Input.Cursors.Cross;
+                PathViewBtn.ToolTip = "Недоступно для статуса Администратор";
+                TBfileFormat.IsEnabled = false;
+                TBfileFormat.Cursor = System.Windows.Input.Cursors.Cross;
+                TBfileFormat.ToolTip = "Недоступно для статуса Администратор";
+            }
+            else if (UserStatus == "администратор бд")
+            {
+                PathViewBtn.IsEnabled = false;
+                PathViewBtn.Cursor = System.Windows.Input.Cursors.Cross;
+                PathViewBtn.ToolTip = "Недоступно для статуса Администратор БД";
+                TBfileFormat.IsEnabled = false;
+                TBfileFormat.Cursor = System.Windows.Input.Cursors.Cross;
+                TBfileFormat.ToolTip = "Недоступно для статуса Администратор БД";
+                MainBtn.Visibility = Visibility.Hidden;
+                TablesBtn.Visibility = Visibility.Visible;
             }
         }
 
@@ -68,6 +89,13 @@ namespace AdvanceHelperWPF
             fileHandler.FileSave("config.txt", TBdbname.Text, "Название базы данных: ");
             fileHandler.FileSave("config.txt", TBpassword.Text, "Пароль базы данных: ");
             System.Windows.MessageBox.Show("Настройки были успешно сохранены");
+        }
+
+        private void TablesBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Tables tables = new Tables(userLogin, userStatus);
+            tables.Show();
+            this.Close();
         }
     }
 }

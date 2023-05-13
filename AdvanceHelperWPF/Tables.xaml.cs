@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using Settings = AdvanceHelperWPF.Settings;
 using AHlibrary;
 
 namespace AdvanceHelperWEB
@@ -24,12 +25,17 @@ namespace AdvanceHelperWEB
             labelLogin.Content = UserLogin;
             userLogin = UserLogin;
             userStatus = UserStatus;
-            if (UserStatus == "Администратор БД")
+            if (UserStatus == "администратор бд")
+            {
                 MainBtn.Visibility = Visibility.Hidden;
+                SettingsBtn.Visibility = Visibility.Visible;
+            }
         }
 
         private void ExitBtn_Click(object sender, RoutedEventArgs e)
         {
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.Show();
             this.Close();
         }
 
@@ -51,6 +57,13 @@ namespace AdvanceHelperWEB
                 dBconnect.SaveUsersTable();
             else
                 dBconnect.SaveTable();
+        }
+
+        private void SettingsBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Settings settings = new Settings(userLogin, userStatus);
+            settings.Show();
+            this.Close();
         }
     }
 }

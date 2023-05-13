@@ -88,5 +88,6 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
+        <Button x:Name="SettingsBtn" Content="Настройки" HorizontalAlignment="Left" Margin="10,685,0,0" VerticalAlignment="Top" Width="172" Background="#FF00422F" Height="50" FontFamily="Segoe UI Semibold" FontSize="20" Foreground="White" Cursor="Hand" Click="SettingsBtn_Click" Visibility="Hidden"/>
     </Grid>
 </Window>

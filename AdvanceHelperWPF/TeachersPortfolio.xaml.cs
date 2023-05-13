@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using Menu = AdvanceHelperWEB.Menu;
 using AHlibrary;
+using MainWindow = AdvanceHelperWEB.MainWindow;
 
 namespace AdvanceHelperWPF
 {
@@ -29,6 +30,7 @@ namespace AdvanceHelperWPF
             Phone.Content = viewModel.SelectedTeacher.Phone;
             Email.Content = viewModel.SelectedTeacher.Email;
             MaterialsCount.Content = dBconnect.GetCount("материалы", "Код_Материала", "Код_преподавателя", viewModel.SelectedTeacher.Id);
+            MaterialsCountByDocs.Content = dBconnect.GetDocsCountByTeacher("Код_преподавателя", "материалы", viewModel.SelectedTeacher.Id);
             userLogin = UserLogin;
             userStatus = UserStatus;
             labelLogin.Content = UserLogin;
@@ -46,6 +48,7 @@ namespace AdvanceHelperWPF
             Phone.Content = viewModel.SelectedTeacher.Phone;
             Email.Content = viewModel.SelectedTeacher.Email;
             MaterialsCount.Content = dBconnect.GetCount("материалы", "Код_Материала", "Код_преподавателя", viewModel.SelectedTeacher.Id);
+            MaterialsCountByDocs.Content = dBconnect.GetDocsCountByTeacher("Код_преподавателя", "материалы", viewModel.SelectedTeacher.Id);
         }
 
         private void MainBtn_Click(object sender, RoutedEventArgs e)
@@ -57,6 +60,8 @@ namespace AdvanceHelperWPF
 
         private void ExitBtn_Click(object sender, RoutedEventArgs e)
         {
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.Show();
             this.Close();
         }
 

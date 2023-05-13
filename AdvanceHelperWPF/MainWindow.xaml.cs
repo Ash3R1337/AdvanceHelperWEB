@@ -5,6 +5,7 @@ using System.Windows.Media;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
 using System.Diagnostics;
+using System;
 
 namespace AdvanceHelperWEB
 {
@@ -110,7 +111,11 @@ namespace AdvanceHelperWEB
 
         private void InstructionBtn_Click(object sender, RoutedEventArgs e)
         {
-            Process.Start("help.chm");
+            try
+            {
+                Process.Start("help.chm");
+            }
+            catch (Exception ex) { MessageBox.Show("Произошла ошибка: " + ex.Message, "Ошибка", MessageBoxButton.OK); }
         }
     }
 }

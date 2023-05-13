@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using Menu = AdvanceHelperWEB.Menu;
 using AHlibrary;
+using MainWindow = AdvanceHelperWEB.MainWindow;
 
 namespace AdvanceHelperWPF
 {
@@ -33,7 +34,7 @@ namespace AdvanceHelperWPF
             dBconnect.FillCombobox(SubjectSelector, "Индекс", "предметы");
             SubjectSelector.SelectedIndex = 0;
             MaterialsBySubjects.Content = dBconnect.GetCount("материалы", "Код_Материала", "Код_предмета", SubjectSelector.SelectedIndex + 1);
-            MaterialsWithAllDocuments.Content = dBconnect.GetCountByDocs("материалы");
+            MaterialsWithAllDocuments.Content = dBconnect.GetCountByDocs("Код_Материала", "материалы");
 
             //Подразделение
             dBconnect.FillCombobox(SubdivisionSelector, "Цикловая_комиссия", "подразделение");
@@ -55,6 +56,8 @@ namespace AdvanceHelperWPF
 
         private void ExitBtn_Click(object sender, RoutedEventArgs e)
         {
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.Show();
             this.Close();
         }
 

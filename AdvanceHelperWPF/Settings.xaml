@@ -48,7 +48,7 @@
         <Label x:Name="labelDot" Content="-----------------------------------------" Margin="10,39,0,0" Background="{x:Null}" Foreground="#FF006C49" FontSize="22" FontFamily="Segoe UI Black" Width="382" Height="34" HorizontalAlignment="Left" VerticalAlignment="Top"/>
         <Button x:Name="MainBtn" Content="Главная" HorizontalAlignment="Left" Margin="10,447,0,0" VerticalAlignment="Top" Width="115" Background="#FF00817C" Height="43" FontFamily="Segoe UI Semibold" FontSize="18" Foreground="White" Cursor="Hand" Click="MainBtn_Click"/>
         <Button x:Name="SaveAllBtn" Content="Сохранить" HorizontalAlignment="Left" Margin="265,447,0,0" VerticalAlignment="Top" Width="115" Background="#FF115074" Height="43" FontFamily="Segoe UI Semibold" FontSize="18" Foreground="White" Cursor="Hand" Click="SaveAllBtn_Click"/>
-        <TextBlock x:Name="SettingsTextBlock" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Версия программы: 1.1.2  Пользователь:" VerticalAlignment="Top" Height="46" Width="380" FontSize="16" Foreground="White" FontFamily="Segoe UI Black"/>
+        <TextBlock x:Name="SettingsTextBlock" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Версия программы: 1.2.0  Пользователь:" VerticalAlignment="Top" Height="46" Width="380" FontSize="16" Foreground="White" FontFamily="Segoe UI Black"/>
         <TextBlock x:Name="DirTextBlock" HorizontalAlignment="Left" Margin="10,104,0,0" TextWrapping="Wrap" Text="Текущая рабочая директория: " VerticalAlignment="Top" Height="60" Width="380" FontSize="14" Foreground="White" FontFamily="Segoe UI Black" ToolTip="Сохраненная директория для работы с папками и документами">
             <TextBlock.Background>
                 <SolidColorBrush Color="Black" Opacity="0.5"/>
@@ -59,9 +59,9 @@
                 <SolidColorBrush Color="Black" Opacity="0.5"/>
             </Rectangle.Fill>
         </Rectangle>
-        <TextBlock x:Name="dbUserName" HorizontalAlignment="Left" Margin="12,312,0,0" TextWrapping="Wrap" Text="Имя пользователя базы данных: " VerticalAlignment="Top" Height="21" Width="243" FontSize="14" Foreground="White" FontFamily="Segoe UI Black" ToolTip="Сохраненная директория для работы с папками и документами"/>
-        <TextBlock x:Name="dbName" HorizontalAlignment="Left" Margin="41,338,0,0" TextWrapping="Wrap" Text="Название базы данных: " VerticalAlignment="Top" Height="21" Width="176" FontSize="14" Foreground="White" FontFamily="Segoe UI Black" ToolTip="Сохраненная директория для работы с папками и документами"/>
-        <TextBlock x:Name="dbPassword" HorizontalAlignment="Left" Margin="48,363,0,0" TextWrapping="Wrap" Text="Пароль базы данных: " VerticalAlignment="Top" Height="21" Width="164" FontSize="14" Foreground="White" FontFamily="Segoe UI Black" ToolTip="Сохраненная директория для работы с папками и документами"/>
+        <TextBlock x:Name="dbUserName" HorizontalAlignment="Left" Margin="12,312,0,0" TextWrapping="Wrap" Text="Имя пользователя базы данных: " VerticalAlignment="Top" Height="21" Width="243" FontSize="14" Foreground="White" FontFamily="Segoe UI Black"/>
+        <TextBlock x:Name="dbName" HorizontalAlignment="Left" Margin="41,338,0,0" TextWrapping="Wrap" Text="Название базы данных: " VerticalAlignment="Top" Height="21" Width="176" FontSize="14" Foreground="White" FontFamily="Segoe UI Black"/>
+        <TextBlock x:Name="dbPassword" HorizontalAlignment="Left" Margin="48,363,0,0" TextWrapping="Wrap" Text="Пароль базы данных: " VerticalAlignment="Top" Height="21" Width="164" FontSize="14" Foreground="White" FontFamily="Segoe UI Black"/>
         <Label Content="Документооборот" HorizontalAlignment="Left" Margin="10,65,0,0" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="18"/>
         <Label Content="База данных" HorizontalAlignment="Left" Margin="12,279,0,0" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="18"/>
         <TextBox x:Name="TBdbusername" HorizontalAlignment="Left" Height="20" Margin="260,313,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="130" VerticalContentAlignment="Center" FontSize="14" MaxLines="16" MaxLength="16" BorderBrush="#FF46FF00"/>
@@ -72,8 +72,9 @@
                 <SolidColorBrush Color="Black" Opacity="0.5"/>
             </Rectangle.Fill>
         </Rectangle>
-        <TextBlock x:Name="filesFormat" HorizontalAlignment="Left" Margin="12,216,0,0" TextWrapping="Wrap" Text="Поддерживаемые форматы файлов(через запятую): " VerticalAlignment="Top" Height="38" Width="283" FontSize="14" Foreground="White" FontFamily="Segoe UI Black" ToolTip="Сохраненная директория для работы с папками и документами"/>
+        <TextBlock x:Name="filesFormat" HorizontalAlignment="Left" Margin="12,216,0,0" TextWrapping="Wrap" Text="Поддерживаемые форматы файлов(через запятую): " VerticalAlignment="Top" Height="38" Width="283" FontSize="14" Foreground="White" FontFamily="Segoe UI Black"/>
         <TextBox x:Name="TBfileFormat" HorizontalAlignment="Left" Height="20" Margin="139,237,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="251" VerticalContentAlignment="Center" FontSize="14" MaxLines="16" MaxLength="32" BorderBrush="#FF46FF00"/>
+        <Button x:Name="TablesBtn" Content="Таблицы" HorizontalAlignment="Left" Margin="12,447,0,0" VerticalAlignment="Top" Width="115" Background="#FF00817C" Height="43" FontFamily="Segoe UI Semibold" FontSize="18" Foreground="White" Cursor="Hand" Click="TablesBtn_Click" Visibility="Hidden"/>
 
     </Grid>
 </Window>

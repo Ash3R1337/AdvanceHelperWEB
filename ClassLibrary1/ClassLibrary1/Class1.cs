@@ -206,18 +206,48 @@ namespace AHlibrary
         /// все документы
         /// </summary>
         /// <param name="table"></param>
+        /// <param name="field"></param>
         /// <returns></returns>
-        public int GetCountByDocs(string table)
+        public int GetCountByDocs(string field, string table)
         {
-            dbConnectionStrings();
-            using (conn = new MySqlConnection($"server=localhost;user={dbusername};database={dbname};port=3306;password={password};"))
+            try
             {
-                conn.Open();
-                string sql = $"SELECT count(Код_Материала) FROM {table} WHERE Титул_РП and РП and Титул_ФОС and ФОС and ВнутрРец and ЭкспЗакл and ВСРС and МУПР = 1";
-                MySqlCommand command = new MySqlCommand(sql, conn);
-                int result = Convert.ToInt32(command.ExecuteScalar());
-                return result;
+                dbConnectionStrings();
+                using (conn = new MySqlConnection($"server=localhost;user={dbusername};database={dbname};port=3306;password={password};"))
+                {
+                    conn.Open();
+                    string sql = $"SELECT count({field}) FROM {table} WHERE Титул_РП and РП and Титул_ФОС and ФОС and ВнутрРец and ЭкспЗакл and ВСРС and МУПР = 1";
+                    MySqlCommand command = new MySqlCommand(sql, conn);
+                    int result = Convert.ToInt32(command.ExecuteScalar());
+                    return result;
+                }
             }
+            catch (Exception ex) { MessageBox.Show("Произошла ошибка: " + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); return 0; }
+        }
+
+        /// <summary>
+        /// Получает количество материалов, у которых есть
+        /// все документы по id преподавателя
+        /// </summary>
+        /// <param name="field"></param>
+        /// <param name="table"></param>
+        /// <returns></returns>
+        public int GetDocsCountByTeacher(string field, string table, int id)
+        {
+            try
+            {
+                dbConnectionStrings();
+                using (conn = new MySqlConnection($"server=localhost;user={dbusername};database={dbname};port=3306;password={password};"))
+                {
+                    conn.Open();
+                    string sql = $"SELECT count({field}) FROM {table} WHERE Титул_РП and РП and Титул_ФОС and ФОС and ВнутрРец and ЭкспЗакл and ВСРС and МУПР = 1 and Код_преподавателя = @id";
+                    MySqlCommand command = new MySqlCommand(sql, conn);
+                    command.Parameters.AddWithValue("@id", id);
+                    int result = Convert.ToInt32(command.ExecuteScalar());
+                    return result;
+                }
+            }
+            catch (Exception ex) { MessageBox.Show("Произошла ошибка: " + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); return 0; }
         }
 
         /// <summary>

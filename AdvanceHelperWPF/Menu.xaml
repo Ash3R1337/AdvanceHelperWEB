@@ -62,7 +62,7 @@
                 <SolidColorBrush Color="#FF00FF97" Opacity="0.9"/>
             </Button.Background>
         </Button>
-        <Label x:Name="labelHeader" Content="AdvanceHelperWPF v.1.1.2" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="Black" FontFamily="Segoe UI Black" AllowDrop="True"/>
+        <Label x:Name="labelHeader" Content="AdvanceHelperWPF v.1.2.0" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="Black" FontFamily="Segoe UI Black" AllowDrop="True"/>
         <Button x:Name="StatisticsBtn" Content="Статистика" HorizontalAlignment="Left" Margin="76,96,0,0" VerticalAlignment="Top" Width="249" Height="68" FontFamily="Segoe UI Semibold" FontSize="22" Foreground="Black" Click="StatisticsBtn_Click" Cursor="Hand" Visibility="Hidden">
             <Button.Background>
                 <SolidColorBrush Color="#FF00FF97" Opacity="0.9"/>

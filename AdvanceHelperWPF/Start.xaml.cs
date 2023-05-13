@@ -53,6 +53,17 @@ namespace AdvanceHelperWEB
             }
         }
 
+        private void OpenWfolderBtn_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (DirPath.Text != "")
+                    Process.Start(DirPath.Text);
+                else MessageBox.Show("Введите путь к директории.");
+            }
+            catch (Exception ex) { MessageBox.Show("Произошла ошибка: " + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+        }
+
         private void SortBtn_Click(object sender, RoutedEventArgs e) //Распределение файлов по директориям
         {
             SortFiles(DirPathStr);
@@ -70,6 +81,8 @@ namespace AdvanceHelperWEB
 
         private void ExitBtn_Click(object sender, RoutedEventArgs e)
         {
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.Show();
             this.Close();
         }
 
