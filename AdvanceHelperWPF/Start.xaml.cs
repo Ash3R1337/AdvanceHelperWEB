@@ -28,8 +28,11 @@ namespace AdvanceHelperWEB
             {
                 DirPathStr = fileHandler.GetPath("config.txt", "Путь к рабочей директории = "); //Получение пути из файла config.txt
                 DirPath.Text = DirPathStr;
-                FilesAddtoListBox();
-                DirectoriesAddtoListBox();
+                if (DirPathStr != "")
+                {
+                    FilesAddtoListBox();
+                    DirectoriesAddtoListBox();
+                }
             }
             labelLogin.Content = UserLogin;
             userLogin = UserLogin;
@@ -90,6 +93,8 @@ namespace AdvanceHelperWEB
         {
             fileHandler.FileSave("config.txt", DirPath.Text, "Путь к рабочей директории = ");
             MessageBox.Show("Путь был успешно сохранен.");
+            FilesAddtoListBox();
+            DirectoriesAddtoListBox();
         }
 
         private void MainBtn_Click(object sender, RoutedEventArgs e)
@@ -112,6 +117,11 @@ namespace AdvanceHelperWEB
         private void OpenDirBtn_Click(object sender, RoutedEventArgs e)
         {
             DirOpen();
+        }
+
+        private void DeleteFolderBtn_Click(object sender, RoutedEventArgs e)
+        {
+            FolderDelete();
         }
 
         private void SheetGenerate_Click(object sender, RoutedEventArgs e)
@@ -187,33 +197,59 @@ namespace AdvanceHelperWEB
                     string path = ListBoxFiles[index];
                     File.Delete(path);
                     MessageBox.Show("Файл был успешно удален");
+                    FilesAddtoListBox();
                 }
             }
             catch (FileNotFoundException) { MessageBox.Show("Выбранного файла не существует"); }
             catch (IndexOutOfRangeException) { MessageBox.Show("Выберите файл, который нужно удалить"); }
             catch (NullReferenceException) { MessageBox.Show("Ошибка. Проверьте правильность рабочей директории"); }
             catch (Exception ex) { MessageBox.Show("Произошла ошибка: " + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
-            FilesAddtoListBox();
+        }
+
+        public void FolderDelete() //Удаление папки
+        {
+            try
+            {
+                MessageBoxResult result = (MessageBoxResult)MessageBox.Show("Вы действительно хотите удалить папку?", "Подтверждение", (MessageBoxButtons)MessageBoxButton.YesNo, (MessageBoxIcon)MessageBoxImage.Question);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    int index = CatalogsList.SelectedIndex;
+                    string path = ListBoxFolders[index];
+                    Directory.Delete(path);
+                    MessageBox.Show("Папка была успешно удалена");
+                    DirectoriesAddtoListBox();
+                }
+            }
+            catch (FileNotFoundException) { MessageBox.Show("Выбранной папки не существует"); }
+            catch (IndexOutOfRangeException) { MessageBox.Show("Выберите папку, которую нужно удалить"); }
+            catch (NullReferenceException) { MessageBox.Show("Ошибка. Проверьте правильность рабочей директории"); }
+            catch (Exception ex) { MessageBox.Show("Произошла ошибка: " + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
 
         public bool CreateCatalog(string DirPath) //Создание папки
         {
             CatalogWindow catalogWindow = new CatalogWindow();
-            if (catalogWindow.ShowDialog() == true)
+            if (DirPath != "")
             {
-                if (Directory.Exists(DirPath + "\\" + catalogWindow.DirNameStr))
+                if (catalogWindow.ShowDialog() == true)
                 {
-                    MessageBox.Show($"Каталог {catalogWindow.DirNameStr} уже существует");
-                    return false;
-                }
-                else
-                {
-                    Directory.CreateDirectory(DirPath + "\\" + catalogWindow.DirNameStr);
-                    MessageBox.Show($"Каталог {catalogWindow.DirNameStr} успешно создан");
-                    DirectoriesAddtoListBox();
-                    return true;
+                    if (Directory.Exists(DirPath + "\\" + catalogWindow.DirNameStr))
+                    {
+                        MessageBox.Show($"Каталог {catalogWindow.DirNameStr} уже существует");
+                        return false;
+                    }
+                    else
+                    {
+                        Directory.CreateDirectory(DirPath + "\\" + catalogWindow.DirNameStr);
+                        MessageBox.Show($"Каталог {catalogWindow.DirNameStr} успешно создан");
+                        DirectoriesAddtoListBox();
+                        return true;
+                    }
                 }
             }
+            else
+                MessageBox.Show("Путь не выбран");
             return false;
         }
 

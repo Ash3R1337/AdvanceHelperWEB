@@ -195,5 +195,21 @@
             </Button.Background>
         </Button>
         <Button x:Name="OpenWfolderBtn" Content="Открыть" HorizontalAlignment="Left" Margin="88,167,0,0" VerticalAlignment="Top" Width="100" Height="38" Background="#FF00FFDC" Foreground="Black" FontSize="16" Click="OpenWfolderBtn_Click" Cursor="Hand" RenderTransformOrigin="1.273,0.618"/>
+        <Button x:Name="DeleteFolderBtn" Content="Удалить папку" HorizontalAlignment="Left" Margin="805,335,0,0" VerticalAlignment="Top" Width="219" Height="50" FontFamily="Segoe UI Semibold" FontSize="20" Foreground="Black" Click="DeleteFolderBtn_Click" Cursor="Hand">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <LinearGradientBrush.RelativeTransform>
+                        <TransformGroup>
+                            <ScaleTransform CenterY="0.5" CenterX="0.5"/>
+                            <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                            <RotateTransform Angle="45" CenterY="0.5" CenterX="0.5"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </LinearGradientBrush.RelativeTransform>
+                    <GradientStop Color="#FFD4FF89" Offset="0"/>
+                    <GradientStop Color="#FF69FFAD" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
     </Grid>
 </Window>
