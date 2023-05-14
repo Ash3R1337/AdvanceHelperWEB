@@ -45,7 +45,7 @@
                 <SolidColorBrush Color="Black" Opacity="0.5"/>
             </Label.Background>
         </Label>
-        <Image Source="{Binding ImageSource}" HorizontalAlignment="Left" Height="535" Margin="30,94,0,0" VerticalAlignment="Top" Width="356" Stretch="Fill"/>
+        <Image x:Name="TeacherImage" HorizontalAlignment="Left" Height="535" Margin="30,94,0,0" VerticalAlignment="Top" Width="356" Stretch="Fill"/>
         <ComboBox ItemsSource="{Binding Teachers}" SelectedItem="{Binding SelectedTeacher}" DisplayMemberPath="Name" x:Name="TeacherSelector" HorizontalAlignment="Left" Margin="414,210,0,0" VerticalAlignment="Top" Width="300" Height="35" SelectionChanged="TeacherSelector_SelectionChanged" Foreground="White" Style="{DynamicResource ComboBoxStyle1}" Background="#C9FFFFFF" BorderBrush="{DynamicResource ComboBox.Static.Glyph}" BorderThickness="2" FontSize="20">
             <ComboBox.ItemContainerStyle>
                 <Style TargetType="{x:Type ComboBoxItem}">

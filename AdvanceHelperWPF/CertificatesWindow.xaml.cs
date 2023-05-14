@@ -16,39 +16,51 @@ namespace AdvanceHelperWPF
 
         public CertificatesWindow(List<Certificate> certificates)
         {
-            InitializeComponent();
-            foreach (Certificate certificate in certificates)
+            try
             {
-                imagePaths.Add(certificate.FilePath);
-                certificateName.Add(certificate.Name);
+                InitializeComponent();
+                foreach (Certificate certificate in certificates)
+                {
+                    imagePaths.Add(certificate.FilePath);
+                    certificateName.Add(certificate.Name);
+                }
+                certificateImage.Source = new BitmapImage(new Uri(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, imagePaths[0])));
+                certificateImage.ToolTip = certificateName[0];
+                currentIndex = 0;
+                totalCertificates.Content = $"Количество документов: {imagePaths.Count.ToString()}";
+                currentCertificate.Content = $"{(currentIndex + 1).ToString()}/{imagePaths.Count.ToString()}";
             }
-            certificateImage.Source = new BitmapImage(new Uri(imagePaths[0], UriKind.Relative));
-            certificateImage.ToolTip = certificateName[0];
-            currentIndex = 0;
-            totalCertificates.Content = $"Количество документов: {imagePaths.Count.ToString()}";
-            currentCertificate.Content = $"{(currentIndex + 1).ToString()}/{imagePaths.Count.ToString()}";
+            catch (Exception ex) { MessageBox.Show("Произошла ошибка: " + ex.Message, "Ошибка", MessageBoxButton.OK, (MessageBoxImage)System.Windows.Forms.MessageBoxIcon.Error); }
         }
 
         private void PreviousCertificate_Click(object sender, RoutedEventArgs e)
         {
-            if (currentIndex > 0)
+            try
             {
-                currentIndex--;
-                certificateImage.Source = new BitmapImage(new Uri(imagePaths[currentIndex], UriKind.Relative));
-                certificateImage.ToolTip = certificateName[currentIndex];
-                currentCertificate.Content = $"{(currentIndex + 1).ToString()}/{imagePaths.Count.ToString()}";
+                if (currentIndex > 0)
+                {
+                    currentIndex--;
+                    certificateImage.Source = new BitmapImage(new Uri(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, imagePaths[currentIndex])));
+                    certificateImage.ToolTip = certificateName[currentIndex];
+                    currentCertificate.Content = $"{(currentIndex + 1).ToString()}/{imagePaths.Count.ToString()}";
+                }
             }
+            catch (Exception ex) { MessageBox.Show("Произошла ошибка: " + ex.Message, "Ошибка", MessageBoxButton.OK, (MessageBoxImage)System.Windows.Forms.MessageBoxIcon.Error); }
         }
 
         private void NextCertificate_Click(object sender, RoutedEventArgs e)
         {
-            if (currentIndex < int.Parse(imagePaths.Count.ToString()) - 1)
+            try
             {
-                currentIndex++;
-                certificateImage.Source = new BitmapImage(new Uri(imagePaths[currentIndex], UriKind.Relative));
-                certificateImage.ToolTip = certificateName[currentIndex];
-                currentCertificate.Content = $"{(currentIndex + 1).ToString()}/{imagePaths.Count.ToString()}";
+                if (currentIndex < int.Parse(imagePaths.Count.ToString()) - 1)
+                {
+                    currentIndex++;
+                    certificateImage.Source = new BitmapImage(new Uri(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, imagePaths[currentIndex])));
+                    certificateImage.ToolTip = certificateName[currentIndex];
+                    currentCertificate.Content = $"{(currentIndex + 1).ToString()}/{imagePaths.Count.ToString()}";
+                }
             }
+            catch (Exception ex) { MessageBox.Show("Произошла ошибка: " + ex.Message, "Ошибка", MessageBoxButton.OK, (MessageBoxImage)System.Windows.Forms.MessageBoxIcon.Error); }
         }
 
         private void ExitBtn_Click(object sender, RoutedEventArgs e)

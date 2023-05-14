@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using AHlibrary;
 using Caliburn.Micro;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
@@ -23,7 +24,7 @@ namespace AdvanceHelperWPF
             set
             {
                 selectedTeacher = value;
-                ImageSource = selectedTeacher.ImagePath;
+                ImageSource = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, selectedTeacher.ImagePath);
                 OnPropertyChanged(nameof(SelectedTeacher));
             }
         }

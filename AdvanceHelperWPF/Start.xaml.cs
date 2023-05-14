@@ -179,14 +179,20 @@ namespace AdvanceHelperWEB
         {
             try
             {
-                int index = FilesList.SelectedIndex;
-                string path = ListBoxFiles[index];
-                File.Delete(path);
-                MessageBox.Show("Файл был успешно удален");
+                MessageBoxResult result = (MessageBoxResult)MessageBox.Show("Вы действительно хотите удалить файл?", "Подтверждение", (MessageBoxButtons)MessageBoxButton.YesNo, (MessageBoxIcon)MessageBoxImage.Question);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    int index = FilesList.SelectedIndex;
+                    string path = ListBoxFiles[index];
+                    File.Delete(path);
+                    MessageBox.Show("Файл был успешно удален");
+                }
             }
             catch (FileNotFoundException) { MessageBox.Show("Выбранного файла не существует"); }
             catch (IndexOutOfRangeException) { MessageBox.Show("Выберите файл, который нужно удалить"); }
             catch (NullReferenceException) { MessageBox.Show("Ошибка. Проверьте правильность рабочей директории"); }
+            catch (Exception ex) { MessageBox.Show("Произошла ошибка: " + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
             FilesAddtoListBox();
         }
 
