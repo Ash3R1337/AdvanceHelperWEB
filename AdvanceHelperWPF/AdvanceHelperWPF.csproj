@@ -279,6 +279,8 @@
     <SplashScreen Include="splash.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="eye-blind-icon.png" />
+    <Resource Include="eye-icon.png" />
     <Resource Include="favicon.ico" />
     <Resource Include="logo.png" />
     <Resource Include="bg4.png" />

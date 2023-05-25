@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using System.Windows.Input;
 using System.Diagnostics;
 using System;
+using System.Windows.Media.Imaging;
 
 namespace AdvanceHelperWEB
 {
@@ -77,10 +78,21 @@ namespace AdvanceHelperWEB
         }
 
         //Скрытие/Показ пароля
-        private void ShowPassword_PreviewMouseDown(object sender, MouseButtonEventArgs e) => ShowPasswordFunction();
-        private void ShowPassword_PreviewMouseUp(object sender, MouseButtonEventArgs e) => HidePasswordFunction();
-        private void ShowPassword_MouseLeave(object sender, MouseEventArgs e) => HidePasswordFunction();
-
+        private void ShowPassword_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            ShowPassword.Source = new BitmapImage(new Uri("eye-icon.png", UriKind.Relative));
+            ShowPasswordFunction();
+        }
+        private void ShowPassword_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            ShowPassword.Source = new BitmapImage(new Uri("eye-blind-icon.png", UriKind.Relative));
+            HidePasswordFunction();
+        }
+        private void ShowPassword_MouseLeave(object sender, MouseEventArgs e) 
+        {
+            ShowPassword.Source = new BitmapImage(new Uri("eye-blind-icon.png", UriKind.Relative));
+            HidePasswordFunction();
+        }
         private void ShowPasswordFunction()
         {
             PasswordUnmask.Visibility = Visibility.Visible;
