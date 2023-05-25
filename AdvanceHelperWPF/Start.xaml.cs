@@ -127,7 +127,7 @@ namespace AdvanceHelperWEB
         private void SheetGenerate_Click(object sender, RoutedEventArgs e)
         {
             Excel excel = new Excel();
-            excel.ExcelCreateDocument("Ведомость");
+            excel.ExcelCreateDocument("Ведомость", userLogin);
         }
 
         public void DirOpen()

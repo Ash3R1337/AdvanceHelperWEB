@@ -8,6 +8,7 @@ using System.IO;
 using System.Diagnostics;
 using System.Linq;
 using AdvanceHelperWPF;
+using System.Collections.Generic;
 
 namespace AHlibrary
 {
@@ -21,6 +22,7 @@ namespace AHlibrary
         string dbusername;
         string dbname;
         string password;
+        string userLogin;
         FileHandler fileHandler = new FileHandler();
 
         /// <summary>
@@ -37,8 +39,9 @@ namespace AHlibrary
         /// Создает Excel-документ
         /// </summary>
         /// <param name="FileName"></param>
-        public void ExcelCreateDocument(string FileName)
+        public void ExcelCreateDocument(string FileName, string UserLogin)
         {
+            userLogin = UserLogin;
             ExcelWorksheet sheet;
             ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
             using (ExcelPackage excelPackage = new ExcelPackage())
@@ -61,46 +64,54 @@ namespace AHlibrary
         /// <param name="sheet"></param>
         public void ExcelGenerator(ExcelWorksheet sheet) //Формирование Excel документа
         {
-            dbConnectionStrings();
-            conn = new MySqlConnection($"server=localhost;user={dbusername};database={dbname};port=3306;password={password};");
-            /*Добавление колонок*/
-            sheet.Cells[1, 1].Value = "Индекс";
-            sheet.Cells[1, 2].Value = "Наименование\nОП";
-            sheet.Cells[1, 3].Value = "Титул\nРП";
-            sheet.Cells[1, 4].Value = "РП";
-            sheet.Cells[1, 5].Value = "Титул\nФОС";
-            sheet.Cells[1, 6].Value = "ФОС";
-            sheet.Cells[1, 7].Value = "Внутр.\nрец.";
-            sheet.Cells[1, 8].Value = "Эксп.\nзакл.";
-            sheet.Cells[1, 9].Value = "ВСРС";
-            sheet.Cells[1, 10].Value = "МУПР";
-            sheet.Cells[1, 11].Value = "Ответственный";
-            sheet.Cells[sheet.Dimension.Address].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-            /*Добавление строк*/
-            int SpecialtiesCount = GetRowsCount("специальности");
-            for (int i = 1; i <= SpecialtiesCount; i++)
+            try
             {
-                sheet.Cells[sheet.Dimension.End.Row + 1, sheet.Dimension.Start.Column, sheet.Dimension.End.Row + 1, sheet.Dimension.End.Column].Merge = true;
-                sheet.Cells[sheet.Dimension.End.Row + 1, 1].Value = GetValueById("специальности", i, "Код_специальности", "Наименование");
-                sheet.Cells[sheet.Dimension.End.Row, 1].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-                FillRows(i, sheet);
+                dbConnectionStrings();
+                conn = new MySqlConnection($"server=localhost;user={dbusername};database={dbname};port=3306;password={password};");
+                /*Добавление колонок*/
+                sheet.Cells[1, 1].Value = "Индекс";
+                sheet.Cells[1, 2].Value = "Наименование\nОП";
+                sheet.Cells[1, 3].Value = "Титул\nРП";
+                sheet.Cells[1, 4].Value = "РП";
+                sheet.Cells[1, 5].Value = "Титул\nФОС";
+                sheet.Cells[1, 6].Value = "ФОС";
+                sheet.Cells[1, 7].Value = "Внутр.\nрец.";
+                sheet.Cells[1, 8].Value = "Эксп.\nзакл.";
+                sheet.Cells[1, 9].Value = "ВСРС";
+                sheet.Cells[1, 10].Value = "МУПР";
+                sheet.Cells[1, 11].Value = "Ответственный";
+                sheet.Cells[sheet.Dimension.Address].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                /*Добавление строк*/
+                int UserId = GetIDbyString("Код_пользователя", "пользователи", "Логин", userLogin); //Получение id пользователя
+                int SubId = GetID("Код_подразделения", "подразделение", "Код_пользователя", UserId); //Получение id подразделения
+                List<int> specialitiesIds = GetSpecialitiesIds("специальности", SubId);
+                MessageBox.Show(specialitiesIds.Count.ToString());
+                //int SpecialtiesCount = GetRowsCount("специальности", SubId);
+                for (int i = 0; i < specialitiesIds.Count; i++)
+                {
+                    sheet.Cells[sheet.Dimension.End.Row + 1, sheet.Dimension.Start.Column, sheet.Dimension.End.Row + 1, sheet.Dimension.End.Column].Merge = true;
+                    sheet.Cells[sheet.Dimension.End.Row + 1, 1].Value = GetValueById("Наименование", "специальности", "Код_специальности", specialitiesIds[i], SubId); //Наименование специальности
+                    sheet.Cells[sheet.Dimension.End.Row, 1].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    FillRows(specialitiesIds[i], sheet);
+                }
+                FindAndReplace(sheet, "True", "+");
+                FindAndReplace(sheet, "False", " ");
+                /*Стили таблицы*/
+                sheet.Cells.Style.Font.Size = 14;
+                sheet.Cells.Style.Font.Name = "Times New Roman";
+                sheet.Cells[sheet.Dimension.Address].AutoFitColumns(10, 62);
+                sheet.Cells[sheet.Dimension.Address].Style.WrapText = true;
+                sheet.Cells[sheet.Dimension.Address].Style.VerticalAlignment = ExcelVerticalAlignment.Top;
+                sheet.Column(1).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+                sheet.Column(11).Style.VerticalAlignment = ExcelVerticalAlignment.Top;
+                sheet.Column(11).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                sheet.Cells[sheet.Dimension.Address].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                sheet.Cells[sheet.Dimension.Address].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                sheet.Cells[sheet.Dimension.Address].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                sheet.Cells[sheet.Dimension.Address].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                sheet.Row(1).Height = 50;
             }
-            FindAndReplace(sheet, "True", "+");
-            FindAndReplace(sheet, "False", " ");
-            /*Стили таблицы*/
-            sheet.Cells.Style.Font.Size = 14;
-            sheet.Cells.Style.Font.Name = "Times New Roman";
-            sheet.Cells[sheet.Dimension.Address].AutoFitColumns(10, 62);
-            sheet.Cells[sheet.Dimension.Address].Style.WrapText = true;
-            sheet.Cells[sheet.Dimension.Address].Style.VerticalAlignment = ExcelVerticalAlignment.Top;
-            sheet.Column(1).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
-            sheet.Column(11).Style.VerticalAlignment = ExcelVerticalAlignment.Top;
-            sheet.Column(11).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-            sheet.Cells[sheet.Dimension.Address].Style.Border.Top.Style = ExcelBorderStyle.Thin;
-            sheet.Cells[sheet.Dimension.Address].Style.Border.Right.Style = ExcelBorderStyle.Thin;
-            sheet.Cells[sheet.Dimension.Address].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
-            sheet.Cells[sheet.Dimension.Address].Style.Border.Left.Style = ExcelBorderStyle.Thin;
-            sheet.Row(1).Height = 50;
+            catch (Exception ex) { MessageBox.Show("Произошла ошибка: " + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
 
         /// <summary>
@@ -110,6 +121,7 @@ namespace AHlibrary
         /// <param name="sheet"></param>
         public void FillRows(int id, ExcelWorksheet sheet)
         {
+            dbConnectionStrings();
             conn.Open();
             string sql = "SELECT Индекс, Наименование_предмета, Титул_РП, РП, Титул_ФОС, ФОС, ВнутрРец, ЭкспЗакл, ВСРС, МУПР, ФИО " +
                 "FROM материалы JOIN предметы ON материалы.Код_предмета = предметы.Код_предмета " +
@@ -154,12 +166,15 @@ namespace AHlibrary
         /// Получает количество строк в таблице
         /// </summary>
         /// <param name="table"></param>
+        /// <param name="SubId"></param>
         /// <returns></returns>
-        public int GetRowsCount(string table)
+        public int GetRowsCount(string table, int SubId)
         {
+            dbConnectionStrings();
             conn.Open();
-            string sql = "SELECT count(*) FROM " + table;
+            string sql = $"SELECT count(*) FROM {table} WHERE Код_подразделения = @SubId";
             MySqlCommand command = new MySqlCommand(sql, conn);
+            command.Parameters.AddWithValue("@SubId", SubId);
             int result = Convert.ToInt32(command.ExecuteScalar());
             conn.Close();
             return result;
@@ -172,12 +187,16 @@ namespace AHlibrary
         /// <param name="id"></param>
         /// <param name="ColName"></param>
         /// <param name="value"></param>
+        /// <param name="SubId"></param>
         /// <returns></returns>
-        public string GetValueById(string table, int id, string ColName, string value)
+        public string GetValueById(string value, string table, string ColName, int id, int SubId)
         {
+            dbConnectionStrings();
             conn.Open();
-            string sql = $"SELECT {value} FROM {table} WHERE {ColName} = '{id}'";
+            string sql = $"SELECT {value} FROM {table} WHERE {ColName} = @id AND Код_подразделения = @SubId";
             MySqlCommand command = new MySqlCommand(sql, conn);
+            command.Parameters.AddWithValue("@id", id);
+            command.Parameters.AddWithValue("@SubId", SubId);
             string result = Convert.ToString(command.ExecuteScalar());
             conn.Close();
             return result;
@@ -193,6 +212,7 @@ namespace AHlibrary
         /// <returns></returns>
         public int GetRowsCountById(string table, int id, string ColName)
         {
+            dbConnectionStrings();
             conn.Open();
             string sql = $"SELECT count(*) FROM {table} WHERE {ColName} = {id}";
             MySqlCommand command = new MySqlCommand(sql, conn);
@@ -209,66 +229,63 @@ namespace AHlibrary
         /// <param name="ColName"></param>
         /// <param name="value"></param>
         /// <returns></returns>
-        public int GetID(string table, int TableId, string ColName, string value)
+        public int GetID(string value, string table, string ColName, int TableId)
         {
+            dbConnectionStrings();
             conn.Open();
-            string sql = $"SELECT {value} FROM {table} WHERE {ColName} = '{TableId}'";
+            string sql = $"SELECT {value} FROM {table} WHERE {ColName} = @TableId";
             MySqlCommand command = new MySqlCommand(sql, conn);
+            command.Parameters.AddWithValue("@TableId", TableId);
             int result = Convert.ToInt32(command.ExecuteScalar());
             conn.Close();
             return result;
         }
 
         /// <summary>
-        /// 
+        /// Получение идентификатора по строке
         /// </summary>
-        /// <param name="Student"></param>
-        /// <param name="Work"></param>
-        /// <param name="Estimate"></param>
-        /// <param name="FileName"></param>
-        public void ExcelAddValues(string Student, string Work, string Estimate, string FileName) //Заполнение ячеек таблицы
+        /// <param name="value"></param>
+        /// <param name="table"></param>
+        /// <param name="ColName"></param>
+        /// <param name="TableString"></param>
+        /// <returns></returns>
+        public int GetIDbyString(string value, string table, string ColName, string TableString)
         {
-            ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
-            using (ExcelPackage excelPackage = new ExcelPackage(FileName + ".xlsx"))
+            dbConnectionStrings();
+            conn.Open();
+            string sql = $"SELECT {value} FROM {table} WHERE {ColName} = @TableString";
+            MySqlCommand command = new MySqlCommand(sql, conn);
+            command.Parameters.AddWithValue("@TableString", TableString);
+            int result = Convert.ToInt32(command.ExecuteScalar());
+            conn.Close();
+            return result;
+        }
+
+        /// <summary>
+        /// Получает все идентификаторы специальностей из таблицы специальности
+        /// </summary>
+        /// <param name="table"></param>
+        /// <param name="SubId"></param>
+        /// <returns></returns>
+        public List<int> GetSpecialitiesIds(string table, int SubId)
+        {
+            List<int> specialitiesIds = new List<int>();
+            dbConnectionStrings();
+            using (conn = new MySqlConnection($"server=localhost;user={dbusername};database={dbname};port=3306;password={password};"))
             {
-                ExcelWorksheet sheet = excelPackage.Workbook.Worksheets["Практические работы"];
-                int Column = 0;
-                int Row = 0;
-                for (int i = sheet.Dimension.Start.Column + 2; i < sheet.Dimension.End.Column; i++) //Поиск колонки
-                    if (sheet.Cells[2, i].Value.ToString() == Work)
-                        Column = i;
-                for (int j = sheet.Dimension.Start.Row + 2; j <= sheet.Dimension.End.Row; j++) //Поиск строки
-                    if (sheet.Cells[j, 2].Value.ToString() == Student)
-                        Row = j;
-                /*Добавление значения в таблицу*/
-                switch (Estimate)
+                conn.Open();
+                string sql = $"SELECT Код_специальности FROM {table} WHERE Код_подразделения = @SubId";
+                MySqlCommand command = new MySqlCommand(sql, conn);
+                command.Parameters.AddWithValue("@SubId", SubId);
+                using (MySqlDataReader reader = command.ExecuteReader())
                 {
-                    case "5":
-                        sheet.Cells[Row, Column].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-                        /*sheet.Cells[Row, Column].Style.Font.Color.SetColor(Color.White);*/
-                        sheet.Cells[Row, Column].Value = "5";
-                        break;
-                    case "4":
-                        sheet.Cells[Row, Column].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-                        /*sheet.Cells[Row, Column].Style.Font.Color.SetColor(Color.White);*/
-                        sheet.Cells[Row, Column].Value = "4";
-                        break;
-                    case "3":
-                        sheet.Cells[Row, Column].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-                        /*sheet.Cells[Row, Column].Style.Font.Color.SetColor(Color.White);*/
-                        sheet.Cells[Row, Column].Value = "3";
-                        break;
-                    case "2":
-                        sheet.Cells[Row, Column].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-                        /*sheet.Cells[Row, Column].Style.Font.Color.SetColor(Color.White);*/
-                        sheet.Cells[Row, Column].Value = "2";
-                        break;
-                    case "Не выставлена":
-                        sheet.Cells[Row, Column].Value = " ";
-                        break;
+                    while (reader.Read())
+                    {
+                        int specialityCode = (int)reader["Код_специальности"];
+                        specialitiesIds.Add(specialityCode);
+                    }
                 }
-                excelPackage.Save();
-                MessageBox.Show("Работа была успешно отмечена");
+                return specialitiesIds;
             }
         }
     }
