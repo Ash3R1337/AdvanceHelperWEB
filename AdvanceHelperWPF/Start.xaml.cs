@@ -130,6 +130,23 @@ namespace AdvanceHelperWEB
             excel.ExcelCreateDocument("Ведомость", userLogin);
         }
 
+        private void SaveVedBtn_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                System.Windows.Forms.FolderBrowserDialog folderBrowser = new FolderBrowserDialog();
+                if (folderBrowser.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    string destinationFolderPath = folderBrowser.SelectedPath;
+                    string destinationFilePath = Path.Combine(destinationFolderPath, "Ведомость.xlsx");
+                    File.Copy("Ведомость.xlsx", destinationFilePath);
+                    MessageBox.Show("Файл был успешно сохранен в выбранную папку.");
+                    Process.Start("explorer.exe", destinationFolderPath);
+                }
+            }
+            catch (Exception ex) { MessageBox.Show("Произошла ошибка: " + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+        }
+
         public void DirOpen()
         {
             try

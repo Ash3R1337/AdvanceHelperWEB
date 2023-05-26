@@ -85,8 +85,6 @@ namespace AHlibrary
                 int UserId = GetIDbyString("Код_пользователя", "пользователи", "Логин", userLogin); //Получение id пользователя
                 int SubId = GetID("Код_подразделения", "подразделение", "Код_пользователя", UserId); //Получение id подразделения
                 List<int> specialitiesIds = GetSpecialitiesIds("специальности", SubId);
-                MessageBox.Show(specialitiesIds.Count.ToString());
-                //int SpecialtiesCount = GetRowsCount("специальности", SubId);
                 for (int i = 0; i < specialitiesIds.Count; i++)
                 {
                     sheet.Cells[sheet.Dimension.End.Row + 1, sheet.Dimension.Start.Column, sheet.Dimension.End.Row + 1, sheet.Dimension.End.Column].Merge = true;
