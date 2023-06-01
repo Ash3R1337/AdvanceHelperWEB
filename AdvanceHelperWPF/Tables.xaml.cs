@@ -1,6 +1,10 @@
 ﻿using System.Windows;
 using Settings = AdvanceHelperWPF.Settings;
 using AHlibrary;
+using System;
+using System.Windows.Forms;
+using System.Windows.Controls;
+using System.Collections.ObjectModel;
 
 namespace AdvanceHelperWEB
 {
@@ -49,6 +53,14 @@ namespace AdvanceHelperWEB
         private void OpenBtn_Click(object sender, RoutedEventArgs e)
         {
             dBconnect.DB(SelectTablesComboBox.Text.ToLower(), dataGrid);
+            ObservableCollection<DataGridColumn> columns = dataGrid.Columns;
+            // Очистка элементов ComboBox
+            SelectCond.Items.Clear();
+            // Добавление названий колонок в ComboBox
+            foreach (DataGridColumn column in columns)
+            {
+                SelectCond.Items.Add(column.Header);
+            }
         }
 
         private void SaveBtn_Click(object sender, RoutedEventArgs e)
@@ -64,6 +76,16 @@ namespace AdvanceHelperWEB
             Settings settings = new Settings(userLogin, userStatus);
             settings.Show();
             this.Close();
+        }
+
+        private void SearchBtn_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                dBconnect.TableSearch(dataGrid, SelectTablesComboBox.Text.ToLower(), SelectCond.Text, Search.Text);
+            }
+            catch (Exception ex) { System.Windows.MessageBox.Show("Произошла ошибка: " + ex.Message, "Ошибка", MessageBoxButton.OK, (MessageBoxImage)MessageBoxIcon.Error); }
+
         }
     }
 }

@@ -21,6 +21,11 @@ namespace AdvanceHelperWEB
                 StartBtn.Visibility = Visibility.Hidden;
                 StatisticsBtn.Visibility = Visibility.Visible;
             }
+            else if (UserStatus == "методист")
+            {
+                Tables.Visibility = Visibility.Hidden;
+                MaterialsBtn.Visibility = Visibility.Visible;
+            }
         }
 
         private void StartBtn_Click(object sender, RoutedEventArgs e)
@@ -62,6 +67,13 @@ namespace AdvanceHelperWEB
         {
             Statistics statistics = new Statistics(userLogin, userStatus);
             statistics.Show();
+            this.Close();
+        }
+
+        private void MaterialsBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Materials materials = new Materials(userLogin, userStatus);
+            materials.Show();
             this.Close();
         }
     }

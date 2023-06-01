@@ -64,7 +64,7 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <ComboBox x:Name="SelectTablesComboBox" HorizontalAlignment="Left" Margin="351,685,0,0" VerticalAlignment="Top" Width="320" Height="50" ShouldPreserveUserEnteredPrefix="True" Foreground="White" Style="{DynamicResource ComboBoxStyle1}" Background="#C9FFFFFF" BorderBrush="{DynamicResource ComboBox.Static.Glyph}" BorderThickness="5" FontSize="22" VerticalContentAlignment="Center">
+        <ComboBox x:Name="SelectTablesComboBox" HorizontalAlignment="Left" Margin="351,685,0,0" VerticalAlignment="Top" Width="320" Height="50" ShouldPreserveUserEnteredPrefix="True" Foreground="White" Style="{DynamicResource ComboBoxStyle1}" Background="#C9FFFFFF" BorderBrush="#FF72FB00" BorderThickness="5" FontSize="22" VerticalContentAlignment="Center">
             <ComboBox.ItemContainerStyle>
                 <Style TargetType="ComboBoxItem">
                     <Setter Property="Background" Value="#E5067A00"/>
@@ -89,5 +89,39 @@
             </Button.Background>
         </Button>
         <Button x:Name="SettingsBtn" Content="Настройки" HorizontalAlignment="Left" Margin="10,685,0,0" VerticalAlignment="Top" Width="172" Background="#FF00422F" Height="50" FontFamily="Segoe UI Semibold" FontSize="20" Foreground="White" Cursor="Hand" Click="SettingsBtn_Click" Visibility="Hidden"/>
+        <TextBox x:Name="Search" HorizontalAlignment="Left" Height="50" Margin="528,740,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="320" BorderBrush="#FFFFF300" Foreground="White" FontSize="22" BorderThickness="5" VerticalContentAlignment="Center">
+            <TextBox.Background>
+                <SolidColorBrush Color="#FF015510" Opacity="0.8"/>
+            </TextBox.Background>
+        </TextBox>
+        <Button x:Name="SearchBtn" Content="Найти" HorizontalAlignment="Left" Margin="853,740,0,0" VerticalAlignment="Top" Width="172" Height="50" FontFamily="Segoe UI Semibold" FontSize="20" Foreground="Black" Cursor="Hand" Click="SearchBtn_Click">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <LinearGradientBrush.RelativeTransform>
+                        <TransformGroup>
+                            <ScaleTransform CenterY="0.5" CenterX="0.5"/>
+                            <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                            <RotateTransform Angle="45" CenterY="0.5" CenterX="0.5"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </LinearGradientBrush.RelativeTransform>
+                    <GradientStop Color="#FFD4FF89" Offset="0"/>
+                    <GradientStop Color="#FF69FFAD" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <ComboBox x:Name="SelectCond" HorizontalAlignment="Left" Margin="351,740,0,0" VerticalAlignment="Top" Width="172" Height="50" ShouldPreserveUserEnteredPrefix="True" Foreground="White" Style="{DynamicResource ComboBoxStyle1}" Background="#C9FFFFFF" BorderBrush="#FF72FB00" BorderThickness="5" FontSize="22" VerticalContentAlignment="Center">
+            <ComboBox.ItemContainerStyle>
+                <Style TargetType="{x:Type ComboBoxItem}">
+                    <Setter Property="Background" Value="#E5067A00"/>
+                    <Setter Property="BorderBrush" Value="Yellow"/>
+                </Style>
+            </ComboBox.ItemContainerStyle>
+        </ComboBox>
+        <TextBlock Margin="187,740,0,0" TextWrapping="Wrap" Text="Поиск по таблице:" VerticalAlignment="Top" Height="50" Width="159" Foreground="White" HorizontalAlignment="Left" FontSize="18" TextAlignment="Center">
+            <TextBlock.Background>
+                <SolidColorBrush Color="#FF015510" Opacity="0.7"/>
+            </TextBlock.Background>
+        </TextBlock>
     </Grid>
 </Window>

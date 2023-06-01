@@ -7,6 +7,7 @@ using System.Windows.Input;
 using System.Diagnostics;
 using System;
 using System.Windows.Media.Imaging;
+using AdvanceHelperWPF;
 
 namespace AdvanceHelperWEB
 {
@@ -15,9 +16,11 @@ namespace AdvanceHelperWEB
     /// </summary>
     public partial class MainWindow : Window
     {
+        FileHandler fileHandler = new FileHandler();
         public MainWindow()
         {
             InitializeComponent();
+            labelForgetPassInstruct.Content = $"Обратитесь к администратору базы данных,\nлибо сообщите о проблеме на почту: \n{fileHandler.GetPath("config.txt", "Почта для связи: ")}";
         }
 
         Regex regex = new Regex(@"[^a-zA-Z0-9]");

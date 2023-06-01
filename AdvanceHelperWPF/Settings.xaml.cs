@@ -22,7 +22,7 @@ namespace AdvanceHelperWPF
         public Settings(string UserLogin, string UserStatus)
         {
             InitializeComponent();
-            SettingsTextBlock.Text = $"Версия программы: 1.2.3\nПользователь: {UserLogin}";
+            SettingsTextBlock.Text = $"Версия программы: 1.2.4\nПользователь: {UserLogin}";
             userLogin = UserLogin;
             userStatus = UserStatus;
             if (File.Exists("config.txt"))

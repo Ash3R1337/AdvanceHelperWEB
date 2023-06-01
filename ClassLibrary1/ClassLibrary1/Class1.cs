@@ -315,7 +315,7 @@ namespace AHlibrary
         /// <param name="SearchName"></param>
         public void TableSearch(System.Windows.Controls.DataGrid dataGrid, string table, string cond, string SearchName)
         {
-            string sql = "SELECT * FROM " + table + " WHERE " + cond + " LIKE '" + SearchName + "%'";
+            string sql = "SELECT * FROM " + table + " WHERE " + cond + " LIKE '%" + SearchName + "%'";
             adapter = new MySqlDataAdapter(sql, conn);
             MySqlCommandBuilder myCommandBuilder = new MySqlCommandBuilder(adapter as MySqlDataAdapter);
             adapter.InsertCommand = myCommandBuilder.GetInsertCommand();
@@ -430,6 +430,90 @@ namespace AHlibrary
                 string result = Convert.ToString(command.ExecuteScalar());
                 return result;
             }
+        }
+
+        /// <summary>
+        /// Получает последний Id в таблице
+        /// </summary>
+        /// <param name="ColIdName"></param>
+        /// <param name="table"></param>
+        /// <returns></returns>
+        public int GetLastId(string ColIdName, string table)
+        {
+            dbConnectionStrings();
+            using (conn = new MySqlConnection($"server=localhost;user={dbusername};database={dbname};port=3306;password={password};"))
+            {
+                conn.Open();
+                string sql = $"SELECT MAX({ColIdName}) FROM {table};";
+                MySqlCommand command = new MySqlCommand(sql, conn);
+                int result = Convert.ToInt32(command.ExecuteScalar());
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// Добавляет материал в базу данных
+        /// </summary>
+        /// <param name="SubdivisionName"></param>
+        /// <param name="SubjectName"></param>
+        /// <param name="TeacherName"></param>
+        /// <param name="TitleRP"></param>
+        /// <param name="RP"></param>
+        /// <param name="TitleFOS"></param>
+        /// <param name="FOS"></param>
+        /// <param name="VnutrRec"></param>
+        /// <param name="ExpZakl"></param>
+        /// <param name="VSRS"></param>
+        /// <param name="MUPR"></param>
+        public void AddMaterial(string SubdivisionName, string SubjectName, string TeacherName, int TitleRP, int RP, int TitleFOS, int FOS, int VnutrRec, int ExpZakl, int VSRS, int MUPR)
+        {
+            string querySubdivision = "SELECT Код_подразделения FROM подразделение WHERE Цикловая_комиссия = @SubdivisionName";
+            string querySubject = "SELECT Код_предмета FROM предметы WHERE Индекс = @SubjectName";
+            string queryTeacher = "SELECT Код_преподавателя FROM преподаватели WHERE ФИО = @TeacherName";
+            int SubdivisionId;
+            int SubjectId;
+            int TeacherId;
+
+            dbConnectionStrings();
+            using (conn = new MySqlConnection($"server=localhost;user={dbusername};database={dbname};port=3306;password={password};"))
+            {
+                conn.Open();
+                using (MySqlCommand commandSubdivision = new MySqlCommand(querySubdivision, conn))
+                {
+                    commandSubdivision.Parameters.AddWithValue("@SubdivisionName", SubdivisionName);
+                    SubdivisionId = (int)commandSubdivision.ExecuteScalar();
+                }
+                using (MySqlCommand commandSubject = new MySqlCommand(querySubject, conn))
+                {
+                    commandSubject.Parameters.AddWithValue("@SubjectName", SubjectName);
+                    SubjectId = (int)commandSubject.ExecuteScalar();
+                }
+                using (MySqlCommand commandTeacher = new MySqlCommand(queryTeacher, conn))
+                {
+                    commandTeacher.Parameters.AddWithValue("@TeacherName", TeacherName);
+                    TeacherId = (int)commandTeacher.ExecuteScalar();
+                }
+                string query = "INSERT INTO материалы (Код_подразделения, Код_предмета, Код_преподавателя, Титул_РП, РП, Титул_ФОС, ФОС, ВнутрРец, ЭкспЗакл, ВСРС, МУПР) " +
+                   "VALUES (@SubdivisionId, @SubjectId, @TeacherId, @TitleRP, @RP, @TitleFOS, @FOS, @VnutrRec, @ExpZakl, @VSRS, @MUPR)";
+                using (MySqlCommand command = new MySqlCommand(query, conn))
+                {
+                    // Параметризованные значения
+                    command.Parameters.AddWithValue("@SubdivisionId", SubdivisionId);
+                    command.Parameters.AddWithValue("@SubjectId", SubjectId);
+                    command.Parameters.AddWithValue("@TeacherId", TeacherId);
+                    command.Parameters.AddWithValue("@TitleRP", TitleRP);
+                    command.Parameters.AddWithValue("@RP", RP);
+                    command.Parameters.AddWithValue("@TitleFOS", TitleFOS);
+                    command.Parameters.AddWithValue("FOS", FOS);
+                    command.Parameters.AddWithValue("VnutrRec", VnutrRec);
+                    command.Parameters.AddWithValue("ExpZakl", ExpZakl);
+                    command.Parameters.AddWithValue("VSRS", VSRS);
+                    command.Parameters.AddWithValue("MUPR", MUPR);
+                    // Выполнение запроса
+                    command.ExecuteNonQuery();
+                }
+            }
+
         }
 
 
