@@ -40,7 +40,7 @@
 
         <Rectangle x:Name="topPanel" Fill="#FFA1FFB2" HorizontalAlignment="Left" Height="66" Stroke="Black" VerticalAlignment="Top" Width="1035"/>
         <Label x:Name="labelHeader" Content="AdvanceHelperWPF" HorizontalAlignment="Left" Margin="10,13,0,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="#FF026A49" FontSize="22" FontFamily="Segoe UI Black" Height="39" Width="225"/>
-        <Label x:Name="labelLogin" Content="Пользователь" HorizontalAlignment="Left" Margin="854,10,0,0" VerticalAlignment="Top" Foreground="White" FontSize="24" Height="42" Width="163">
+        <Label x:Name="labelLogin" Content="Пользователь" HorizontalAlignment="Left" Margin="860,10,0,0" VerticalAlignment="Top" Foreground="White" FontSize="24" Height="42" Width="175">
             <Label.Background>
                 <SolidColorBrush Color="Black" Opacity="0.5"/>
             </Label.Background>

@@ -5,6 +5,8 @@ using AHlibrary;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
+using System.Linq;
+using System.ComponentModel;
 
 namespace AdvanceHelperWPF
 {
@@ -25,6 +27,7 @@ namespace AdvanceHelperWPF
             labelLogin.Content = UserLogin;
             viewModel = new TeacherPortfolioViewModel();
             DataContext = viewModel;
+            MaterialId.ToolTip = "Автоматически сгенерированный номер материала";
 
             dBconnect.FillCombobox(SubdivisionSelector, "Цикловая_комиссия", "подразделение");
             SubdivisionSelector.SelectedIndex = 0;
@@ -32,17 +35,19 @@ namespace AdvanceHelperWPF
             dBconnect.FillCombobox(SubjectSelector, "Индекс", "предметы");
             SubjectSelector.SelectedIndex = 0;
 
-            MaterialId.Text = (dBconnect.GetLastId("Код_Материала", "материалы") + 1).ToString();
+            dBconnect.ShowMaterials("материалы", dataGrid); //Добавление таблицы
 
-            dBconnect.DB("материалы", dataGrid);
-            ObservableCollection<DataGridColumn> columns = dataGrid.Columns;
-            // Очистка элементов ComboBox
-            SelectCond.Items.Clear();
-            // Добавление названий колонок в ComboBox
-            foreach (DataGridColumn column in columns)
-            {
-                SelectCond.Items.Add(column.Header);
-            }
+            SortTable(); //Сортировка таблицы
+
+            if (dataGrid.Items.Count > 0)
+                MaterialId.Text = (dBconnect.GetLastId("Код_Материала", "материалы") + 1).ToString(); //Обновление кода
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            dataGrid.Columns[1].Header = "Подразделение";
+            dataGrid.Columns[2].Header = "Предмет";
+            dataGrid.Columns[3].Header = "Преподаватель";
         }
 
         private void ExitBtn_Click(object sender, RoutedEventArgs e)
@@ -76,8 +81,12 @@ namespace AdvanceHelperWPF
                 int mupr = Convert.ToInt32(MUPR.IsChecked);
                 dBconnect.AddMaterial(SubdivisionName, SubjectName, TeacherName, TitleRp, Rp, TitleFos, Fos, VnutrREC, expZakl, vsrs, mupr);
                 MessageBox.Show("Новый материал бы успешно добавлен");
-                MaterialId.Text = (dBconnect.GetLastId("Код_Материала", "материалы") + 1).ToString(); //Обновление кода
-                dBconnect.DB("материалы", dataGrid); //Обновление таблицы
+                if (dataGrid.Items.Count > 0)
+                {
+                    MaterialId.Text = (dBconnect.GetLastId("Код_Материала", "материалы") + 1).ToString(); //Обновление кода
+                }
+                dBconnect.ShowMaterials("материалы", dataGrid);
+                SortTable(); //Сортировка таблицы
             }
             catch (Exception ex) { MessageBox.Show("Произошла ошибка: " + ex.Message, "Ошибка", (MessageBoxButton)System.Windows.Forms.MessageBoxButtons.OK, (MessageBoxImage)System.Windows.Forms.MessageBoxIcon.Error); }
         }
@@ -97,18 +106,46 @@ namespace AdvanceHelperWPF
 
         }
 
-        private void SearchBtn_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                dBconnect.TableSearch(dataGrid, "материалы", SelectCond.Text, Search.Text);
-            }
-            catch (Exception ex) { MessageBox.Show("Произошла ошибка: " + ex.Message, "Ошибка", MessageBoxButton.OK, (MessageBoxImage)System.Windows.Forms.MessageBoxIcon.Error); }
-        }
-
         private void SaveBtn_Click(object sender, RoutedEventArgs e)
         {
-            dBconnect.SaveTable();
+            dBconnect.SaveMaterialsTable(dataGrid);
+            SortTable(); //Сортировка таблицы
+            if (dataGrid.Items.Count > 0)
+            {
+                MaterialId.Text = (dBconnect.GetLastId("Код_Материала", "материалы") + 1).ToString(); //Обновление кода
+            }
+        }
+
+        private void SortTable()
+        {
+            DataGridColumn column = dataGrid.Columns.FirstOrDefault(c => c.Header.ToString() == "Код_Материала");
+
+            if (column != null)
+            {
+                // Очистка существующей сортировки
+                dataGrid.Items.SortDescriptions.Clear();
+
+                // Добавление сортировки по столбцу "Код_Материала" в порядке убывания
+                dataGrid.Items.SortDescriptions.Add(new SortDescription(column.SortMemberPath, ListSortDirection.Descending));
+
+                // Применение сортировки
+                dataGrid.Items.Refresh();
+            }
+        }
+
+        private void ClearMaterialBtn_Click(object sender, RoutedEventArgs e)
+        {
+            SubdivisionSelector.SelectedIndex = 0;
+            SubjectSelector.SelectedIndex = 0;
+            TeacherSelector.SelectedIndex = 0;
+            TitleRP.IsChecked = false;
+            RP.IsChecked = false;
+            TitleFOS.IsChecked = false;
+            FOS.IsChecked = false;
+            VnutrRec.IsChecked = false;
+            ExpZakl.IsChecked = false;
+            VSRS.IsChecked = false;
+            MUPR.IsChecked = false;
         }
     }
 }

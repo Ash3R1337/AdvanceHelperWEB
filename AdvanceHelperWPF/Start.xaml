@@ -72,7 +72,7 @@
         <Button x:Name="ChBtn" Content="Выбрать" HorizontalAlignment="Left" Margin="429,118,0,0" VerticalAlignment="Top" Width="97" Height="38" Background="#FF00FFDC" Foreground="Black" FontSize="16" Click="ChBtn_Click" Cursor="Hand"/>
         <Button x:Name="ExitBtn" Content="Выход" HorizontalAlignment="Left" Margin="10,710,0,0" VerticalAlignment="Top" Width="172" Background="#FF00422F" Height="50" FontFamily="Segoe UI Semibold" FontSize="20" Foreground="White" Click="ExitBtn_Click" Cursor="Hand"/>
         <Rectangle x:Name="topPanel" Fill="#FFA1FFB2" HorizontalAlignment="Left" Height="66" Stroke="Black" VerticalAlignment="Top" Width="1035"/>
-        <Label x:Name="labelLogin" Content="Пользователь" HorizontalAlignment="Left" Margin="851,10,0,0" VerticalAlignment="Top" Foreground="White" FontSize="24">
+        <Label x:Name="labelLogin" Content="Пользователь" HorizontalAlignment="Left" Margin="867,10,0,0" VerticalAlignment="Top" Foreground="White" FontSize="24" Width="168">
             <Label.Background>
                 <SolidColorBrush Color="Black" Opacity="0.5"/>
             </Label.Background>

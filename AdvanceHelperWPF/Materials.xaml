@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AdvanceHelperWPF"
         mc:Ignorable="d"
-        Title="Статистика" Width="1220" Height="800" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="Статистика" Width="1220" Height="800" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
+        Loaded="Window_Loaded">
     <Window.Background>
         <ImageBrush/>
     </Window.Background>
@@ -34,7 +35,7 @@
             <ImageBrush ImageSource="bg3.png" Stretch="None"/>
         </Grid.Background>
         <Rectangle x:Name="topPanel" Fill="#FFA1FFB2" HorizontalAlignment="Left" Height="66" Stroke="Black" VerticalAlignment="Top" Width="1220"/>
-        <Label x:Name="labelLogin" Content="Пользователь" HorizontalAlignment="Left" Margin="1044,10,0,0" VerticalAlignment="Top" Foreground="White" FontSize="24" Height="42" Width="166">
+        <Label x:Name="labelLogin" Content="Пользователь" HorizontalAlignment="Left" Margin="1054,10,0,0" VerticalAlignment="Top" Foreground="White" FontSize="24" Height="42" Width="166">
             <Label.Background>
                 <SolidColorBrush Color="Black" Opacity="0.5"/>
             </Label.Background>
@@ -192,7 +193,7 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <Button x:Name="ClearMaterialBtn" Content="Очистить" Margin="245,675,800,0" VerticalAlignment="Top" Height="50" FontFamily="Segoe UI Semibold" FontSize="20" Foreground="Black" Cursor="Hand">
+        <Button x:Name="ClearMaterialBtn" Content="Очистить" Margin="245,675,800,0" VerticalAlignment="Top" Height="50" FontFamily="Segoe UI Semibold" FontSize="20" Foreground="Black" Cursor="Hand" Click="ClearMaterialBtn_Click">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <LinearGradientBrush.RelativeTransform>
@@ -213,46 +214,12 @@
                 <SolidColorBrush Color="White" Opacity="0.5"/>
             </Label.Background>
         </Label>
-        <DataGrid x:Name="dataGrid" HorizontalAlignment="Left" Height="495" Margin="425,164,0,0" VerticalAlignment="Top" Width="791" BorderBrush="White" BorderThickness="5" FontSize="18">
+        <DataGrid x:Name="dataGrid" HorizontalAlignment="Left" Height="561" Margin="425,164,0,0" VerticalAlignment="Top" Width="791" BorderBrush="White" BorderThickness="5" FontSize="18">
             <DataGrid.Background>
                 <ImageBrush ImageSource="CutPaper.png"/>
             </DataGrid.Background>
         </DataGrid>
-        <TextBlock Margin="425,675,0,0" TextWrapping="Wrap" Text="Поиск по таблице:" VerticalAlignment="Top" Height="50" Width="618" Foreground="White" HorizontalAlignment="Left" FontSize="34" TextAlignment="Center">
-            <TextBlock.Background>
-                <SolidColorBrush Color="#FF015510" Opacity="0.7"/>
-            </TextBlock.Background>
-        </TextBlock>
-        <Button x:Name="SaveBtn" Content="Сохранить" HorizontalAlignment="Left" Margin="1048,675,0,0" VerticalAlignment="Top" Width="172" Height="50" FontFamily="Segoe UI Semibold" FontSize="20" Foreground="Black" Cursor="Hand" Click="SaveBtn_Click">
-            <Button.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <LinearGradientBrush.RelativeTransform>
-                        <TransformGroup>
-                            <ScaleTransform CenterY="0.5" CenterX="0.5"/>
-                            <SkewTransform CenterY="0.5" CenterX="0.5"/>
-                            <RotateTransform Angle="45" CenterY="0.5" CenterX="0.5"/>
-                            <TranslateTransform/>
-                        </TransformGroup>
-                    </LinearGradientBrush.RelativeTransform>
-                    <GradientStop Color="#FFD4FF89" Offset="0"/>
-                    <GradientStop Color="#FF69FFAD" Offset="1"/>
-                </LinearGradientBrush>
-            </Button.Background>
-        </Button>
-        <ComboBox x:Name="SelectCond" HorizontalAlignment="Left" Margin="425,740,0,0" VerticalAlignment="Top" Width="172" Height="50" ShouldPreserveUserEnteredPrefix="True" Foreground="White" Style="{DynamicResource ComboBoxStyle1}" Background="#C9FFFFFF" BorderBrush="#FF72FB00" BorderThickness="5" FontSize="22" VerticalContentAlignment="Center">
-            <ComboBox.ItemContainerStyle>
-                <Style TargetType="{x:Type ComboBoxItem}">
-                    <Setter Property="Background" Value="#E5067A00"/>
-                    <Setter Property="BorderBrush" Value="Yellow"/>
-                </Style>
-            </ComboBox.ItemContainerStyle>
-        </ComboBox>
-        <TextBox x:Name="Search" HorizontalAlignment="Left" Height="50" Margin="602,740,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="441" BorderBrush="#FFFFF300" Foreground="White" FontSize="22" BorderThickness="5" VerticalContentAlignment="Center">
-            <TextBox.Background>
-                <SolidColorBrush Color="#FF015510" Opacity="0.8"/>
-            </TextBox.Background>
-        </TextBox>
-        <Button x:Name="SearchBtn" Content="Найти" HorizontalAlignment="Left" Margin="1048,740,0,0" VerticalAlignment="Top" Width="172" Height="50" FontFamily="Segoe UI Semibold" FontSize="20" Foreground="Black" Cursor="Hand" Click="SearchBtn_Click">
+        <Button x:Name="SaveBtn" Content="Сохранить" HorizontalAlignment="Left" Margin="1046,740,0,0" VerticalAlignment="Top" Width="172" Height="50" FontFamily="Segoe UI Semibold" FontSize="20" Foreground="Black" Cursor="Hand" Click="SaveBtn_Click">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <LinearGradientBrush.RelativeTransform>

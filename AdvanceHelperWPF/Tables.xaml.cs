@@ -69,6 +69,14 @@ namespace AdvanceHelperWEB
                 dBconnect.SaveUsersTable();
             else
                 dBconnect.SaveTable();
+            ObservableCollection<DataGridColumn> columns = dataGrid.Columns;
+            // Очистка элементов ComboBox
+            SelectCond.Items.Clear();
+            // Добавление названий колонок в ComboBox
+            foreach (DataGridColumn column in columns)
+            {
+                SelectCond.Items.Add(column.Header);
+            }
         }
 
         private void SettingsBtn_Click(object sender, RoutedEventArgs e)

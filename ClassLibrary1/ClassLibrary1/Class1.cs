@@ -9,6 +9,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Forms;
 using MessageBox = System.Windows.Forms.MessageBox;
+using System.Linq;
 
 namespace AHlibrary
 {
@@ -514,6 +515,139 @@ namespace AHlibrary
                 }
             }
 
+        }
+
+        /// <summary>
+        /// Отображает материалы в таблице с наименованиями вместо кодов
+        /// </summary>
+        /// <param name="table"></param>
+        /// <param name="dataGrid"></param>
+        public void ShowMaterials(string table, System.Windows.Controls.DataGrid dataGrid)
+        {
+            try
+            {
+                dbConnectionStrings();
+                using (conn = new MySqlConnection($"server=localhost;user={dbusername};database={dbname};port=3306;password={password};"))
+                {
+                    conn.Open();
+                    string sql = "SELECT m.Код_Материала, p.Цикловая_комиссия AS Код_подразделения, pr.Наименование_Предмета AS Код_предмета, pe.ФИО AS Код_преподавателя, m.Титул_РП, m.РП, m.Титул_ФОС, m.ФОС, m.ВнутрРец, m.ЭкспЗакл, m.ВСРС, m.МУПР " +
+                    $"FROM {table} m " +
+                    "JOIN подразделение p ON m.Код_подразделения = p.Код_подразделения " +
+                    "JOIN предметы pr ON m.Код_предмета = pr.Код_предмета " +
+                    "JOIN преподаватели pe ON m.Код_преподавателя = pe.Код_преподавателя";
+                    adapter = new MySqlDataAdapter(sql, conn);
+
+                    dt = new DataTable();
+                    adapter.Fill(dt); //загрузка данных
+                    dataGrid.ItemsSource = dt.DefaultView; //привязка к DataGrid
+                }
+            }
+            catch (MySqlException) { MessageBox.Show("Отсутствует подключение к базе данных"); }
+        }
+
+        /// <summary>
+        /// Сохраняет таблицу материалов на основе полученных наименований
+        /// </summary>
+        public void SaveMaterialsTable(System.Windows.Controls.DataGrid dataGrid)
+        {
+            try
+            {
+                // Обновление столбца Код_подразделения в DataTable dt
+                foreach (DataRow row in dt.Rows)
+                {
+                    if (row.RowState != DataRowState.Deleted) // Проверка, не была ли строка удалена
+                    {
+                        string SubdivisionName = row["Код_подразделения"].ToString();
+                        int SubdivisionId = GetIDbyString("Код_подразделения", "подразделение", "Цикловая_комиссия", SubdivisionName);
+                        if (SubdivisionId != 0)
+                        {
+                            row["Код_подразделения"] = SubdivisionId;
+                        }
+                        else
+                        {
+
+                        }
+
+                        string SubjectName = row["Код_предмета"].ToString();
+                        int SubjectId = GetIDbyString("Код_предмета", "предметы", "Наименование_предмета", SubjectName);
+                        row["Код_предмета"] = SubjectId;
+
+                        string TeacherName = row["Код_преподавателя"].ToString();
+                        int TeacherId = GetIDbyString("Код_преподавателя", "преподаватели", "ФИО", TeacherName);
+                        row["Код_преподавателя"] = TeacherId;
+                    }
+                }
+
+                using (conn = new MySqlConnection($"server=localhost;user={dbusername};database={dbname};port=3306;password={password};"))
+                {
+                    MySqlCommand insertCommand = new MySqlCommand("INSERT INTO материалы (Код_Материала, Код_подразделения, Код_предмета, Код_преподавателя, Титул_РП, РП, Титул_ФОС, ФОС, ВнутрРец, ЭкспЗакл, ВСРС, МУПР) VALUES (@Код_Материала, @Код_подразделения, @Код_предмета, @Код_преподавателя, @Титул_РП, @РП, @Титул_ФОС, @ФОС, @ВнутрРец, @ЭкспЗакл, @ВСРС, @МУПР)", conn);
+                    insertCommand.Parameters.Add("@Код_Материала", MySqlDbType.Int32, 11, "Код_Материала");
+                    insertCommand.Parameters.Add("@Код_подразделения", MySqlDbType.Int32, 11, "Код_подразделения");
+                    insertCommand.Parameters.Add("@Код_предмета", MySqlDbType.Int32, 11, "Код_предмета");
+                    insertCommand.Parameters.Add("@Код_преподавателя", MySqlDbType.Int32, 11, "Код_преподавателя");
+                    insertCommand.Parameters.Add("@Титул_РП", MySqlDbType.Bit, 1, "Титул_РП");
+                    insertCommand.Parameters.Add("@РП", MySqlDbType.Bit, 1, "РП");
+                    insertCommand.Parameters.Add("@Титул_ФОС", MySqlDbType.Bit, 1, "Титул_ФОС");
+                    insertCommand.Parameters.Add("@ФОС", MySqlDbType.Bit, 1, "ФОС");
+                    insertCommand.Parameters.Add("@ВнутрРец", MySqlDbType.Bit, 1, "ВнутрРец");
+                    insertCommand.Parameters.Add("@ЭкспЗакл", MySqlDbType.Bit, 1, "ЭкспЗакл");
+                    insertCommand.Parameters.Add("@ВСРС", MySqlDbType.Bit, 1, "ВСРС");
+                    insertCommand.Parameters.Add("@МУПР", MySqlDbType.Bit, 1, "МУПР");
+
+                    // Создание команды для обновления записей
+                    MySqlCommand updateCommand = new MySqlCommand("UPDATE материалы SET Код_подразделения = @Код_подразделения, Код_предмета = @Код_предмета, Код_преподавателя = @Код_преподавателя, Титул_РП = @Титул_РП, РП = @РП, Титул_ФОС = @Титул_ФОС, ФОС = @ФОС, ВнутрРец = @ВнутрРец, ЭкспЗакл = @ЭкспЗакл, ВСРС = @ВСРС, МУПР = @МУПР WHERE Код_Материала = @Код_Материала", conn);
+                    updateCommand.Parameters.Add("@Код_Материала", MySqlDbType.Int32, 11, "Код_Материала");
+                    updateCommand.Parameters.Add("@Код_подразделения", MySqlDbType.Int32, 11, "Код_подразделения");
+                    updateCommand.Parameters.Add("@Код_предмета", MySqlDbType.Int32, 11, "Код_предмета");
+                    updateCommand.Parameters.Add("@Код_преподавателя", MySqlDbType.Int32, 11, "Код_преподавателя");
+                    updateCommand.Parameters.Add("@Титул_РП", MySqlDbType.Bit, 1, "Титул_РП");
+                    updateCommand.Parameters.Add("@РП", MySqlDbType.Bit, 1, "РП");
+                    updateCommand.Parameters.Add("@Титул_ФОС", MySqlDbType.Bit, 1, "Титул_ФОС");
+                    updateCommand.Parameters.Add("@ФОС", MySqlDbType.Bit, 1, "ФОС");
+                    updateCommand.Parameters.Add("@ВнутрРец", MySqlDbType.Bit, 1, "ВнутрРец");
+                    updateCommand.Parameters.Add("@ЭкспЗакл", MySqlDbType.Bit, 1, "ЭкспЗакл");
+                    updateCommand.Parameters.Add("@ВСРС", MySqlDbType.Bit, 1, "ВСРС");
+                    updateCommand.Parameters.Add("@МУПР", MySqlDbType.Bit, 1, "МУПР");
+
+                    // Создание команды для удаления записей
+                    MySqlCommand deleteCommand = new MySqlCommand("DELETE FROM материалы WHERE Код_Материала = @Код_Материала", conn);
+                    deleteCommand.Parameters.Add("@Код_Материала", MySqlDbType.Int32, 11, "Код_Материала");
+
+                    // Привязка команд к адаптеру
+                    adapter.InsertCommand = insertCommand;
+                    adapter.UpdateCommand = updateCommand;
+                    adapter.DeleteCommand = deleteCommand;
+
+                    // Сохранение изменений в базе данных
+                    adapter.Update(dt);
+
+                    ShowMaterials("материалы", dataGrid); //Обновление таблицы
+                }
+                MessageBox.Show("Таблица была успешно сохранена");
+            }
+            catch (Exception ex) { ShowMaterials("материалы", dataGrid); MessageBox.Show("Произошла ошибка: " + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+        }
+
+        /// <summary>
+        /// Получение кода по строке
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="table"></param>
+        /// <param name="ColName"></param>
+        /// <param name="TableString"></param>
+        /// <returns></returns>
+        public int GetIDbyString(string value, string table, string ColName, string TableString)
+        {
+            dbConnectionStrings();
+            using (conn = new MySqlConnection($"server=localhost;user={dbusername};database={dbname};port=3306;password={password};"))
+            {
+                conn.Open();
+                string sql = $"SELECT {value} FROM {table} WHERE {ColName} = @TableString";
+                MySqlCommand command = new MySqlCommand(sql, conn);
+                command.Parameters.AddWithValue("@TableString", TableString);
+                int result = Convert.ToInt32(command.ExecuteScalar());
+                return result;
+            }
         }
 
 
