@@ -87,6 +87,9 @@ namespace AdvanceHelperWPF
                 }
                 dBconnect.ShowMaterials("материалы", dataGrid);
                 SortTable(); //Сортировка таблицы
+                dataGrid.Columns[1].Header = "Подразделение";
+                dataGrid.Columns[2].Header = "Предмет";
+                dataGrid.Columns[3].Header = "Преподаватель";
             }
             catch (Exception ex) { MessageBox.Show("Произошла ошибка: " + ex.Message, "Ошибка", (MessageBoxButton)System.Windows.Forms.MessageBoxButtons.OK, (MessageBoxImage)System.Windows.Forms.MessageBoxIcon.Error); }
         }
@@ -110,6 +113,9 @@ namespace AdvanceHelperWPF
         {
             dBconnect.SaveMaterialsTable(dataGrid);
             SortTable(); //Сортировка таблицы
+            dataGrid.Columns[1].Header = "Подразделение";
+            dataGrid.Columns[2].Header = "Предмет";
+            dataGrid.Columns[3].Header = "Преподаватель";
             if (dataGrid.Items.Count > 0)
             {
                 MaterialId.Text = (dBconnect.GetLastId("Код_Материала", "материалы") + 1).ToString(); //Обновление кода
